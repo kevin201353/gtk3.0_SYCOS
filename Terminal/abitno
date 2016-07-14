@@ -1,0 +1,2 @@
+#!/bin/bash
+gcc -o abitno abitno.c `pkg-config --cflags --libs gtk+-3.0`

@@ -1,0 +1,2 @@
+#!/bin/bash
+gcc -o grid grid.c `pkg-config --libs --cflags gtk+-2.0`  

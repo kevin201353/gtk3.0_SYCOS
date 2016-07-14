@@ -1,0 +1,19 @@
+#!/bin/bash
+#shell script
+#gcc build client-ui-os c lib file
+#author:zhaosenhua
+#date:2016/6/27
+
+rm -rf ovirtInfo.xml
+rm -rf curlc.o
+rm -rf Ovirtdispatch.o
+rm -rf Loginfo.o
+rm -rf vms.o
+
+gcc -c curlc.c -o curlc.o
+gcc -c Ovirtdispatch.c -o Ovirtdispatch.o
+gcc -c Loginfo.c -o Loginfo.o
+
+gcc -c vms.c -o vms.o
+
+gcc main.c -o main curlc.o Ovirtdispatch.o Loginfo.o vms.o -lcurl -lmxml

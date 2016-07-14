@@ -1,0 +1,20 @@
+#!/bin/bash
+#shell script
+#gcc build and run loginwindow.c file
+#author:zhaosenhua
+#date:2016/6/22
+#read -p  'please input build file name:' file
+#echo $file
+#gcc -c Loginfo.c -o Loginfo.o
+#pkg=`pkg-config --cflags --libs gtk+-3.0`
+rm -rf topwindow.o
+rm -rf main
+rm -rf window.o
+gcc -o  vmlistwindow.o vmlistwindow.c \
+-o topwindow.o topwindow.c \
+-o loginwindow.o loginwindow.c \
+-o curlc.o curlc.c \
+-o Ovirtdispatch.o Ovirtdispatch.c \
+-o Loginfo.o  Loginfo.c \
+-o vms.o vms.c \
+-o main main.c `pkg-config --cflags --libs gtk+-3.0` -lcurl -lmxml

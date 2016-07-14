@@ -1,0 +1,55 @@
+#entry_user {
+   background-color: transparent;
+   background-image: none;
+   padding: 0px;
+   border-radius: 0px;
+   -GtkEntry-inner-border: 0;
+   border-image: none;
+   border-style: solid;
+   border-color: #468264;
+   font-size: 16;
+   color: #ffffff;
+}
+
+#entry_pass {
+   background-color: transparent;
+   background-image: none;
+   padding: 0px;
+   border-radius: 0px;
+   -GtkEntry-inner-border: 0px;
+   border-style: solid;
+   border-color: #468264;
+   border-image: none;
+   font-size: 16;
+   color: #ffffff;
+}
+
+GtkComboBoxText {
+   border-style: solid;
+   border-color: #468264;
+   border-image: none;
+   background-color: transparent;
+   color : #ffffff;
+   font-size: 18;
+}
+
+GtkComboBoxText  > .button {
+  background-image: none;
+  background-color: transparent;
+  border-image: none;
+  color : #ffffff;
+}
+
+GtkComboBoxText .menu {
+    background-image: none;
+    background-color: #1B61A0;
+    border-style: none;
+    padding: 0px;
+    color: #468264;
+}
+
+GtkComboBoxText .menuitem * {
+    color: #ffffff;
+    background-color: #1B61A0;
+    background-image: none;
+}
