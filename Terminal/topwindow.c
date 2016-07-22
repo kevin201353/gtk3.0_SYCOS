@@ -27,9 +27,14 @@ void ShenCloud_topWindowExit()
 {
     printf("it is topwindow exit. \n");
     assert(g_window);
-    //gtk_widget_destroy((GtkWidget *)g_window);
-    gtk_widget_hide((GtkWidget *)g_window);
+    gtk_widget_destroy((GtkWidget *)g_window);
+    //gtk_widget_hide((GtkWidget *)g_window);
     gtk_main_quit();
+}
+
+void ShenCloud_topWindowShow()
+{
+   gtk_widget_show_all((GtkWidget *)g_window);
 }
 
 static gboolean sh_button_press_callback (GtkWidget  *event_box,
@@ -51,6 +56,7 @@ static gboolean sh_button_released_callback (GtkWidget  *event_box,
         printf("sh gtkimage check mouser button released.\n");
         gtk_image_set_from_pixbuf(GTK_IMAGE(data), g_shNor);
         ShenCloud_topWindowExit();
+        SY_loginwindow_main();
     }
     return TRUE;
 }

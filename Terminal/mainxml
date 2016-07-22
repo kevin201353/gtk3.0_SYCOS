@@ -1,0 +1,3 @@
+#!/bin/bash
+gcc -o main23 mainxml.c `pkg-config --cflags --libs mxml` -lmxml
+

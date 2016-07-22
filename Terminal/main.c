@@ -61,6 +61,8 @@ void destroy_surfaces()
 
 int main(int argc, char *argv[])
 {
+    //system("chmod +x tmp.sh");
+    //system("./tmp.sh");
     Init_Curlc();
     g_loginExit = 0;
     //deal gui
@@ -68,13 +70,13 @@ int main(int argc, char *argv[])
     create_surfaces();
     SY_topwindow_main();
     printf("main topwindow end.\n");
-    SY_loginwindow_main();
-    printf("main @@@@@@@@@@@ \n");
+    //SY_loginwindow_main();
+  /*  printf("main @@@@@@@@@@@ \n");
     if (g_loginExit == 0)
     {
         SY_vmlistwindow_main();
         printf("main vmlist window. \n");
-    }
+    }*/
     destroy_surfaces();
     SY_FreeVmsList();
     Unit_Curlc();

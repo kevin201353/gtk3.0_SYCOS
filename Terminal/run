@@ -10,11 +10,13 @@
 rm -rf topwindow.o
 rm -rf main
 rm -rf window.o
-gcc -o  vmlistwindow.o vmlistwindow.c \
+gcc \
 -o topwindow.o topwindow.c \
 -o loginwindow.o loginwindow.c \
 -o curlc.o curlc.c \
 -o Ovirtdispatch.o Ovirtdispatch.c \
+-o vmlistwindow.o vmlistwindow.c \
 -o Loginfo.o  Loginfo.c \
 -o vms.o vms.c \
+-o configxml.o configxml.c \
 -o main main.c `pkg-config --cflags --libs gtk+-3.0` -lcurl -lmxml

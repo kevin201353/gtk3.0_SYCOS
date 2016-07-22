@@ -20,8 +20,6 @@ extern cairo_surface_t *surface1 ;
 #define IMAGE_CHECKBUTTON_NOR  "images2/checkbtn_nor.png"
 #define IMAGE_CHECKBUTTON_PRESS  "images2/checkbtn_press.png"
 
-const gchar* g_home_css = "/home/kevin/SYCOS_9.0/Terminal/mygtk.css";
-
 GdkPixbuf *g_loginPress;
 GdkPixbuf *g_loginNor;
 
@@ -32,6 +30,7 @@ struct LoginInfo  g_loginfo = {SY_VM_COMMON_SPICE, "", "", "127.0.0.1", 8080, 0}
 
 static GObject *g_window = NULL;
 unsigned short g_checkrepass;  //0: 没有选中 1：选中
+
 unsigned short g_checkautologin; //0: 没有选中 1：选中
 GtkBuilder *g_builder = NULL;
 extern short g_loginExit;
@@ -51,23 +50,33 @@ int ShenCloud_login()
     if (Get_ctrldata() < 0)
       return -1;
     strcat(g_loginfo.user, "@internal");
+    //Start_Session();
     if (Ovirt_Login(ovirt_url, g_loginfo.user, g_loginfo.pass) < 0)
     {
         printf("main Ovirt login failed.\n");
         MsgDailog("Login failed.");
         g_loginExit = 1;
+        //Close_Session();
         return -1;
     }
 
+    //write login info
+    SaveLogin(g_loginfo);
     if (Ovirt_GetVms(ovirt_url, g_loginfo.user, g_loginfo.pass) < 0)
     {
         printf("main Ovirt get vms failed.\n");
         MsgDailog("Get Vms info failed.");
+        //Close_Session();
         return -1;
     }
 
     //获取服务器虚拟机列表数据
-    SY_GetVms();
+    if (SY_GetVms() < 0)
+    {
+        MsgDailog("login failed, Please ensure that the user name and password are correct.");
+        //Close_Session();
+        return -1;
+    }
     //打印从服务器获取的虚拟机列表数据
   /*  //test use
     list_for_each(plist, &head)
@@ -86,6 +95,7 @@ int ShenCloud_login()
     //gtk_widget_hide((GtkWidget *)g_window);
     gtk_main_quit();
     g_loginExit = 0;
+    SY_vmlistwindow_main();
     return 0;
 }
 

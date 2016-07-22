@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<action href="/ovirt-engine/api/vms/97691570-c983-43e7-bda7-8cd48000d476/suspend/83ad24ba-d456-4169-bfb8-cce3ee3e375b%2Ce84bf2fc-3608-4839-90b9-522a35d707ce" id="83ad24ba-d456-4169-bfb8-cce3ee3e375b%2Ce84bf2fc-3608-4839-90b9-522a35d707ce">
+    <link href="/ovirt-engine/api/vms/97691570-c983-43e7-bda7-8cd48000d476" rel="parent"/>
+    <link href="/ovirt-engine/api/vms/97691570-c983-43e7-bda7-8cd48000d476/suspend" rel="replay"/>
+    <async>true</async>
+    <job href="/ovirt-engine/api/jobs/e427058a-36e6-4060-a215-ec997d4a56be" id="e427058a-36e6-4060-a215-ec997d4a56be"/>
+    <status>
+        <state>pending</state>
+    </status>
+</action>
