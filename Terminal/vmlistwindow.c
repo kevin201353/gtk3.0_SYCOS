@@ -89,10 +89,10 @@ struct itimerval itv;
 unsigned int g_vmsCount = 0;
 
 void *thrd_func(void *arg);
-pthread_t tid;
+static pthread_t tid;
 
 void *thrd_checkstate(void *arg);
-pthread_t tid_state;
+static pthread_t tid_state;
 
 unsigned short g_exitvm = 0;
 
@@ -233,6 +233,7 @@ int UpdateVmsStatus()
 {
     for (int i=0; i<g_vmsCount; i++)
     {
+        LogInfo(" Debug: vmlist window UpdateVmsStatus ovirt getvm2 g_szUser : %s,  g_szPass: %d .\n", g_szUser, g_szPass);
         if (Ovirt_GetVm2(ovirt_url, g_szUser, g_szPass, g_upVms[i].szvmid) < 0)
         {
             printf("Update vms status failed.\n");
@@ -301,7 +302,7 @@ int vmstate_update()
      {
           list_for_each(plist, &head)
           {
-                LogInfo("debug: vmsstate_update thrd enter 3333.\n");
+                //LogInfo("debug: vmsstate_update thrd enter 3333.\n");
                 struct Vms_Node *node = list_entry(plist, struct Vms_Node, list);
                 if (strcmp(node->val.vmid, g_vmsComUpdate[i].vmid) == 0 /*&&
                      strcmp(node->val.name, g_vmsComUpdate[i].name) == 0*/)
@@ -369,12 +370,28 @@ void connectVms()
             char szTicket[MAX_BUFF_SIZE] = {0};
             SY_GetVmsTicket(szTicket);
             //find vm
-            sprintf(g_shellcmd, "spicy -h %s -p %d -w %s -f ", node->val.ip, node->val.port, szTicket);
+            sprintf(g_shellcmd, "spicy -h %s -p %d -w %s -f", node->val.ip, node->val.port, szTicket);
             LogInfo("Debug:vm list window connect vms : %s. \n", g_shellcmd);
             system(g_shellcmd);
             break;
         }
     }
+}
+
+static void on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
+{
+    /*switch(event->keyval)
+    {
+        case GDK_KEY_Escape:
+            {
+              gtk_widget_destroy((GtkWidget *)g_window);
+              gtk_main_quit();
+              SY_topwindow_main();
+            }
+            break;
+        default:
+            break;
+    }*/
 }
 
 static gboolean on_gtk_main_quit_vmlist(GtkWidget * widget, GdkEventExpose * event, gpointer data)
@@ -493,6 +510,7 @@ static void  on_button_exit_pressed(GtkButton *button,  gpointer   user_data)
 static void  on_button_exit_released(GtkButton *button,  gpointer   user_data)
 {
    gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_exitNor);
+   MsgShutDownDailog("您确定要关闭系统吗？");
 }
 
 static void  on_vmlist_changed(GtkWidget *widget,  GtkTreeModel *model)
@@ -582,8 +600,8 @@ void SY_vmlistwindow_main()
     gtk_tree_view_set_model(GTK_TREE_VIEW(treeview), GTK_TREE_MODEL(g_store));
 
     //读取登录信息
-    Parsexml("user", g_szUser);
-    Parsexml("password", g_szPass);
+    Parsexml("user", g_szUser, 0);
+    Parsexml("password", g_szPass, 0);
     GObject *label_login;
     label_login = gtk_builder_get_object (builder, "label_login");
     char *szTmp[MAX_BUFF_SIZE] = {0};
@@ -674,6 +692,16 @@ void SY_vmlistwindow_main()
     g_signal_connect(G_OBJECT(button_loginout), "released", G_CALLBACK(on_button_loginout_released), (GtkWidget *)image_loginout);
     g_signal_connect(G_OBJECT(button_exit), "pressed", G_CALLBACK(on_button_exit_pressed), (GtkWidget *)image_exit);
     g_signal_connect(G_OBJECT(button_exit), "released", G_CALLBACK(on_button_exit_released), (GtkWidget *)image_exit);
+
+    //全屏显示
+    //gtk_window_set_keep_above(GTK_WINDOW(g_window), TRUE);
+    gtk_window_set_default_size(GTK_WINDOW(g_window), g_screen_width, g_screen_height);
+    gtk_window_set_decorated(GTK_WINDOW(g_window), FALSE); /* hide the title bar and the boder */
+    LogInfo("vmlistwindow screen width: %d, height: %d\n", g_screen_width, g_screen_height);
+    g_signal_connect(G_OBJECT(g_window), \
+                      "key-press-event", \
+                      G_CALLBACK(on_key_press), NULL);
+    //全屏显示结束
 
     g_sUpdateVmStatus = 0;
     //signal(SIGALRM, signal_handler);

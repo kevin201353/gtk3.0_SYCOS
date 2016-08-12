@@ -10,6 +10,10 @@
 #include "global.h"
 #include <stdlib.h>
 #include <string.h>
+#include "interface.h"
+#include <unistd.h>
+#include <stdio.h>
+#include <pthread.h>
 
 #define WINDOW_MAX_WIDTH     1920
 #define WINDOW_MAX_HEIGHT     1080
@@ -25,6 +29,11 @@ extern cairo_surface_t *surface1 ;
 #define IMAGE_SETTING_NOR     "images2/set_nor.png"
 #define IMAGE_SETTING_PRESS   "images2/set_press.png"
 
+//#define IMAGE_LOGO_CIT         "images2/cit_logo.png"
+#define IMAGE_LOGO_VM         "images2/wm_logo.png"
+#define IMAGE_LOGO_MIR         "images2/mir_logo.png"
+#define IMAGE_LOGO_SH        "images2/sh_logo.png"
+
 
 GdkPixbuf *g_loginPress;
 GdkPixbuf *g_loginNor;
@@ -37,17 +46,35 @@ GdkPixbuf *g_setNor;
 GdkPixbuf *g_prevPress;
 GdkPixbuf *g_prevNor;
 
-struct LoginInfo  g_loginfo = {SY_VM_COMMON_SPICE, "", "", "127.0.0.1", 8080, 0, 0};
+GdkPixbuf *g_logoVm;
+//GdkPixbuf *g_logoCit;
+GdkPixbuf *g_logoMir;
+GdkPixbuf *g_logoSh;
+
+extern GdkPixbuf *g_shutdownPress = NULL;
+extern GdkPixbuf *g_shutdownNor = NULL;
+
+struct LoginInfo  g_loginfo = {SY_VM_COMMON_SPICE, "", "", "127.0.0.1", 3380, 0, 0};
 
 static GObject *g_window = NULL;
 unsigned short g_checkrepass;  //0: 没有选中 1：选中
 
 unsigned short g_checkautologin; //0: 没有选中 1：选中
-GtkBuilder *g_builder = NULL;
+static  GtkBuilder *g_builder = NULL;
 extern short g_loginExit;
 
 extern void MsgDailog(char * sMsg);
 static struct ServerInfo  serverInfo;
+
+static pthread_t tid;
+void SetLoginWindowFocus()
+{
+    if (g_selectProto == 0) //ShenCloud
+    {
+        gtk_window_set_keep_above(GTK_WINDOW(g_window), TRUE);
+    }
+}
+
 int initOvirtUrl()
 {
      memset(ovirt_url, 0, MAX_BUFF_SIZE);
@@ -60,6 +87,41 @@ int initOvirtUrl()
      strcat(ovirt_url, serverInfo.szIP);
      strcat(ovirt_url, "/ovirt-engine/");
      return 0;
+}
+
+static gboolean on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
+{
+    switch(event->keyval)
+    {
+        case GDK_KEY_Return:
+            {
+              ShenCloud_login();
+            }
+            break;
+    }
+    return FALSE;
+}
+
+static gboolean shutdown_button_press_callback (GtkWidget  *event_box,
+                       GdkEventButton *event, gpointer data)
+{
+    if (event->type == GDK_BUTTON_PRESS)
+    {
+        printf("mirsoft gtkimage check mouser button pressed.\n");
+        gtk_image_set_from_pixbuf(GTK_IMAGE(data), g_shutdownPress);
+    }
+    return TRUE;
+}
+
+static gboolean shutdown_button_released_callback (GtkWidget  *event_box,
+                       GdkEventButton *event, gpointer data)
+{
+    if (event->type == GDK_BUTTON_RELEASE)
+    {
+        gtk_image_set_from_pixbuf(GTK_IMAGE(data), g_shutdownNor);
+        MsgShutDownDailog("您确定要关闭系统吗？");
+    }
+    return TRUE;
 }
 
 static void  on_btn_setting_pressed(GtkButton *button,  gpointer   user_data)
@@ -84,7 +146,6 @@ static void  on_btn_prev_released(GtkButton *button,  gpointer   user_data)
    g_loginExit = 1;
    gtk_widget_destroy((GtkWidget *)g_window);
    gtk_main_quit();
-   SY_topwindow_main();
 }
 
 static gboolean gtk_main_quit_login(GtkWidget * widget, GdkEventExpose * event, gpointer data)
@@ -94,34 +155,92 @@ static gboolean gtk_main_quit_login(GtkWidget * widget, GdkEventExpose * event, 
       return TRUE;
 }
 
+/*void *thrd_Vmarefunc(void *arg)
+{
+    int nRet = Run_VmwareView(g_loginfo.user, g_loginfo.pass, g_loginfo.ip, "Test");
+    if (nRet < 0)
+    {
+        LogInfo("Debug: login window connect vmare failed, nRet: %d. \n", nRet);
+        MsgDailog("connect vmare view failed.");
+        return -1;
+    }
+}*/
+
 int ShenCloud_login()
 {
-    printf("it is login_window exit. \n");
+    LogInfo("it is login_window exit. \n");
     if (Get_ctrldata() < 0)
       return -1;
     if (Ovirt_Login(ovirt_url, g_loginfo.user, g_loginfo.pass) < 0)
     {
-        printf("main Ovirt login failed.\n");
+        LogInfo("main Ovirt login failed.\n");
         MsgDailog("Login failed.");
         g_loginExit = 1;
         return -1;
     }
 
     //write login info
-    SaveLogin(g_loginfo);
+    if (g_selectProto == 0)
+        SaveLogin(g_loginfo);
+    if (g_selectProto == 1)
+        SaveMirLogin(g_loginfo);
+    /*if (g_selectProto == 3)
+        SaveVMareLogin(g_loginfo);*/
     if (Ovirt_GetVms(ovirt_url, g_loginfo.user, g_loginfo.pass) < 0)
     {
-        printf("main Ovirt get vms failed.\n");
+        LogInfo("main Ovirt get vms failed.\n");
         MsgDailog("Get Vms info failed.");
         return -1;
     }
-
     //获取服务器虚拟机列表数据
-    if (SY_GetVms() < 0)
+    if (g_selectProto == 0)  //shencloud
     {
-        MsgDailog("login failed, Please ensure that the user name and password are correct.");
-        return -1;
+        if (SY_GetVms() < 0)
+        {
+            MsgDailog("login failed, Please ensure that the user name and password are correct.");
+            return -1;
+        }
+        LogInfo("login server shencloud, get vm  count : %d.\n", g_nVmCount);
+        if (g_nVmCount == 1)
+        {
+            //直接连接虚拟机
+            list_for_each(plist, &head)
+            {
+                struct Vms_Node *node = list_entry(plist, struct Vms_Node, list);
+                LogInfo("Debug: login window directly connectVms g_loginfo.pass: = %s,  g_loginfo.pass = %s.\n", g_loginfo.user, g_loginfo.pass);
+                Ovirt_GetVmTicket(ovirt_url, g_loginfo.user, g_loginfo.pass, node->val.vmid);
+                char szTicket[MAX_BUFF_SIZE] = {0};
+                char shellcmd[MAX_BUFF_SIZE] = {0};
+                SY_GetVmsTicket(szTicket);
+                //find vm
+                sprintf(shellcmd, "spicy -h %s -p %d -w %s -f", node->val.ip, node->val.port, szTicket);
+                LogInfo("Debug: login window directly connect vms  : %s. \n", shellcmd);
+                system(shellcmd);
+            }
+        }
     }
+    int nRet = 0;
+    SetLogFlag(1);
+    if (g_selectProto == 1)
+    {
+        LogInfo("login server mirfeerdp , directly connect vm.\n");
+        nRet = Run_FreeRDP(g_loginfo.user, g_loginfo.pass, g_loginfo.ip);
+        if (nRet < 0)
+        {
+            LogInfo("Debug: login window mirsoft, freeredp directly connect vms failed, nRet: %d. \n", nRet);
+            MsgDailog("connect vm failed.");
+            return -1;
+        }
+    }
+
+    /*if (g_selectProto == 3)
+    {
+        // 创建线程tid，且线程函数由thrd_func指向，是thrd_func的入口点，即马上执行此线程函数
+        if ( pthread_create(&tid, NULL, thrd_Vmarefunc, NULL) !=0 ) {
+            printf("Create vmare thread error!\n");
+        }
+    }*/
+    CloseLog();
     //打印从服务器获取的虚拟机列表数据
   /*  //test use
     list_for_each(plist, &head)
@@ -140,7 +259,7 @@ int ShenCloud_login()
     //gtk_widget_hide((GtkWidget *)g_window);
     gtk_main_quit();
     g_loginExit = 0;
-    if (g_selectProto == 0)
+    if (g_selectProto == 0 && g_nVmCount > 1)
       SY_vmlistwindow_main();
     return 0;
 }
@@ -159,7 +278,7 @@ static gboolean checkbutton_repass_press_callback(GtkWidget *event_box, GdkEvent
     if (event->type == GDK_BUTTON_PRESS)
     {
         g_checkrepass = !g_checkrepass;
-        printf("checkbutton repass gtkimage check: %d.\n", g_checkrepass);
+        LogInfo("checkbutton repass gtkimage check: %d.\n", g_checkrepass);
         if (g_checkrepass == 1)
         {
             gtk_image_set_from_pixbuf(GTK_IMAGE(data), g_checkPressimage);
@@ -168,7 +287,6 @@ static gboolean checkbutton_repass_press_callback(GtkWidget *event_box, GdkEvent
         {
             gtk_image_set_from_pixbuf(GTK_IMAGE(data), g_checkNorimage);
         }
-        g_loginfo.repass = g_checkrepass;
     }
     return TRUE;
 }
@@ -262,20 +380,12 @@ static gboolean sh_button_released_callback (GtkWidget  *event_box,
 gboolean on_expose_loginevent (GtkWidget * widget,
                  GdkEventExpose * event, gpointer data)
 {
-    g_print("on_expose_logineven start.\n");
-    LogInfo("debug: on_expose_logineven start.\n");
+    //g_print("on_expose_logineven start.\n");
+    //LogInfo("debug: on_expose_logineven start.\n");
     GdkWindow *window;
     cairo_t *cr;
     window = gtk_widget_get_window(widget); //gtk3中GtkWidget中已经没有window成员了
     cr = gdk_cairo_create(window);
-  //pattern1 = cairo_pattern_create_for_surface (surface1);
-
-    /*
-    cairo_set_source (cr, pattern1);
-    cairo_pattern_set_extend (cairo_get_source (cr),
-                              CAIRO_EXTEND_REPEAT);
-    cairo_rectangle (cr, 20, 20, 100, 100);
-    cairo_fill (cr);*/
     cairo_set_source_surface (cr, surface1, 0, 0);
     cairo_paint (cr);
     cairo_destroy (cr);
@@ -286,37 +396,75 @@ int Get_ctrldata()
 {
     GObject *object;
     int len = 0;
+    if (g_builder == NULL)
+    {
+        LogInfo("debug: Get_ctrldata  g_builder == NULL.\n");
+        return -1;
+    }
+    if (g_selectProto == 1 || g_selectProto == 3)// freeRdp
+    {
+        object = gtk_builder_get_object (g_builder, "entry_ip");
+        len = gtk_entry_get_text_length(GTK_ENTRY(object));
+        if (len == 0)
+        {
+            LogInfo("debug: IP don't null.\n");
+            MsgDailog("Login IP don't null.");
+            return -1;
+        }
+        char * ip = gtk_entry_get_text(GTK_ENTRY(object));
+        //printf("username: %s.\n", szUsername);
+        LogInfo("debug: ip: %s.\n" , ip);
+        memset(g_loginfo.ip, 0, MAX_BUFF_SIZE);
+        memcpy(g_loginfo.ip, ip, strlen(ip));
+
+        object = gtk_builder_get_object (g_builder, "entry_port");
+        len = gtk_entry_get_text_length(GTK_ENTRY(object));
+        if (len == 0)
+        {
+            LogInfo("debug: port don't null.\n");
+            MsgDailog("Login port don't null.");
+            return -1;
+        }
+        char * port = gtk_entry_get_text(GTK_ENTRY(object));
+        LogInfo("debug: ip: %s.\n" , port);
+        g_loginfo.port = atoi(port);
+    }
     object = gtk_builder_get_object (g_builder, "entry_user");
-    len = gtk_entry_get_text_length((GtkEntry *)object);
+    if (object == NULL)
+    {
+        LogInfo("debug: 444444444 object  null.\n");
+        return -1;
+    }
+    len = gtk_entry_get_text_length(GTK_ENTRY(object));
     if (len == 0)
     {
-        g_print("username don't null.\n");
         LogInfo("debug: username don't null.\n");
         MsgDailog("Login user don't null.");
         return -1;
     }
-    char * szUsername = gtk_entry_get_text((GtkEntry *)object);
-    printf("username: %s.\n", szUsername);
+    char * szUsername = gtk_entry_get_text(GTK_ENTRY(object));
+    //printf("username: %s.\n", szUsername);
     LogInfo("debug: username: %s.\n" ,szUsername);
     memset(g_loginfo.user, 0, MAX_BUFF_SIZE);
     memcpy(g_loginfo.user, szUsername, strlen(szUsername));
-    printf("username 222: %s.\n", g_loginfo.user);
+    //printf("username 222: %s.\n", g_loginfo.user);
 
     object = gtk_builder_get_object (g_builder, "entry_pass");
-    len = gtk_entry_get_text_length((GtkEntry *)object);
+    len = gtk_entry_get_text_length(GTK_ENTRY(object));
     if (len == 0)
     {
-        g_print("password don't null.\n");
         LogInfo("debug: password don't null.\n");
         MsgDailog("Login password don't null.");
         return -1;
     }
-    char * szPassword = gtk_entry_get_text((GtkEntry *)object);
-    printf("password: %s.\n", szPassword);
+    char * szPassword = gtk_entry_get_text(GTK_ENTRY(object));
+    //printf("password: %s.\n", szPassword);
     LogInfo("debug: password: %s.\n" ,szPassword);
     memset(g_loginfo.pass, 0, MAX_BUFF_SIZE);
     memcpy(g_loginfo.pass, szPassword, strlen(szPassword));
-    printf("password 222: %s.\n", g_loginfo.pass);
+    //printf("password 222: %s.\n", g_loginfo.pass);
+    g_loginfo.repass = g_checkrepass;
+    LogInfo("debug: reapss: %d.\n" , g_loginfo.repass);
     return 0;
 }
 
@@ -393,29 +541,6 @@ void SY_loginwindow_main()
     g_signal_connect(G_OBJECT(comboboxpro), "changed",
                          G_CALLBACK(comboboxpro_changed), NULL);
 
-    //绘制控件
-    /*----- CSS ----------- */
-	  GtkCssProvider *provider;
-	  GdkDisplay *display;
-	  GdkScreen *screen;
-	 /*-----------------------*/
-   /* ----------------- CSS ----------------------------------------------------------------------------------------------*/
-	  provider = gtk_css_provider_new ();
-	  display = gdk_display_get_default ();
-	  screen = gdk_display_get_default_screen (display);
-	  gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER (provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-	  gsize bytes_written, bytes_read;
-	  GError *error = 0;
-
-	  gtk_css_provider_load_from_path (provider,
-                                  g_filename_to_utf8(g_home_css, strlen(g_home_css), &bytes_read, &bytes_written, &error),
-                                  NULL);
-	  //gtk_css_provider_load_from_path (provider, home, NULL);
-	  g_object_unref (provider);
-	  /* --------------------------------------------------------------------------------------------------------------------*/
-
-
   /*  g_signal_connect (G_OBJECT(comboboxpro), "expose-event", G_CALLBACK (on_drawcombobox_event), (GtkWidget *)comboboxpro);
     GdkWindow *window2 = gtk_widget_get_window(GTK_WIDGET(comboboxpro));
     gtk_widget_set_app_paintable(window2, TRUE);*/
@@ -454,7 +579,7 @@ void SY_loginwindow_main()
     memset(g_loginfo.pass, 0, MAX_BUFF_SIZE);
     memset(g_loginfo.ip, 0, MAX_BUFF_SIZE);
     //printf(" login window wwwwwwww  user: %s\n", serverInfo.szUser);
-    if (g_selectProto == 0)
+    if (g_selectProto == 0) //ShenCloud
     {
         GObject *label;
         GObject *entry;
@@ -466,32 +591,56 @@ void SY_loginwindow_main()
         gtk_widget_hide((GtkWidget *)entry);
         entry = gtk_builder_get_object (builder, "entry_port");
         gtk_widget_hide((GtkWidget *)entry);
-        gtk_entry_set_text((GtkEntry *)entry_user, serverInfo.szUser);
-        struct LoginInfo info;
+        struct LoginInfo info = {"", "", "", "", 3380, 0, 0};
         GetLoginInfo(&info);
+        if (strcmp(info.user, "") == 0)
+            strcpy(info.user, "admin@internal");
+        gtk_entry_set_text(GTK_ENTRY(entry_user), info.user);
         g_checkrepass = info.repass;
         if (g_checkrepass == 1)
         {
             GObject *entry_pass;
             entry_pass = gtk_builder_get_object (builder, "entry_pass");
-            gtk_entry_set_text((GtkEntry *)entry_pass, info.pass);
+            gtk_entry_set_text(GTK_ENTRY(entry_pass), info.pass);
             gtk_image_set_from_pixbuf(GTK_IMAGE(repass_image), g_checkPressimage);
         }
     }
 
-    if (g_selectProto == 1)
+    if (g_selectProto == 1 || g_selectProto == 3) //mirsoft
     {
         GObject *label;
         GObject *entry;
+        g_checkrepass = 0;
+        struct LoginInfo info = {"", "", "", "", 3380, 0, 0};
+        if (g_selectProto == 1)
+            GetMirLoginInfo(&info);
+        if (g_selectProto == 3)
+            GetVmareLoginInfo(&info);
         label = gtk_builder_get_object (builder, "label_pro");
         gtk_widget_show((GtkWidget *)label);
         label = gtk_builder_get_object (builder, "label_port");
         gtk_widget_show((GtkWidget *)label);
         entry = gtk_builder_get_object (builder, "entry_ip");
         gtk_widget_show((GtkWidget *)entry);
+        gtk_entry_set_text(GTK_ENTRY(entry), info.ip);
         entry = gtk_builder_get_object (builder, "entry_port");
         gtk_widget_show((GtkWidget *)entry);
-        gtk_entry_set_text((GtkEntry *)entry_user, "");
+        if (info.port == 0)
+            info.port = 3380;
+        {
+           char szTmp[MAX_BUFF_SIZE] = {0};
+           sprintf(szTmp, "%d", info.port);
+           gtk_entry_set_text(GTK_ENTRY(entry), szTmp);
+        }
+        gtk_entry_set_text(GTK_ENTRY(entry_user), info.user);
+        g_checkrepass = info.repass;
+        if (g_checkrepass == 1)
+        {
+            GObject *entry_pass;
+            entry_pass = gtk_builder_get_object (builder, "entry_pass");
+            gtk_entry_set_text(GTK_ENTRY(entry_pass), info.pass);
+            gtk_image_set_from_pixbuf(GTK_IMAGE(repass_image), g_checkPressimage);
+        }
     }
     GObject *btn_set;
     GObject *btn_Prev;
@@ -503,14 +652,70 @@ void SY_loginwindow_main()
     image_loginout = gtk_builder_get_object (builder, "image_loginout");
     image_set = gtk_builder_get_object (builder, "image_set");
     //配置
-    g_signal_connect(G_OBJECT(btn_set), "pressed", G_CALLBACK(on_btn_setting_pressed), (GtkWidget *)image_set);
-    g_signal_connect(G_OBJECT(btn_set), "released", G_CALLBACK(on_btn_setting_released), (GtkWidget *)image_set);
+    if (g_selectProto == 0)
+    {
+        g_signal_connect(G_OBJECT(btn_set), "pressed", G_CALLBACK(on_btn_setting_pressed), (GtkWidget *)image_set);
+        g_signal_connect(G_OBJECT(btn_set), "released", G_CALLBACK(on_btn_setting_released), (GtkWidget *)image_set);
+        gtk_widget_set_visible(GTK_WIDGET(image_set), 0);
+    }
+    if (g_selectProto == 1 || g_selectProto == 3)
+    {
+        gtk_widget_set_visible(GTK_WIDGET(image_set), 0);
+    }
     //还回到启动界面
     g_signal_connect(G_OBJECT(btn_Prev), "pressed", G_CALLBACK(on_btn_prev_pressed), (GtkWidget *)image_loginout);
     g_signal_connect(G_OBJECT(btn_Prev), "released", G_CALLBACK(on_btn_prev_released), (GtkWidget *)image_loginout);
+
+    GObject *image_shutdown;
+    GObject *eventbox_shutdown;
+    image_shutdown = gtk_builder_get_object (builder, "image_shutdown");
+    eventbox_shutdown = gtk_builder_get_object (builder, "eventbox_shutdown");
+    gtk_widget_set_events((GtkWidget *)eventbox_shutdown, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK); // 捕获鼠标点击事件
+    g_signal_connect (G_OBJECT (eventbox_shutdown), "button_press_event",
+                    G_CALLBACK (shutdown_button_press_callback), (GtkWidget *)image_shutdown);
+    g_signal_connect (G_OBJECT (eventbox_shutdown), "button_release_event",
+                                    G_CALLBACK (shutdown_button_released_callback), (GtkWidget *)image_shutdown);
+    //全屏显示
+    //gtk_window_set_keep_above(GTK_WINDOW(g_window), TRUE);
+    gtk_window_fullscreen(GTK_WINDOW(g_window));
+    gtk_window_set_default_size(GTK_WINDOW(g_window), g_screen_width, g_screen_height);
+    gtk_window_set_decorated(GTK_WINDOW(g_window), FALSE); /* hide the title bar and the boder */
+    LogInfo("loginwindow screen width: %d, height: %d\n", g_screen_width, g_screen_height);
+    g_signal_connect(G_OBJECT(g_window), \
+                      "key-press-event", \
+                      G_CALLBACK(on_key_press), NULL);
+    //全屏显示结束
     //手动为主窗口添加关联退出事件
     g_signal_connect (G_OBJECT(window), "destroy",
                        G_CALLBACK(gtk_main_quit_login), NULL);
+
+    //根据选择的协议的不同，改变登录时的LOGO
+    GObject *image_logo;
+    image_logo = gtk_builder_get_object (builder, "image_logo");
+    g_logoVm = gdk_pixbuf_new_from_file(IMAGE_LOGO_VM, NULL);
+    //g_logoCit = gdk_pixbuf_new_from_file(IMAGE_LOGO_CIT, NULL);
+    g_logoMir = gdk_pixbuf_new_from_file(IMAGE_LOGO_MIR, NULL);
+    g_logoSh = gdk_pixbuf_new_from_file(IMAGE_LOGO_SH, NULL);
+    if (g_selectProto == 0)
+    {
+        //int x, y = 0;
+        gtk_image_set_from_pixbuf(GTK_IMAGE(image_logo), g_logoSh);
+        //LogInfo("Debug:  loginwindow  image_logo position:　x: = %d, y: =%d .\n", image_logo.allocation.x, image_logo.allocation.y);
+    }
+    if (g_selectProto == 1)
+    {
+        gtk_image_set_from_pixbuf(GTK_IMAGE(image_logo), g_logoMir);
+    }
+  /*  if (g_selectProto == 2)
+    {
+        gtk_image_set_from_pixbuf(GTK_IMAGE(image_logo), g_logoCit);
+    }*/
+    if (g_selectProto == 3)
+    {
+        gtk_image_set_from_pixbuf(GTK_IMAGE(image_logo), g_logoVm);
+    }
+    //LOGO end
     gtk_main ();
     g_object_unref (G_OBJECT (builder));
+    g_builder = NULL;
 }

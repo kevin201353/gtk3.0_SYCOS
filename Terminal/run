@@ -7,10 +7,10 @@
 #echo $file
 #gcc -c Loginfo.c -o Loginfo.o
 #pkg=`pkg-config --cflags --libs gtk+-3.0`
-rm -rf topwindow.o
-rm -rf main
-rm -rf window.o
 gcc -std=c99 \
+-o resol.o resol.c \
+-o logincit.o logincit.c \
+-o interface.o interface.c \
 -o topwindow.o topwindow.c \
 -o networkSet.o networkSet.c \
 -o setting.o  setting.c \
@@ -21,4 +21,4 @@ gcc -std=c99 \
 -o Loginfo.o  Loginfo.c \
 -o vms.o vms.c \
 -o configxml.o configxml.c \
--o main main.c `pkg-config --cflags --libs gtk+-3.0` -lcurl -lmxml
+-o shencloud-ui main.c `pkg-config --cflags --libs gtk+-3.0` -lcurl -lmxml -L. -linterface

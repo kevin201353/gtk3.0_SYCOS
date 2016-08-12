@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.16.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkLayout" id="layout2">
+    <property name="name">layout2</property>
     <property name="width_request">680</property>
     <property name="height_request">600</property>
     <property name="visible">True</property>
@@ -30,7 +31,7 @@
         <property name="label" translatable="yes">label</property>
       </object>
       <packing>
-        <property name="x">96</property>
+        <property name="x">105</property>
         <property name="y">55</property>
       </packing>
     </child>
@@ -45,7 +46,7 @@
       </object>
       <packing>
         <property name="x">142</property>
-        <property name="y">56</property>
+        <property name="y">54</property>
       </packing>
     </child>
     <child>
@@ -58,7 +59,7 @@
       </object>
       <packing>
         <property name="x">251</property>
-        <property name="y">56</property>
+        <property name="y">54</property>
       </packing>
     </child>
     <child>
@@ -72,7 +73,7 @@
       </object>
       <packing>
         <property name="x">443</property>
-        <property name="y">55</property>
+        <property name="y">54</property>
       </packing>
     </child>
     <child>
@@ -135,7 +136,7 @@
         <property name="label" translatable="yes">label</property>
       </object>
       <packing>
-        <property name="x">127</property>
+        <property name="x">128</property>
         <property name="y">264</property>
       </packing>
     </child>
@@ -191,7 +192,7 @@
         <property name="label" translatable="yes">label</property>
       </object>
       <packing>
-        <property name="x">129</property>
+        <property name="x">128</property>
         <property name="y">348</property>
       </packing>
     </child>
@@ -205,7 +206,7 @@
         <property name="width_chars">24</property>
       </object>
       <packing>
-        <property name="x">232</property>
+        <property name="x">233</property>
         <property name="y">348</property>
       </packing>
     </child>
@@ -220,7 +221,7 @@
       </object>
       <packing>
         <property name="x">129</property>
-        <property name="y">393</property>
+        <property name="y">429</property>
       </packing>
     </child>
     <child>
@@ -233,8 +234,8 @@
         <property name="width_chars">24</property>
       </object>
       <packing>
-        <property name="x">233</property>
-        <property name="y">391</property>
+        <property name="x">234</property>
+        <property name="y">428</property>
       </packing>
     </child>
     <child>
@@ -247,7 +248,7 @@
       </object>
       <packing>
         <property name="x">172</property>
-        <property name="y">105</property>
+        <property name="y">103</property>
       </packing>
     </child>
     <child>
@@ -269,7 +270,7 @@
         </child>
       </object>
       <packing>
-        <property name="x">80</property>
+        <property name="x">84</property>
         <property name="y">62</property>
       </packing>
     </child>
@@ -283,8 +284,21 @@
         <property name="receives_default">True</property>
       </object>
       <packing>
-        <property name="x">302</property>
-        <property name="y">456</property>
+        <property name="x">305</property>
+        <property name="y">494</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkSeparator" id="separator1">
+        <property name="width_request">500</property>
+        <property name="height_request">10</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="valign">center</property>
+      </object>
+      <packing>
+        <property name="x">83</property>
+        <property name="y">404</property>
       </packing>
     </child>
   </object>

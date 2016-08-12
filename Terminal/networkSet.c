@@ -1,11 +1,13 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <gtk/gtk.h>
 #include "global.h"
 #include <string.h>
 
 static GtkBuilder *g_builder;
 
-#define IMAGE_CHECKBUTTON_NOR  "images2/checkbtn_nor.png"
-#define IMAGE_CHECKBUTTON_PRESS  "images2/checkbtn_press.png"
+#define IMAGE_CHECKBUTTON_NOR  "images2/checkbtnset_nor.png"
+#define IMAGE_CHECKBUTTON_PRESS  "images2/checkbtnset_press.png"
 
 GdkPixbuf *g_checkNorimage;
 GdkPixbuf *g_checkPressimage;
@@ -22,6 +24,8 @@ static struct NetStaticInfo g_NetStaticInfo = {0,0,0,0};
 
 static GtkWidget *Msgdialog;
 void GetNetStaticInfo();
+//字符串去空格
+extern char *rtspace(char *str);
 void Msg2Dailog(char * sMsg)
 {
     Msgdialog = gtk_message_dialog_new (NULL,
@@ -48,9 +52,136 @@ GObject * GetNetWorkSetLayout()
      return gtk_builder_get_object(g_builder, "layout2");
 }
 
+//还回值 ， 1： 找到   0: 没找到
+int findstr(char * szfile, char * str)
+{
+    system("cat ~/../etc/network/interfaces > net_tmp.txt");
+    FILE* fp=fopen("net_tmp.txt", "r");
+    if (fp == NULL)
+       return -1;
+    char buf[MAX_BUFF_SIZE] = {0};
+    while(fgets(buf, MAX_BUFF_SIZE, fp) != NULL)
+    {
+        char * p = strstr(buf, str);//p为dhcp的出现位置,NULL则为没找到
+        if (p)
+        {
+            LogInfo("Debug: Network findstr find.\n");
+            fclose(fp);
+            return 1; //找到， 网络为dhcp
+        }
+    }
+    fclose(fp);
+    system("rm -rf net_tmp.txt");
+    return 0;
+}
+
+int GetStaticNet()
+{
+    int nRet = system("./netget.sh");
+    if (nRet < 0)
+        return -1;
+
+    FILE* fp=fopen("nettmp.txt", "r");
+    if (fp == NULL)
+       return -1;
+
+    memset(g_NetStaticInfo.szIP, 0, MAX_BUFF_SIZE);
+    memset(g_NetStaticInfo.szNetMask, 0, MAX_BUFF_SIZE);
+    memset(g_NetStaticInfo.szGatWay, 0, MAX_BUFF_SIZE);
+    memset(g_NetStaticInfo.szDns, 0, MAX_BUFF_SIZE);
+
+    char szTmp[MAX_BUFF_SIZE] = {0};
+  /*  fgets(g_NetStaticInfo.szIP, MAX_BUFF_SIZE, fp);
+    fgets(g_NetStaticInfo.szNetMask, MAX_BUFF_SIZE, fp);
+    fgets(g_NetStaticInfo.szGatWay, MAX_BUFF_SIZE, fp);
+    fgets(g_NetStaticInfo.szDns, MAX_BUFF_SIZE, fp);*/
+    fgets(szTmp, MAX_BUFF_SIZE, fp);
+    strcpy(g_NetStaticInfo.szIP, rtspace(szTmp));
+    memset(szTmp, 0, MAX_BUFF_SIZE);
+    fgets(szTmp, MAX_BUFF_SIZE, fp);
+    strcpy(g_NetStaticInfo.szNetMask, rtspace(szTmp));
+    memset(szTmp, 0, MAX_BUFF_SIZE);
+    fgets(szTmp, MAX_BUFF_SIZE, fp);
+    strcpy(g_NetStaticInfo.szGatWay, rtspace(szTmp));
+    memset(szTmp, 0, MAX_BUFF_SIZE);
+    //fgets(szTmp, MAX_BUFF_SIZE, fp);
+    //strcpy(g_NetStaticInfo.szDns, rtspace(szTmp));
+
+    LogInfo("Debug: Network info Get static net ip :%s.\n", g_NetStaticInfo.szIP);
+    LogInfo("Debug: Network info Get static net mask :%s.\n", g_NetStaticInfo.szNetMask);
+    LogInfo("Debug: Network info Get static net gatway :%s.\n", g_NetStaticInfo.szGatWay);
+    //LogInfo("Debug: Network info Get static net dns :%s.\n", g_NetStaticInfo.szDns);
+    fclose(fp);
+    system("rm -rf nettmp.txt");
+    return 0;
+}
+
+int isDhcp()
+{
+    return findstr("net_tmp.txt", "dhcp");
+}
+
+int isStatic()
+{
+    return findstr("net_tmp.txt", "static");
+}
+
 int SetDhcpNet()
 {
-    system("dhcp.sh");
+    system("./dhcp.sh");
+    return 0;
+}
+
+int SetDns()
+{
+    GObject *entry_netdns;
+    entry_netdns = gtk_builder_get_object (g_builder, "entry_netdns");
+    strcpy(g_NetStaticInfo.szDns, gtk_entry_get_text(GTK_ENTRY(entry_netdns)));
+    if (strcmp(g_NetStaticInfo.szDns, "") > 0)
+    {
+        char szTmp[MAX_BUFF_SIZE] = {0};
+        sprintf(szTmp, "./dns.sh %s", g_NetStaticInfo.szDns);
+        LogInfo("Debug: set net dns cmd ---- %s .\n", szTmp);
+        system(szTmp);
+    }
+    return 0;
+}
+
+int GetDns()
+{
+    FILE* fp = fopen("/etc/resolv.conf", "r");
+    if (fp == NULL)
+    {
+       LogInfo("Debug: get net dns, open /etc/resolv.conf failed.\n");
+       return -1;
+    }
+    char szTmp[MAX_BUFF_SIZE] = {0};
+    /*int n = 0;
+    do
+    {
+        memset(szTmp, 0, MAX_BUFF_SIZE);
+        fgets(szTmp, MAX_BUFF_SIZE, fp);
+        LogInfo("Debug: get net dns, open get dns value 22@@11 = %s.\n", szTmp);
+        char *p = strstr(szTmp, "#");
+        if (p == NULL)
+           break;
+    }while(n++ < 10);*/
+    //memset(szTmp, 0, MAX_BUFF_SIZE);
+    char szTmp2[MAX_BUFF_SIZE] = {0};
+    fgets(szTmp, MAX_BUFF_SIZE, fp);
+    char *delim = " ";
+    char * p = strstr(szTmp, "nameserver");//p为dhcp的出现位置,NULL则为没找到
+    if (p)
+    {
+        char *pt = strtok(szTmp, delim);
+        pt  = NULL;
+        pt  = strtok(NULL, delim);
+        strcpy(szTmp2, pt);
+        LogInfo("Debug: get net dns, open get dns value = %s.\n", szTmp2);
+        strcpy(g_NetStaticInfo.szDns, rtspace(szTmp2));
+    }
+    LogInfo("Debug: get net dns, open get dns value 22@@.\n");
+    fclose(fp);
     return 0;
 }
 
@@ -58,12 +189,47 @@ int SetStaticNet()
 {
     GetNetStaticInfo();
     if (strcmp(g_NetStaticInfo.szIP, "") == 0 || strcmp(g_NetStaticInfo.szNetMask, "") == 0 ||
-        strcmp(g_NetStaticInfo.szGatWay, "") == 0 || strcmp(g_NetStaticInfo.szDns, "") == 0)
+        strcmp(g_NetStaticInfo.szGatWay, "") == 0 /*|| strcmp(g_NetStaticInfo.szDns, "") == 0*/)
         return -1;
     char szCmd[MAX_BUFF_SIZE] = {0};
-    sprintf(szCmd, "netstatic.sh %s %s %s %s", g_NetStaticInfo.szIP, g_NetStaticInfo.szNetMask, g_NetStaticInfo.szGatWay, g_NetStaticInfo.szDns);
+    sprintf(szCmd, "./netstatic.sh %s %s %s %s", g_NetStaticInfo.szIP, g_NetStaticInfo.szNetMask, g_NetStaticInfo.szGatWay);
+    LogInfo("Debug: set static net ---- %s .\n", szCmd);
     system(szCmd);
     return 0;
+}
+
+void initStaticNetctrl()
+{
+    GObject *entry_netip;
+    GObject *entry_netmask;
+    GObject *entry_netgatway;
+    GObject *entry_netdns;
+
+    GObject *rabtn_static;  //radio button 静态IP
+    GObject *rabtn_dhcp;    //dhcp ip
+    rabtn_static = gtk_builder_get_object (g_builder, "rabtn_static");
+    rabtn_dhcp = gtk_builder_get_object (g_builder, "rabtn_dhcp");
+    if (isDhcp() == 1)
+    {
+        gtk_toggle_button_set_active(rabtn_static, FALSE);
+        LogInfo("Debug: initStaticNetctrl isDhcp .\n");
+    }
+
+    if (isStatic() == 1)
+    {
+        gtk_toggle_button_set_active(rabtn_static, TRUE);
+        entry_netip = gtk_builder_get_object (g_builder, "entry_netip");
+        entry_netmask = gtk_builder_get_object (g_builder, "entry_netmask");
+        entry_netgatway = gtk_builder_get_object (g_builder, "entry_netgatway");
+
+        gtk_entry_set_text(GTK_ENTRY(entry_netip), g_NetStaticInfo.szIP);
+        gtk_entry_set_text(GTK_ENTRY(entry_netmask), g_NetStaticInfo.szNetMask);
+        gtk_entry_set_text(GTK_ENTRY(entry_netgatway), g_NetStaticInfo.szGatWay);
+        LogInfo("Debug: initStaticNetctrl isStatic .\n");
+    }
+    GetDns();
+    entry_netdns = gtk_builder_get_object (g_builder, "entry_netdns");
+    gtk_entry_set_text(GTK_ENTRY(entry_netdns), g_NetStaticInfo.szDns);
 }
 
 void savenetwork_button_clicked(GtkButton *button,  gpointer user_data)
@@ -73,7 +239,11 @@ void savenetwork_button_clicked(GtkButton *button,  gpointer user_data)
         SetStaticNet();
     }
     else
+    {
+        LogInfo("Debug: save set dhcp net 11 .\n");
         SetDhcpNet();
+    }
+    SetDns();
 }
 
 void GetNetStaticInfo()
@@ -81,16 +251,16 @@ void GetNetStaticInfo()
     GObject *entry_netip;
     GObject *entry_netmask;
     GObject *entry_netgatway;
-    GObject *entry_netdns;
+    //GObject *entry_netdns;
 
     entry_netip = gtk_builder_get_object (g_builder, "entry_netip");
     entry_netmask = gtk_builder_get_object (g_builder, "entry_netmask");
     entry_netgatway = gtk_builder_get_object (g_builder, "entry_netgatway");
-    entry_netdns = gtk_builder_get_object (g_builder, "entry_netdns");
-    strcpy(g_NetStaticInfo.szIP, gtk_entry_get_text((GtkEntry *)entry_netip));
-    strcpy(g_NetStaticInfo.szNetMask, gtk_entry_get_text((GtkEntry *)entry_netmask));
-    strcpy(g_NetStaticInfo.szGatWay, gtk_entry_get_text((GtkEntry *)entry_netgatway));
-    strcpy(g_NetStaticInfo.szDns, gtk_entry_get_text((GtkEntry *)entry_netdns));
+    //entry_netdns = gtk_builder_get_object (g_builder, "entry_netdns");
+    strcpy(g_NetStaticInfo.szIP, gtk_entry_get_text(GTK_ENTRY(entry_netip)));
+    strcpy(g_NetStaticInfo.szNetMask, gtk_entry_get_text(GTK_ENTRY(entry_netmask)));
+    strcpy(g_NetStaticInfo.szGatWay, gtk_entry_get_text(GTK_ENTRY(entry_netgatway)));
+    //strcpy(g_NetStaticInfo.szDns, gtk_entry_get_text(GTK_ENTRY(entry_netdns)));
 }
 
 void SetNetCtrlSensitive(unsigned short value)
@@ -109,18 +279,18 @@ void SetNetCtrlSensitive(unsigned short value)
     label_netmask = gtk_builder_get_object (g_builder, "label_netmask");
     label_netgatway = gtk_builder_get_object (g_builder, "label_netgatway");
     label_netdns = gtk_builder_get_object (g_builder, "label_netdns");
-    gtk_widget_set_sensitive(GTK_LABEL(label_netip), value);
-    gtk_widget_set_sensitive(GTK_LABEL(label_netmask), value);
-    gtk_widget_set_sensitive(GTK_LABEL(label_netgatway), value);
-    gtk_widget_set_sensitive(GTK_LABEL(label_netdns), value);
+    gtk_widget_set_sensitive(GTK_WIDGET(label_netip), value);
+    gtk_widget_set_sensitive(GTK_WIDGET(label_netmask), value);
+    gtk_widget_set_sensitive(GTK_WIDGET(label_netgatway), value);
+    gtk_widget_set_sensitive(GTK_WIDGET(label_netdns), value);
     entry_netip = gtk_builder_get_object (g_builder, "entry_netip");
     entry_netmask = gtk_builder_get_object (g_builder, "entry_netmask");
     entry_netgatway = gtk_builder_get_object (g_builder, "entry_netgatway");
     entry_netdns = gtk_builder_get_object (g_builder, "entry_netdns");
-    gtk_widget_set_sensitive(GTK_ENTRY(entry_netip), value);
-    gtk_widget_set_sensitive(GTK_ENTRY(entry_netmask), value);
-    gtk_widget_set_sensitive(GTK_ENTRY(entry_netgatway), value);
-    gtk_widget_set_sensitive(GTK_ENTRY(entry_netdns), value);
+    gtk_widget_set_sensitive(GTK_WIDGET(entry_netip), value);
+    gtk_widget_set_sensitive(GTK_WIDGET(entry_netmask), value);
+    gtk_widget_set_sensitive(GTK_WIDGET(entry_netgatway), value);
+    //gtk_widget_set_sensitive(GTK_WIDGET(entry_netdns), value);
 }
 
 void rabtn_static_button_callback(GtkWidget *check_button, gpointer data)
@@ -157,10 +327,20 @@ static gboolean checkbutton_wlan_press_callback(GtkWidget *event_box, GdkEventBu
     return TRUE;
 }
 
+extern void SY_NetworkDisableCtrl();
+void SY_NetworkDisableCtrl()
+{
+   GObject *btn_advanced;
+   btn_advanced = gtk_builder_get_object (g_builder, "btn_advanced");
+   gtk_widget_set_sensitive(GTK_WIDGET(btn_advanced), 0);
+   gtk_widget_set_visible(GTK_WIDGET(btn_advanced), 0);
+}
+
 int SY_NetworkSet_main()
 {
     g_builder = gtk_builder_new();
-    gtk_builder_add_from_file (g_builder, "network.glade", NULL);
+    GError *error = NULL;
+    gtk_builder_add_from_file (g_builder, "network.glade", &error);
 
     GObject *label_wan;
     GObject *label_hotspot;  //无线热点
@@ -193,16 +373,20 @@ int SY_NetworkSet_main()
     gtk_label_set_text(GTK_LABEL(label_wan), "WLAN");
     gtk_label_set_text(GTK_LABEL(label_hotspot), "无线热点");
     gtk_label_set_text(GTK_LABEL(label_netinter), "网络接口");
-    gtk_label_set_text(GTK_LABEL(label_netip), "IP地址");
+    gtk_label_set_text(GTK_LABEL(label_netip), " IP地址");
     gtk_label_set_text(GTK_LABEL(label_netmask), "子网掩码");
     gtk_label_set_text(GTK_LABEL(label_netgatway), "默认网关");
     gtk_label_set_text(GTK_LABEL(label_netdns), "DNS服务器");
+    gtk_label_set_justify(GTK_LABEL(label_netip), GTK_JUSTIFY_RIGHT);
+    gtk_label_set_justify(GTK_LABEL(label_netmask), GTK_JUSTIFY_RIGHT);
+    gtk_label_set_justify(GTK_LABEL(label_netgatway), GTK_JUSTIFY_RIGHT);
+    gtk_label_set_justify(GTK_LABEL(label_netdns), GTK_JUSTIFY_RIGHT);
 
-    gtk_button_set_label((GtkButton *)btn_connect, "连接");
-    gtk_button_set_label((GtkButton *)rabtn_static, "使用静态IP地址");
-    gtk_button_set_label((GtkButton *)rabtn_dhcp, "使用DHCP自动获取");
-    gtk_button_set_label((GtkButton *)btn_advanced, "高级");
-    gtk_button_set_label((GtkButton *)btn_savenetwork, "保存");
+    gtk_button_set_label(GTK_BUTTON(btn_connect), "连接");
+    gtk_button_set_label(GTK_BUTTON(rabtn_static), "使用静态IP地址");
+    gtk_button_set_label(GTK_BUTTON(rabtn_dhcp), "使用DHCP自动获取");
+    gtk_button_set_label(GTK_BUTTON(btn_advanced), "高级");
+    gtk_button_set_label(GTK_BUTTON(btn_savenetwork), "保存");
 
     GObject * comboboxtext_netinter = gtk_builder_get_object (g_builder, "comboboxtext_netinter");
     gtk_combo_box_text_insert_text((GtkComboBoxText *)comboboxtext_netinter, 0, "eth0");
@@ -217,12 +401,16 @@ int SY_NetworkSet_main()
 
     GObject *image_wlan;
     image_wlan = gtk_builder_get_object (g_builder, "image_wlan");
+    gtk_image_set_from_pixbuf(GTK_IMAGE(image_wlan), g_checkNorimage);
     g_signal_connect (G_OBJECT (eventbox_wlan), "button_press_event",
                     G_CALLBACK (checkbutton_wlan_press_callback), (GtkWidget *)image_wlan);
 
     g_signal_connect(G_OBJECT(rabtn_static), "toggled", G_CALLBACK(rabtn_static_button_callback), NULL);
     g_signal_connect(G_OBJECT(btn_savenetwork), "clicked", G_CALLBACK(savenetwork_button_clicked), NULL);
     SetNetCtrlSensitive(0);
-    gtk_widget_set_sensitive(GTK_BUTTON(btn_advanced), 0);
+    //gtk_widget_set_sensitive(GTK_WIDGET(btn_advanced), 0);
+    //gtk_widget_set_visible(GTK_WIDGET(btn_advanced), 0);
+    GetStaticNet();
+    initStaticNetctrl();
     g_bnetstatic = 0;
 }

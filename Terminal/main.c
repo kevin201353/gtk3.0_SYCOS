@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "global.h"
 #include <math.h>
+#include "buildtime.h"
 
 #define BUF_MAX_SZIE   1024
 
@@ -12,10 +13,30 @@
 cairo_surface_t *surface1 = NULL;
 cairo_surface_t *surface_topwindow = NULL;
 cairo_surface_t *surface_vmlistwindow = NULL;
-
 extern short g_loginExit = 0;
+static GtkWidget *Msgdialog;
+extern void MsgShutDownDailog(char * sMsg);
+void MsgShutDownDailog(char * sMsg)
+{
+    Msgdialog = gtk_message_dialog_new (NULL,
+                                     GTK_DIALOG_DESTROY_WITH_PARENT,
+                                     GTK_MESSAGE_WARNING,
+                                     GTK_BUTTONS_YES_NO,
+                                     "%s",
+                                     sMsg);
+    int nRet = gtk_dialog_run (GTK_DIALOG (Msgdialog));
+    switch (nRet)
+    {
+      case GTK_RESPONSE_YES:
+         gtk_main_quit();
+         system("shutdown -t 10 -h now \"System will shutdown 10 sencond later\" ");
+         break;
+      default:
+         break;
+    }
+    gtk_widget_destroy(Msgdialog);
+}
 extern void MsgDailog(char * sMsg);
-
 void MsgDailog(char * sMsg)
 {
     GtkDialogFlags flags = GTK_DIALOG_DESTROY_WITH_PARENT;
@@ -48,6 +69,7 @@ void create_surfaces()
     {
         LogInfo("Error: create_surfaces load vmlistwindow png failed.\n");
     }
+    LogInfo("debug: create_surfaces load png end.\n");
 }
 
 void destroy_surfaces()
@@ -61,24 +83,23 @@ void destroy_surfaces()
 
 int main(int argc, char *argv[])
 {
-    //system("chmod +x tmp.sh");
-    //system("./tmp.sh");
+    system("chmod +x tmp.sh");
+    system("./tmp.sh");
+    system("chmod +x netstatic.sh");
+    system("chmod +x dhcp.sh");
+    system("chmod +x netget.sh");
+    system("xrandr > resol.txt");
+    //print version info
+    LogInfo("Debug: shencloud version : %s .\n", buildtime);
     Init_Curlc();
     g_loginExit = 0;
-    //deal gui
     gtk_init (&argc, &argv);
     create_surfaces();
     SY_topwindow_main();
     printf("main topwindow end.\n");
-    //SY_loginwindow_main();
-  /*  printf("main @@@@@@@@@@@ \n");
-    if (g_loginExit == 0)
-    {
-        SY_vmlistwindow_main();
-        printf("main vmlist window. \n");
-    }*/
     destroy_surfaces();
     SY_FreeVmsList();
     Unit_Curlc();
+    system("rm -rf resol.txt");
     return 0;
 }

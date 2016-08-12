@@ -13,7 +13,7 @@
 #include <string.h>
 
 #define MAX_BUFFER_SZIE   1024
-#define FILE_DEBUG_LOG_PATH    "DebugInfo.log"   //日志文件名
+#define FILE_DEBUG_LOG_PATH    "shencloud.log"   //日志文件名
 
 void LogInfo(const char* ms, ... )
 {

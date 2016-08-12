@@ -1,3 +1,13 @@
+#layout2{
+   background-image: none;
+   background-color: #EDF0F2;
+}
+
+#layout1{
+   background-image: none;
+   background-color: #EDF0F2;
+}
+
 #label_tip {
     color: #282C34;
     font-size: 12;
@@ -75,6 +85,12 @@
   font-family: "Microsoft YaHei"
 }
 
+#label_sysresol {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
 #rabtn_static {
   color: #282C34;
   font-size: 12;
@@ -99,9 +115,28 @@
   font-family: "Microsoft YaHei"
 }
 
+#btn_savenetwork {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
 #comboboxtext_netinter {
    border-image: none;
    font-size: 12;
+   color: #282C34;
+}
+
+#comboboxtext_wan {
+   border-image: none;
+   font-size: 12;
+   color: #282C34;
+}
+
+#comboboxtext_resol {
+   border-image: none;
+   font-size: 12;
+   color: #282C34;
 }
 
 GtkComboBoxText  > .button {
@@ -135,9 +170,4 @@ GtkComboBoxText .menu .menuitem:hover {
    border-style: none;
    padding: 0px;
    color: #2D336F
-}
-
-GtkRadioButton {
-  background-image: none;
-  background-color: #F2F1F0;
 }

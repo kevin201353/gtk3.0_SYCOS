@@ -139,6 +139,16 @@
    border-radius: 0px;
 }
 
+#btn_setting {
+   background-color: transparent;
+   background-image: none;
+   border-style: none;
+   border-color: none;
+   border-image: none;
+   padding: 0px;
+   border-radius: 0px;
+}
+
 #label_pro {
    color: #ffffff;
    font-size: 14;
@@ -202,10 +212,10 @@
 }
 
 #layout3 {
-   background-color: #468264;
+   background-color: #F0F0F0;
    background-image: none;
    border-style: solid;
-   border-color: #468264;
+   border-color: #F0F0F0;
 }
 
 #layout4 {
@@ -235,7 +245,7 @@ GtkTreeView {
 }
 
 column-header .button  {
-    border-radius: 10;
+    border-radius: 0px;
     background-color: transparent;
     background-image: none;
     border-width: 0px;

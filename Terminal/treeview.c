@@ -32,7 +32,7 @@ void on_changed(GtkWidget * widget, gpointer label)
     char *value;
     if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(widget), &model, &iter)) {
         gtk_tree_model_get(model, &iter, LIST_ITEM, &value, -1);
-        gtk_label_set_text(GTK_LABEL(label), value);
+        gtk_label_set_text(GTK_LABEL(label), (char *)value);
         g_free(value);
     }
 }

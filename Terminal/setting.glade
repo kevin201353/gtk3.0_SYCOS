@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.16.1 -->
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <object class="GtkWindow" id="window1">
@@ -11,11 +11,13 @@
     <property name="type_hint">dialog</property>
     <child>
       <object class="GtkBox" id="box1">
+        <property name="name">box1</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkBox" id="box_menu">
+            <property name="name">box_menu</property>
             <property name="width_request">120</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -32,11 +34,13 @@
         </child>
         <child>
           <object class="GtkBox" id="box_window">
+            <property name="name">box_window</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkLayout" id="layout1">
+                <property name="name">layout1</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
@@ -58,8 +62,8 @@
                     <property name="height_request">30</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="width_chars">22</property>
                     <property name="max_length">80</property>
+                    <property name="width_chars">22</property>
                   </object>
                   <packing>
                     <property name="x">277</property>
@@ -100,7 +104,7 @@
                     <property name="can_focus">False</property>
                   </object>
                   <packing>
-                    <property name="x">174</property>
+                    <property name="x">173</property>
                     <property name="y">224</property>
                   </packing>
                 </child>
@@ -126,17 +130,17 @@
                     <property name="can_focus">False</property>
                   </object>
                   <packing>
-                    <property name="x">170</property>
+                    <property name="x">173</property>
                     <property name="y">258</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkEntry" id="entry_user">
+                  <object class="GtkEntry" id="entryset_user">
                     <property name="height_request">30</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="width_chars">22</property>
                     <property name="max_length">80</property>
+                    <property name="width_chars">22</property>
                   </object>
                   <packing>
                     <property name="x">278</property>
@@ -152,19 +156,19 @@
                     <property name="can_focus">False</property>
                   </object>
                   <packing>
-                    <property name="x">174</property>
+                    <property name="x">173</property>
                     <property name="y">292</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkEntry" id="entry_pass">
+                  <object class="GtkEntry" id="entryset_pass">
                     <property name="height_request">30</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="width_chars">22</property>
-                    <property name="invisible_char">*</property>
                     <property name="max_length">20</property>
                     <property name="visibility">False</property>
+                    <property name="invisible_char">*</property>
+                    <property name="width_chars">22</property>
                   </object>
                   <packing>
                     <property name="x">278</property>
@@ -192,7 +196,7 @@
                     <property name="can_focus">False</property>
                   </object>
                   <packing>
-                    <property name="x">145</property>
+                    <property name="x">115</property>
                     <property name="y">373</property>
                   </packing>
                 </child>
@@ -211,8 +215,55 @@
                     </child>
                   </object>
                   <packing>
-                    <property name="x">105</property>
+                    <property name="x">90</property>
                     <property name="y">380</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_sysresol">
+                    <property name="name">label_sysresol</property>
+                    <property name="width_request">100</property>
+                    <property name="height_request">30</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">label</property>
+                  </object>
+                  <packing>
+                    <property name="x">95</property>
+                    <property name="y">417</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="comboboxtext_resol">
+                    <property name="name">comboboxtext_resol</property>
+                    <property name="width_request">150</property>
+                    <property name="height_request">30</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="active">0</property>
+                  </object>
+                  <packing>
+                    <property name="x">208</property>
+                    <property name="y">417</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEventBox" id="eventbox_manualresol">
+                    <property name="width_request">15</property>
+                    <property name="height_request">15</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkImage" id="image_manualresol">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixbuf">images2/checkbtn_nor.png</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="x">90</property>
+                    <property name="y">423</property>
                   </packing>
                 </child>
               </object>

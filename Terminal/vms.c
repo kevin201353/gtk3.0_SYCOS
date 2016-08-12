@@ -273,7 +273,7 @@ void FindNode(char* value)
                        printf("pNode-val.port : %d.\n", pNode->val.port);
                        LogInfo("Debug: pNode-val.port :%d.\n", pNode->val.port);
                     }//os
-
+                    g_nVmCount++;
                     list_add(&pNode->list, &head);
                  }//if vm
              }//if null
@@ -428,6 +428,7 @@ int SY_GetVms()
     //printf("SY_Get Vms @@@@@ 11.\n");
     SY_FreeVmsList();
     INIT_LIST_HEAD(&head);
+    g_nVmCount = 0;
     //printf("SY_Get Vms @@@@@ 22.\n");
     if (SY_Loadxml(FILE_OVIRT_INFO_PATH) < 0)
     {
@@ -452,22 +453,25 @@ int SY_GetVms2()
 
 void SY_GetVmsTicket(char * szTicket)
 {
-	FILE *fp;
-	fp = fopen(FILE_OVIRT_TICKET_PATH, "r");
-	mxml_node_t *g_tree = mxmlLoadFile(NULL, fp, MXML_NO_CALLBACK);
-	if (g_tree != NULL)
-	{
-		mxml_node_t *node;
-		node = mxmlFindElement(g_tree, g_tree, "value",
-												 NULL, NULL,
-												 MXML_DESCEND);
-		if (node != NULL)
-		{
-			 printf("SY Get Vms Ticket: %s.\n", node->child->value.text.string);
-       strcpy(szTicket, node->child->value.text.string);
-		}
-	}
-	fclose(fp);
+  	FILE *fp;
+  	fp = fopen(FILE_OVIRT_TICKET_PATH, "r");
+    if (fp)
+    {
+      	mxml_node_t *g_tree = mxmlLoadFile(NULL, fp, MXML_NO_CALLBACK);
+      	if (g_tree != NULL)
+      	{
+      		mxml_node_t *node;
+      		node = mxmlFindElement(g_tree, g_tree, "value",
+      												 NULL, NULL,
+      												 MXML_DESCEND);
+      		if (node != NULL)
+      		{
+      			 printf("SY Get Vms Ticket: %s.\n", node->child->value.text.string);
+             strcpy(szTicket, node->child->value.text.string);
+      		}
+      	}
+      	fclose(fp);
+    }//if
 }
 
 unsigned short SY_GetVmState(char* vmid)
