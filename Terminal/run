@@ -10,8 +10,10 @@
 rm -rf topwindow.o
 rm -rf main
 rm -rf window.o
-gcc \
+gcc -std=c99 \
 -o topwindow.o topwindow.c \
+-o networkSet.o networkSet.c \
+-o setting.o  setting.c \
 -o loginwindow.o loginwindow.c \
 -o curlc.o curlc.c \
 -o Ovirtdispatch.o Ovirtdispatch.c \

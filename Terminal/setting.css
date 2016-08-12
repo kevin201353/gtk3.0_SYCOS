@@ -1,0 +1,143 @@
+#label_tip {
+    color: #282C34;
+    font-size: 12;
+    font-family: "Microsoft YaHei"
+}
+
+#label_serverip {
+    color: #282C34;
+    font-size: 12;
+    font-family: "Microsoft YaHei"
+}
+
+#setting_port {
+    color: #282C34;
+    font-size: 12;
+    font-family: "Microsoft YaHei"
+}
+
+#setting_user {
+    color: #282C34;
+    font-size: 12;
+    font-family: "Microsoft YaHei"
+}
+
+#setting_pass {
+    color: #282C34;
+    font-size: 12;
+    font-family: "Microsoft YaHei"
+}
+
+#label_resolution {
+    color: #282C34;
+    font-size: 12;
+    font-family: "Microsoft YaHei"
+}
+
+#label_wan {
+   color: #282C34;
+   font-size: 12;
+   font-family: "Microsoft YaHei"
+}
+
+#label_hotspot {
+   color: #282C34;
+   font-size: 12;
+   font-family: "Microsoft YaHei"
+}
+#label_netinter {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
+#label_netip {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
+#label_netmask {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
+#label_netgatway {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
+#label_netdns {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
+#rabtn_static {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
+#rabtn_dhcp {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
+#btn_connect {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
+#btn_advanced {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
+#comboboxtext_netinter {
+   border-image: none;
+   font-size: 12;
+}
+
+GtkComboBoxText  > .button {
+  background-image: none;
+  background-color: transparent;
+  border-image: none;
+}
+
+.menu {
+   color: #2D336F
+   border-style: none;
+   background-image: none;
+   background-color: none;
+}
+
+GtkComboBoxText .menu {
+    background-image: none;
+    border-style: none;
+    padding: 0px;
+    color: #2D336F
+}
+
+GtkComboBoxText .menuitem * {
+    background-image: none;
+    color: #2D336F
+}
+
+GtkComboBoxText .menu .menuitem:hover {
+   background-image: none;
+   background-color: #F2F1F0;
+   border-style: none;
+   padding: 0px;
+   color: #2D336F
+}
+
+GtkRadioButton {
+  background-image: none;
+  background-color: #F2F1F0;
+}

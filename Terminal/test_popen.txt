@@ -1,0 +1,19 @@
+total 1960
+-rw-rw-r-- 1 kevin kevin      75 7月  11 14:42 abitno
+-rw-rw-r-- 1 kevin kevin    3223 7月  11 17:28 abitno.c
+-rwxr-xr-x 1 root  root     8968 7月  26 17:38 address
+-rw-rw-r-- 1 kevin kevin     671 7月  26 14:14 address.c
+-rwxrwxr-x 1 kevin kevin     382 6月  30 17:53 build
+-rw-rw-r-- 1 kevin kevin    5509 7月   1 13:57 c_list.h
+-rw-rw-r-- 1 kevin kevin    9599 7月  26 17:27 configxml.c
+-rw-rw-r-- 1 kevin kevin    6909 7月  26 17:06 curlc.c
+-rw-r--r-- 1 root  root  1315864 7月  26 17:34 DebugInfo.log
+drwxrwxr-x 2 kevin kevin    4096 7月  14 13:41 glade_backup
+-rw-rw-r-- 1 kevin kevin    4204 7月  26 16:24 global.h
+-rw-rw-r-- 1 kevin kevin      73 7月  11 14:15 grid
+-rw-rw-r-- 1 kevin kevin    7660 7月  11 14:15 grid.c
+drwxrwxr-x 4 kevin kevin    4096 7月  14 13:41 images
+drwxrwxr-x 3 kevin kevin    4096 7月  26 12:04 images2
+drwxrwxr-x 3 kevin kevin    4096 7月  14 13:41 images_new
+-rw-rw-r-- 1 kevin kevin    1121 7月   1 09:31 Loginfo.c
+-rw-rw-r-- 1 kevin kevin   21742 7月  26 17

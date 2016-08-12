@@ -20,13 +20,24 @@ extern cairo_surface_t *surface1 ;
 #define IMAGE_CHECKBUTTON_NOR  "images2/checkbtn_nor.png"
 #define IMAGE_CHECKBUTTON_PRESS  "images2/checkbtn_press.png"
 
+#define IMAGE_BTN_PREV_NOR    "images2/loginout.png"
+#define IMAGE_BTN_PREV_PRES   "images2/loginout_press.png"
+#define IMAGE_SETTING_NOR     "images2/set_nor.png"
+#define IMAGE_SETTING_PRESS   "images2/set_press.png"
+
+
 GdkPixbuf *g_loginPress;
 GdkPixbuf *g_loginNor;
 
 GdkPixbuf *g_checkNorimage;
 GdkPixbuf *g_checkPressimage;
 
-struct LoginInfo  g_loginfo = {SY_VM_COMMON_SPICE, "", "", "127.0.0.1", 8080, 0};
+GdkPixbuf *g_setPress;
+GdkPixbuf *g_setNor;
+GdkPixbuf *g_prevPress;
+GdkPixbuf *g_prevNor;
+
+struct LoginInfo  g_loginfo = {SY_VM_COMMON_SPICE, "", "", "127.0.0.1", 8080, 0, 0};
 
 static GObject *g_window = NULL;
 unsigned short g_checkrepass;  //0: 没有选中 1：选中
@@ -36,6 +47,45 @@ GtkBuilder *g_builder = NULL;
 extern short g_loginExit;
 
 extern void MsgDailog(char * sMsg);
+static struct ServerInfo  serverInfo;
+int initOvirtUrl()
+{
+     memset(ovirt_url, 0, MAX_BUFF_SIZE);
+     if ( GetServerInfo2(&serverInfo) < 0 )
+     {
+         //可能是第一次启动，还没有设置
+         return -1;
+     }
+     strcpy(ovirt_url, "https://");
+     strcat(ovirt_url, serverInfo.szIP);
+     strcat(ovirt_url, "/ovirt-engine/");
+     return 0;
+}
+
+static void  on_btn_setting_pressed(GtkButton *button,  gpointer   user_data)
+{
+   gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_setPress);
+}
+
+static void  on_btn_setting_released(GtkButton *button,  gpointer   user_data)
+{
+   gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_setNor);
+   SY_Setting_main();
+}
+
+static void  on_btn_prev_pressed(GtkButton *button,  gpointer   user_data)
+{
+   gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_prevPress);
+}
+
+static void  on_btn_prev_released(GtkButton *button,  gpointer   user_data)
+{
+   gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_prevNor);
+   g_loginExit = 1;
+   gtk_widget_destroy((GtkWidget *)g_window);
+   gtk_main_quit();
+   SY_topwindow_main();
+}
 
 static gboolean gtk_main_quit_login(GtkWidget * widget, GdkEventExpose * event, gpointer data)
 {
@@ -49,14 +99,11 @@ int ShenCloud_login()
     printf("it is login_window exit. \n");
     if (Get_ctrldata() < 0)
       return -1;
-    strcat(g_loginfo.user, "@internal");
-    //Start_Session();
     if (Ovirt_Login(ovirt_url, g_loginfo.user, g_loginfo.pass) < 0)
     {
         printf("main Ovirt login failed.\n");
         MsgDailog("Login failed.");
         g_loginExit = 1;
-        //Close_Session();
         return -1;
     }
 
@@ -66,7 +113,6 @@ int ShenCloud_login()
     {
         printf("main Ovirt get vms failed.\n");
         MsgDailog("Get Vms info failed.");
-        //Close_Session();
         return -1;
     }
 
@@ -74,7 +120,6 @@ int ShenCloud_login()
     if (SY_GetVms() < 0)
     {
         MsgDailog("login failed, Please ensure that the user name and password are correct.");
-        //Close_Session();
         return -1;
     }
     //打印从服务器获取的虚拟机列表数据
@@ -95,7 +140,8 @@ int ShenCloud_login()
     //gtk_widget_hide((GtkWidget *)g_window);
     gtk_main_quit();
     g_loginExit = 0;
-    SY_vmlistwindow_main();
+    if (g_selectProto == 0)
+      SY_vmlistwindow_main();
     return 0;
 }
 
@@ -122,6 +168,7 @@ static gboolean checkbutton_repass_press_callback(GtkWidget *event_box, GdkEvent
         {
             gtk_image_set_from_pixbuf(GTK_IMAGE(data), g_checkNorimage);
         }
+        g_loginfo.repass = g_checkrepass;
     }
     return TRUE;
 }
@@ -172,7 +219,7 @@ static gboolean sh_button_released_callback (GtkWidget  *event_box,
 * size:      字体大小
 * is_button: TRUE代表控件为按钮，FALSE为其它控件
 */
-static void set_widget_font_size(GtkWidget *widget, int size, gboolean is_button)
+/*static void set_widget_font_size(GtkWidget *widget, int size, gboolean is_button)
 {
    GtkWidget *labelChild;
    PangoFontDescription *font;
@@ -199,7 +246,7 @@ static void set_widget_font_size(GtkWidget *widget, int size, gboolean is_button
    gtk_label_set_attributes(GTK_LABEL(labelChild), attrls);
    pango_attr_list_unref(attrls); // 释放
    pango_font_description_free(font);
-}
+}*/
 
 /*void SetFontText(GtkWidget *widget, char * str)
 {
@@ -210,6 +257,7 @@ static void set_widget_font_size(GtkWidget *widget, int size, gboolean is_button
     gtk_label_set_markup (GTK_LABEL(widget), markup);
     g_free (markup);
 }*/
+
 //为登录主窗口绘制背景图
 gboolean on_expose_loginevent (GtkWidget * widget,
                  GdkEventExpose * event, gpointer data)
@@ -283,7 +331,8 @@ void SY_loginwindow_main()
     g_loginExit = 0;
     builder = gtk_builder_new ();
 
-    gtk_builder_add_from_file (builder, "loginwindow3.glade", NULL);
+    GError *errort = NULL;
+    gtk_builder_add_from_file (builder, "loginwindow3.glade", &errort);
 
     /* Connect signal handlers to the constructed widgets. */
     window = gtk_builder_get_object (builder, "window_login");
@@ -298,30 +347,43 @@ void SY_loginwindow_main()
 
     g_checkNorimage = gdk_pixbuf_new_from_file(IMAGE_CHECKBUTTON_NOR, NULL);
     g_checkPressimage = gdk_pixbuf_new_from_file(IMAGE_CHECKBUTTON_PRESS, NULL);
+
+    g_setPress = gdk_pixbuf_new_from_file(IMAGE_SETTING_PRESS, NULL);
+    g_setNor = gdk_pixbuf_new_from_file(IMAGE_SETTING_NOR, NULL);
+    g_prevPress = gdk_pixbuf_new_from_file(IMAGE_BTN_PREV_PRES, NULL);
+    g_prevNor = gdk_pixbuf_new_from_file(IMAGE_BTN_PREV_NOR, NULL);
+
+
     g_builder = builder;
 
     g_checkrepass = 0;
     g_checkautologin = 0;
+    initOvirtUrl();
 
     label = gtk_builder_get_object (builder, "label_pro");
-    gtk_label_set_text(GTK_LABEL(label), "选择协议");
-    set_widget_font_size(GTK_LABEL(label), 18, FALSE);
+    gtk_label_set_text(GTK_LABEL(label), "IP");
+    //set_widget_font_size(GTK_LABEL(label), 13, FALSE);
+
+    label = gtk_builder_get_object (builder, "label_port");
+    gtk_label_set_text(GTK_LABEL(label), "端口");
+    //set_widget_font_size(GTK_LABEL(label), 13, FALSE);
+
 
     label = gtk_builder_get_object (builder, "label_user");
     gtk_label_set_text(GTK_LABEL(label), "用户名");
-    set_widget_font_size(GTK_LABEL(label), 14, FALSE);
+    //set_widget_font_size(GTK_LABEL(label), 14, FALSE);
 
     label = gtk_builder_get_object (builder, "label_pass");
     gtk_label_set_text(GTK_LABEL(label), "密码");
-    set_widget_font_size(GTK_LABEL(label), 14, FALSE);
+    //set_widget_font_size(GTK_LABEL(label), 14, FALSE);
 
     label = gtk_builder_get_object (builder, "label_repass");
     gtk_label_set_text(GTK_LABEL(label), "记住密码");
-    set_widget_font_size(GTK_LABEL(label), 13, FALSE);
+    //set_widget_font_size(GTK_LABEL(label), 13, FALSE);
 
     label = gtk_builder_get_object (builder, "label_autologin");
     gtk_label_set_text(GTK_LABEL(label), "自动登录");
-    set_widget_font_size(GTK_LABEL(label), 13, FALSE);
+    //set_widget_font_size(GTK_LABEL(label), 13, FALSE);
 
     comboboxpro = gtk_builder_get_object (builder, "combobox_pro");
     gtk_combo_box_text_insert_text((GtkComboBoxText *)comboboxpro, 0, "SPICE");
@@ -385,6 +447,67 @@ void SY_loginwindow_main()
                     G_CALLBACK (checkbutton_repass_press_callback), (GtkWidget *)repass_image);
     g_signal_connect (G_OBJECT (eventbox_autologin), "button_press_event",
                                     G_CALLBACK (checkbutton_autologin_press_callback), (GtkWidget *)autologin_image);
+    GObject *entry_user;
+    entry_user = gtk_builder_get_object (builder, "entry_user");
+    memset(g_loginfo.proto, 0, MAX_BUFF_SIZE);
+    memset(g_loginfo.user, 0, MAX_BUFF_SIZE);
+    memset(g_loginfo.pass, 0, MAX_BUFF_SIZE);
+    memset(g_loginfo.ip, 0, MAX_BUFF_SIZE);
+    //printf(" login window wwwwwwww  user: %s\n", serverInfo.szUser);
+    if (g_selectProto == 0)
+    {
+        GObject *label;
+        GObject *entry;
+        label = gtk_builder_get_object (builder, "label_pro");
+        gtk_widget_hide((GtkWidget *)label);
+        label = gtk_builder_get_object (builder, "label_port");
+        gtk_widget_hide((GtkWidget *)label);
+        entry = gtk_builder_get_object (builder, "entry_ip");
+        gtk_widget_hide((GtkWidget *)entry);
+        entry = gtk_builder_get_object (builder, "entry_port");
+        gtk_widget_hide((GtkWidget *)entry);
+        gtk_entry_set_text((GtkEntry *)entry_user, serverInfo.szUser);
+        struct LoginInfo info;
+        GetLoginInfo(&info);
+        g_checkrepass = info.repass;
+        if (g_checkrepass == 1)
+        {
+            GObject *entry_pass;
+            entry_pass = gtk_builder_get_object (builder, "entry_pass");
+            gtk_entry_set_text((GtkEntry *)entry_pass, info.pass);
+            gtk_image_set_from_pixbuf(GTK_IMAGE(repass_image), g_checkPressimage);
+        }
+    }
+
+    if (g_selectProto == 1)
+    {
+        GObject *label;
+        GObject *entry;
+        label = gtk_builder_get_object (builder, "label_pro");
+        gtk_widget_show((GtkWidget *)label);
+        label = gtk_builder_get_object (builder, "label_port");
+        gtk_widget_show((GtkWidget *)label);
+        entry = gtk_builder_get_object (builder, "entry_ip");
+        gtk_widget_show((GtkWidget *)entry);
+        entry = gtk_builder_get_object (builder, "entry_port");
+        gtk_widget_show((GtkWidget *)entry);
+        gtk_entry_set_text((GtkEntry *)entry_user, "");
+    }
+    GObject *btn_set;
+    GObject *btn_Prev;
+    GObject *image_loginout;
+    GObject *image_set;
+
+    btn_set = gtk_builder_get_object (builder, "btn_set");
+    btn_Prev = gtk_builder_get_object (builder, "btn_Prev");
+    image_loginout = gtk_builder_get_object (builder, "image_loginout");
+    image_set = gtk_builder_get_object (builder, "image_set");
+    //配置
+    g_signal_connect(G_OBJECT(btn_set), "pressed", G_CALLBACK(on_btn_setting_pressed), (GtkWidget *)image_set);
+    g_signal_connect(G_OBJECT(btn_set), "released", G_CALLBACK(on_btn_setting_released), (GtkWidget *)image_set);
+    //还回到启动界面
+    g_signal_connect(G_OBJECT(btn_Prev), "pressed", G_CALLBACK(on_btn_prev_pressed), (GtkWidget *)image_loginout);
+    g_signal_connect(G_OBJECT(btn_Prev), "released", G_CALLBACK(on_btn_prev_released), (GtkWidget *)image_loginout);
     //手动为主窗口添加关联退出事件
     g_signal_connect (G_OBJECT(window), "destroy",
                        G_CALLBACK(gtk_main_quit_login), NULL);

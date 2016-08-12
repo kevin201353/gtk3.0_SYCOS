@@ -1,10 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<action href="/ovirt-engine/api/vms/97691570-c983-43e7-bda7-8cd48000d476/suspend/83ad24ba-d456-4169-bfb8-cce3ee3e375b%2Ce84bf2fc-3608-4839-90b9-522a35d707ce" id="83ad24ba-d456-4169-bfb8-cce3ee3e375b%2Ce84bf2fc-3608-4839-90b9-522a35d707ce">
-    <link href="/ovirt-engine/api/vms/97691570-c983-43e7-bda7-8cd48000d476" rel="parent"/>
-    <link href="/ovirt-engine/api/vms/97691570-c983-43e7-bda7-8cd48000d476/suspend" rel="replay"/>
-    <async>true</async>
-    <job href="/ovirt-engine/api/jobs/e427058a-36e6-4060-a215-ec997d4a56be" id="e427058a-36e6-4060-a215-ec997d4a56be"/>
+<action>
+    <ticket>
+        <value>qstOoBaquUZc</value>
+        <expiry>604800</expiry>
+    </ticket>
+    <vm href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421" id="703f2eb5-fa70-45c9-875c-4e308994d421">
+        <actions>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/clone" rel="clone"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/commit_snapshot" rel="commit_snapshot"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/preview_snapshot" rel="preview_snapshot"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/logon" rel="logon"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/cancelmigration" rel="cancelmigration"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/maintenance" rel="maintenance"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/undo_snapshot" rel="undo_snapshot"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/reboot" rel="reboot"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/migrate" rel="migrate"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/ticket" rel="ticket"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/detach" rel="detach"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/move" rel="move"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/export" rel="export"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/shutdown" rel="shutdown"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/start" rel="start"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/stop" rel="stop"/>
+            <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/suspend" rel="suspend"/>
+        </actions>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/applications" rel="applications"/>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/disks" rel="disks"/>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/nics" rel="nics"/>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/numanodes" rel="numanodes"/>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/cdroms" rel="cdroms"/>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/snapshots" rel="snapshots"/>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/tags" rel="tags"/>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/permissions" rel="permissions"/>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/statistics" rel="statistics"/>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/reporteddevices" rel="reporteddevices"/>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/watchdogs" rel="watchdogs"/>
+        <link href="/ovirt-engine/api/vms/703f2eb5-fa70-45c9-875c-4e308994d421/sessions" rel="sessions"/>
+    </vm>
     <status>
-        <state>pending</state>
+        <state>complete</state>
     </status>
 </action>

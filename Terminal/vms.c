@@ -43,6 +43,11 @@ int SY_Loadxml(char *file)
         return -1;
     }
     fp = fopen(file, "r");
+    if (fp == NULL)
+    {
+        LogInfo("SY_Loadxml open file failed.\n");
+        return -1;
+    }
     printf("xml file: %s.\n", file);
     g_tree = mxmlLoadFile(NULL, fp, MXML_NO_CALLBACK);
     if (g_tree == NULL)
@@ -61,12 +66,18 @@ int SY_LoadxmlTmp(char *file)
     struct stat buf;
     stat (file, &buf);
     int len = (int)buf.st_size;
+    LogInfo("SY_LoadxmlTmp $$$$$$$$$$$, file size :%d .\n", len);
     if (len <= 0)
     {
         LogInfo("SY_LoadxmlTmp failed, file size <= 0.\n");
         return -1;
     }
     fp = fopen(file, "r");
+    if (fp == NULL)
+    {
+        LogInfo("SY_LoadxmlTmp open file failed.\n");
+        return -1;
+    }
     printf("xml file: %s.\n", file);
     g_treeTmp = mxmlLoadFile(NULL, fp, MXML_NO_CALLBACK);
     if (g_treeTmp == NULL)

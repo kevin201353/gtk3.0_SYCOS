@@ -20,6 +20,31 @@
    border-image: none;
    font-size: 16;
    color: #ffffff;
+   border-width: 1px;
+}
+
+#entry_ip {
+   background-color: transparent;
+   background-image: none;
+   border-style: solid;
+   border-image: none;
+   border-width: 1px;
+   border-color: #ffffff;
+   color: #ffffff;
+   font-size: 12px;
+   border-radius: 0.2px;
+}
+
+#entry_port {
+   background-color: transparent;
+   background-image: none;
+   border-style: solid;
+   border-image: none;
+   color: #ffffff;
+   border-width: 1px;
+   border-color: #ffffff;
+   border-radius: 0.2px;
+   font-size: 12px;
 }
 
 #btn_start {
@@ -94,6 +119,62 @@
    border-radius: 0px;
 }
 
+#btn_set {
+   background-color: transparent;
+   background-image: none;
+   border-style: none;
+   border-color: none;
+   border-image: none;
+   padding: 0px;
+   border-radius: 0px;
+}
+
+#btn_Prev {
+   background-color: transparent;
+   background-image: none;
+   border-style: none;
+   border-color: none;
+   border-image: none;
+   padding: 0px;
+   border-radius: 0px;
+}
+
+#label_pro {
+   color: #ffffff;
+   font-size: 14;
+   font-family: "Microsoft YaHei"
+}
+
+#label_port {
+   color: #ffffff;
+   font-size: 14;
+   font-family: "Microsoft YaHei"
+}
+
+#label_user {
+   color: #ffffff;
+   font-size: 14;
+   font-family: "Microsoft YaHei"
+}
+
+#label_pass {
+   color: #ffffff;
+   font-size: 14;
+   font-family: "Microsoft YaHei"
+}
+
+#label_repass {
+   color: #ffffff;
+   font-size: 13;
+   font-family: "Microsoft YaHei"
+}
+
+#label_autologin {
+   color: #ffffff;
+   font-size: 13;
+   font-family: "Microsoft YaHei"
+}
+
 #label_login {
    color: #ffffff;
    font-size: 12;
@@ -144,27 +225,6 @@ GtkComboBoxText {
    background-color: transparent;
    color : #ffffff;
    font-size: 18;
-}
-
-GtkComboBoxText  > .button {
-  background-image: none;
-  background-color: transparent;
-  border-image: none;
-  color : #ffffff;
-}
-
-GtkComboBoxText .menu {
-    background-image: none;
-    background-color: #1B61A0;
-    border-style: none;
-    padding: 0px;
-    color: #468264;
-}
-
-GtkComboBoxText .menuitem * {
-    color: #ffffff;
-    background-color: #1B61A0;
-    background-image: none;
 }
 
 GtkTreeView {

@@ -364,13 +364,13 @@ void connectVms()
         //printf("connect vms g_vmName 000 = %s.\n", g_vmName);
         if (strcmp(node->val.name, g_vmName) == 0)
         {
-            //printf("main get node->val.name = %s,  g_vmName = %s.\n", node->val.name, g_vmName);
+            LogInfo("Debug: connectVms g_szUser: = %s,  g_szPass = %s.\n", g_szUser, g_szPass);
             Ovirt_GetVmTicket(ovirt_url, g_szUser, g_szPass, node->val.vmid);
             char szTicket[MAX_BUFF_SIZE] = {0};
             SY_GetVmsTicket(szTicket);
             //find vm
             sprintf(g_shellcmd, "spicy -h %s -p %d -w %s -f ", node->val.ip, node->val.port, szTicket);
-            printf("vm list window connect vms : %s. \n", g_shellcmd);
+            LogInfo("Debug:vm list window connect vms : %s. \n", g_shellcmd);
             system(g_shellcmd);
             break;
         }
@@ -558,7 +558,8 @@ void SY_vmlistwindow_main()
 
     g_vmIconPix = gdk_pixbuf_new_from_file(IMAGE_TREE_VMICON_NOR, NULL);
     builder = gtk_builder_new ();
-    gtk_builder_add_from_file (builder, "vmlistwindow.glade", NULL);
+    GError *errort = NULL;
+    gtk_builder_add_from_file (builder, "vmlistwindow.glade", &errort);
     window = gtk_builder_get_object (builder, "vmlist_window");
     gtk_widget_set_app_paintable((GtkWidget * )window, TRUE);
     treeview = gtk_builder_get_object (builder, "treeview_vm");
@@ -699,7 +700,7 @@ void SY_vmlistwindow_main()
 * size:      字体大小
 * is_button: TRUE代表控件为按钮，FALSE为其它控件
 */
-static void set_widget_font_size(GtkWidget *widget, int size, GtkTreeViewColumn *column, GtkCellRenderer *renderer)
+/*static void set_widget_font_size(GtkWidget *widget, int size, GtkTreeViewColumn *column, GtkCellRenderer *renderer)
 {
    GtkWidget *labelChild;
    PangoFontDescription *font;
@@ -722,7 +723,7 @@ static void set_widget_font_size(GtkWidget *widget, int size, GtkTreeViewColumn 
    pango_attr_list_unref(attrls); // 释放
    pango_font_description_free(font);
 }
-
+*/
 static void setup_tree_view(GtkWidget *treeview) {
     GtkCellRenderer *renderer;
     GtkTreeViewColumn *column;

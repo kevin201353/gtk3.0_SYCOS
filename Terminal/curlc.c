@@ -24,21 +24,31 @@ FILE *g_fptmp = NULL;
 //完成数据保存功能
 size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream)
 {
-    //printf("http request write data start.\n" );
-    int written = fwrite(ptr, size, nmemb, (FILE *)g_fp);
-    //printf("http request write data end.\n" );
+    int written = 0;
+    if (g_fp)
+    {
+        written = fwrite(ptr, size, nmemb, (FILE *)g_fp);
+    }
     return written;
 }
 
 size_t write_ticket(void *ptr, size_t size, size_t nmemb, void *stream)
 {
-    int written = fwrite(ptr, size, nmemb, (FILE *)g_ticket);
+    int written = 0;
+    if (g_ticket)
+    {
+        written = fwrite(ptr, size, nmemb, (FILE *)g_ticket);
+    }
     return written;
 }
 
 size_t write_dataTmp(void *ptr, size_t size, size_t nmemb, void *stream)
 {
-    int written = fwrite(ptr, size, nmemb, (FILE *)g_fptmp);
+    int written = 0;
+    if (g_fptmp)
+    {
+        written = fwrite(ptr, size, nmemb, (FILE *)g_fptmp);
+    }
     return written;
 }
 
@@ -100,6 +110,7 @@ int Http_Request(char *url, char *user, char* password)
     Xml_Open();
     char szbuf[512] = {0};
     strcat(szbuf, user);
+    strcat(szbuf, "@internal");
     strcat(szbuf, ":");
     strcat(szbuf, password);
     curl_easy_setopt(g_curl, CURLOPT_WRITEFUNCTION, write_data);
@@ -147,6 +158,7 @@ int Http_Post(char *url, char *user, char* password, char *data)
     }
     char szbuf[512] = {0};
     strcat(szbuf, user);
+    strcat(szbuf, "@internal");
     strcat(szbuf, ":");
     strcat(szbuf, password);
     struct curl_slist *headers = NULL;
@@ -190,7 +202,7 @@ int Http_Request2(char *url, char *user, char* password, char *path)
     if((g_fptmp = fopen(path,"w")) == NULL)
     {
         printf("http_request2 fopen ovirt info file failed.\n");
-        return;
+        return -1;
     }
     Start_Session();
     if (g_curl == NULL)
@@ -200,6 +212,7 @@ int Http_Request2(char *url, char *user, char* password, char *path)
     }
     char szbuf[512] = {0};
     strcat(szbuf, user);
+    strcat(szbuf, "@internal");
     strcat(szbuf, ":");
     strcat(szbuf, password);
     curl_easy_setopt(g_curl, CURLOPT_WRITEFUNCTION, write_dataTmp);

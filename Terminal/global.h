@@ -30,8 +30,11 @@
 #define MAX_BUFF_SIZE      100
 
 struct list_head head, *plist;
-static char ovirt_url[] = "https://192.168.110.200/ovirt-engine/";  //test
-static const gchar* g_home_css = "/home/kevin/sycos/Terminal/mygtk.css";
+//static char ovirt_url[] = "https://192.168.0.220/ovirt-engine/";  //test
+char ovirt_url[MAX_BUFF_SIZE];
+static const gchar* g_home_css = "mygtk.css";
+
+int  g_selectProto;   //0:sh   1:mirsoft  2: cit  3:vm
 
 //全局错误码定义
 enum Error{
@@ -78,6 +81,15 @@ struct LoginInfo{
    char ip[MAX_BUFF_SIZE];
    int  port;
    short protype;  //0:spice 1: rdp
+   int  repass;
+};
+
+struct ServerInfo{
+   char szIP[MAX_BUFF_SIZE];
+   unsigned int nport;
+   char szUser[MAX_BUFF_SIZE];
+   char szPass[MAX_BUFF_SIZE];
+   unsigned short resol;
 };
 
 //写日志
@@ -115,6 +127,8 @@ void SY_topwindow_main();
 void SY_loginwindow_main();
 void SY_vmlistwindow_main();
 void ShenCloud_topWindowShow();
+int SY_Setting_main();
+
 
 int Ovirt_StartVms(char *url, char *user, char *password, char *vm);
 int Ovirt_ShutdownVms(char *url, char *user, char *password, char *vm);
@@ -129,7 +143,18 @@ void SY_GetVmsTicket(char * szTicket);
 void Start_Session();
 void Close_Session();
 unsigned short SY_GetVmState(char* vmid);
+//获取虚拟列表， 在虚拟机列表界面中
+//启动，关闭，待机下使用
 int SY_GetVms2();
+
+//获取虚拟机列表，该函数被线程调用
+//每个5S向服务器索取虚拟机状态
 int Ovirt_GetVmsTmp(char *url, char *user, char* password);
+void SaveServerInfo(struct ServerInfo info);
+int SY_NetworkSet_main();
+GObject * GetNetWorkSetLayout();
+int GetServerInfo(struct ServerInfo info);
+int GetServerInfo2(struct ServerInfo *pInfo);
+int GetLoginInfo(struct LoginInfo *pInfo);
 
 #endif //_GLOBAL_H
