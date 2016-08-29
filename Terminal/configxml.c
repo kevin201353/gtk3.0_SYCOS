@@ -47,9 +47,10 @@ void Parsexml(char * element,  char * value,  int ntype)
         												 MXML_DESCEND);
         		if (node != NULL)
         		{
+               if (node->child != NULL)
+                  strcpy(value, node->child->value.text.string);
         			 LogInfo("login xml get element :%s  value: %s.\n", element, node->child->value.text.string);
                //memcpy(value, node->child->value.text.string, strlen(node->child->value.text.string));
-               strcpy(value, node->child->value.text.string);
         		}
       	}
       	fclose(fp);
@@ -151,7 +152,8 @@ int GetServerInfo(struct ServerInfo info)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        strcpy(info.szIP, tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                          strcpy(info.szIP, tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, address : %s\n", info.szIP);
                     }
 
@@ -160,7 +162,8 @@ int GetServerInfo(struct ServerInfo info)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        info.nport = atoi(tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                          info.nport = atoi(tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, port : %d.\n", info.nport);
                     }
 
@@ -169,7 +172,8 @@ int GetServerInfo(struct ServerInfo info)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        strcpy(info.szUser, tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                          strcpy(info.szUser, tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, user : %s.\n", info.szUser);
                     }
 
@@ -178,7 +182,8 @@ int GetServerInfo(struct ServerInfo info)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        strcpy(info.szPass, tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                          strcpy(info.szPass, tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, password : %s.\n", info.szPass);
                     }
 
@@ -187,7 +192,8 @@ int GetServerInfo(struct ServerInfo info)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        info.resol = atoi(tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                          info.resol = atoi(tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, resolution_client : %d.\n", info.resol);
                     }
                     tmp_node = mxmlFindElement(heading, node, "resolution_manual",
@@ -195,7 +201,8 @@ int GetServerInfo(struct ServerInfo info)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        info.manresol = atoi(tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                          info.manresol = atoi(tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, resolution_manual : %d.\n", info.manresol);
                     }
                     tmp_node = mxmlFindElement(heading, node, "resolution_value",
@@ -203,7 +210,8 @@ int GetServerInfo(struct ServerInfo info)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        strcpy(info.szResol, tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                          strcpy(info.szResol, tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, resolution_value : %s.\n", info.szResol);
                     }
               }//for
@@ -240,7 +248,8 @@ int GetServerInfo2(struct ServerInfo *pInfo)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        strcpy(pInfo->szIP, tmp_node->child->value.text.string);
+                       if (tmp_node->child != NULL)
+                         strcpy(pInfo->szIP, tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, address : %s\n", pInfo->szIP);
                     }
 
@@ -249,7 +258,8 @@ int GetServerInfo2(struct ServerInfo *pInfo)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        pInfo->nport = atoi(tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                         pInfo->nport = atoi(tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, port : %d.\n", pInfo->nport);
                     }
 
@@ -258,7 +268,8 @@ int GetServerInfo2(struct ServerInfo *pInfo)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        strcpy(pInfo->szUser, tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                            strcpy(pInfo->szUser, tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, user : %s.\n", pInfo->szUser);
                     }
 
@@ -267,7 +278,8 @@ int GetServerInfo2(struct ServerInfo *pInfo)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        strcpy(pInfo->szPass, tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                          strcpy(pInfo->szPass, tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, password : %s.\n", pInfo->szPass);
                     }
 
@@ -276,7 +288,8 @@ int GetServerInfo2(struct ServerInfo *pInfo)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        pInfo->resol = atoi(tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                          pInfo->resol = atoi(tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, resolution_client : %d.\n", pInfo->resol);
                     }
                     tmp_node = mxmlFindElement(heading, node, "resolution_manual",
@@ -284,7 +297,8 @@ int GetServerInfo2(struct ServerInfo *pInfo)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        pInfo->manresol = atoi(tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                          pInfo->manresol = atoi(tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, resolution_manual : %d.\n", pInfo->manresol);
                     }
                     tmp_node = mxmlFindElement(heading, node, "resolution_value",
@@ -292,7 +306,8 @@ int GetServerInfo2(struct ServerInfo *pInfo)
                                           MXML_DESCEND);
                     if (tmp_node)
                     {
-                        strcpy(pInfo->szResol, tmp_node->child->value.text.string);
+                        if (tmp_node->child != NULL)
+                           strcpy(pInfo->szResol, tmp_node->child->value.text.string);
                         LogInfo("configxml Get server info, resolution_value : %s.\n", pInfo->szResol);
                     }
               }//for

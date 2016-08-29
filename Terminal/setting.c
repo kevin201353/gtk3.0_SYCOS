@@ -3,7 +3,7 @@
 #include <string.h>
 
 static const gchar*  g_settingcss = "setting.css";
-#define IMAGE_CHECKBUTTON_NOR  "images2/checkbtnset_nor.png"
+#define IMAGE_CHECKBUTTON_NOR    "images2/checkbtnset_nor.png"
 #define IMAGE_CHECKBUTTON_PRESS  "images2/checkbtnset_press.png"
 
 enum {
@@ -11,15 +11,18 @@ enum {
     NUM_COLS
 };
 
-struct ServerInfo g_serverinfo = {"192.168.0.220", 443, "admin", "shencloud", 0, 0, "1920x1080"};
+struct ServerInfo g_serverinfo = {"192.168.0.220", 443, "admin@internal", "shencloud", 1, 0, "1920x1080"};
 GObject * g_layout1;  //服务器Layout
 GObject * g_layout2;  //网络
+static GObject * g_window;
 GdkPixbuf *g_checkNorimage;
 GdkPixbuf *g_checkPressimage;
 static GtkBuilder *g_builder2 = NULL;
 static unsigned short g_checkrepass = 0;
 static unsigned short g_checkmanresol = 0;
 extern void SY_NetworkDisableCtrl();
+extern unsigned short saveServerInfo();
+static int showsettingwindow = 0;
 
 gboolean on_window_state_event (GtkWidget *widget, GdkEventWindowState  *event, gpointer  user_data)
 {
@@ -32,6 +35,78 @@ gboolean on_window_state_event (GtkWidget *widget, GdkEventWindowState  *event, 
           return TRUE;
       }
     return FALSE;
+}
+
+static gboolean close_button_clicked(GtkButton *button,  gpointer user_data)
+{
+    gtk_widget_destroy((GtkWidget *)g_window);
+    gtk_main_quit();
+    showsettingwindow = 0;
+    SetLoginWindowFocus();
+}
+
+static gboolean save_button_clicked(GtkButton *button,  gpointer user_data)
+{
+    //设置分辨率
+    char szTmp[MAX_BUFF_SIZE] = {0};
+    if (g_checkrepass == 1)
+    {
+        //根据终端屏幕分辩率自动调整
+        LogInfo("Debug: setting.c main exit, selected resolution, screen_width: %d, screen_height: %d. \n", g_screen_width, g_screen_height);
+        sprintf(szTmp, "sudo xrandr -s  %dx%d", g_screen_width, g_screen_height);
+        system(szTmp);
+        LogInfo("Debug: setting.c main exit, selected resolution, cmd: %s .\n", szTmp);
+        char szCmd[MAX_BUFF_SIZE] = {0};
+        sprintf(szCmd, "sudo echo  %s > manual_resol.sh", szTmp);  //暂时这样处理，开机启动显示分辨率
+        system(szCmd);
+        gtk_window_set_resizable (GTK_WINDOW(g_mainWindow), FALSE);//窗口不可改变
+        gtk_window_set_position(GTK_WINDOW(g_mainWindow), GTK_WIN_POS_CENTER);
+    }
+    if (g_checkmanresol == 1)
+    {
+        //手动设置分辨率调整
+        GdkScreen* screen;
+        screen = gdk_screen_get_default();
+        int width = gdk_screen_get_width(screen);
+        int height = gdk_screen_get_height(screen);
+        char szold_screen[MAX_BUFF_SIZE] = {0};
+        sprintf(szold_screen, "%dx%d", width, height);
+        GObject *comboboxtext_resol;
+        comboboxtext_resol = gtk_builder_get_object (g_builder2, "comboboxtext_resol");
+        gchar *active = gtk_combo_box_text_get_active_text((GtkComboBoxText *)comboboxtext_resol);
+        LogInfo("setting.c main exit, old resolution: %s, selected resolution: %s\n", szold_screen, (char *)active);
+        strcpy(g_serverinfo.szResol, (char *)active);
+        if (strcmp(szold_screen, (char *)active) != 0)
+        {
+            LogInfo("Debug: setting.c screen resolution changed, start reset resolution.\n");
+            strcpy(szTmp, "sudo xrandr -s ");
+            strcat(szTmp, (char *)active);
+            system(szTmp);
+            char szCmd[MAX_BUFF_SIZE] = {0};
+            sprintf(szCmd, "sudo echo  %s > manual_resol.sh", szTmp); //暂时这样处理, 开机启动显示分辨率
+            system(szCmd);
+        }
+        //分离分辨率
+        char *delim = "x";
+        char *p = NULL;
+        char szw[20] = {0};
+        char szh[20] = {0};
+        memset(szTmp, 0, MAX_BUFF_SIZE);
+        sprintf(szTmp, "%s", g_serverinfo.szResol);
+        LogInfo("Debug : resol szTmp 33333 :%s.\n", szTmp);
+        p = strtok(szTmp, delim);
+        strcpy(szw, p);
+        p = NULL;
+        p = strtok(NULL, delim);
+        strcpy(szh, p);
+        LogInfo("Debug : gtk_main_quit_setting , separate apresolution, szw :%s, szh :%s.\n", szw, szh);
+        width = atoi(szw);
+        height = atoi(szh);
+        gtk_window_set_resizable (GTK_WINDOW(g_mainWindow), FALSE);//窗口不可改变
+        gtk_window_set_position(GTK_WINDOW(g_mainWindow), GTK_WIN_POS_CENTER);
+    }
+    saveServerInfo();
+    return TRUE;
 }
 
 void  on_button_11_clicked(GtkButton *button, gpointer   user_data)
@@ -177,65 +252,6 @@ unsigned short saveServerInfo()
 
 static gboolean gtk_main_quit_setting(GtkWidget * widget, GdkEventExpose * event, gpointer data)
 {
-    //设置分辨率
-    char szTmp[MAX_BUFF_SIZE] = {0};
-    if (g_checkrepass == 1)
-    {
-        //根据终端屏幕分辩率自动调整
-        LogInfo("Debug: setting.c main exit, selected resolution, screen_width: %d, screen_height: %d. \n", g_screen_width, g_screen_height);
-        sprintf(szTmp, "xrandr -s  %dx%d", g_screen_width, g_screen_height);
-        system(szTmp);
-        LogInfo("Debug: setting.c main exit, selected resolution, cmd: %s .\n", szTmp);
-        char szCmd[MAX_BUFF_SIZE] = {0};
-        sprintf(szCmd, "echo  %s > manual_resol.sh", szTmp);  //暂时这样处理，开机启动显示分辨率
-        system(szCmd);
-        gtk_window_set_resizable (GTK_WINDOW(g_mainWindow), FALSE);//窗口不可改变
-        gtk_window_set_position(GTK_WINDOW(g_mainWindow), GTK_WIN_POS_CENTER);
-    }
-    if (g_checkmanresol == 1)
-    {
-        //手动设置分辨率调整
-        GdkScreen* screen;
-        screen = gdk_screen_get_default();
-        int width = gdk_screen_get_width(screen);
-        int height = gdk_screen_get_height(screen);
-        char szold_screen[MAX_BUFF_SIZE] = {0};
-        sprintf(szold_screen, "%dx%d", width, height);
-        GObject *comboboxtext_resol;
-        comboboxtext_resol = gtk_builder_get_object (g_builder2, "comboboxtext_resol");
-        gchar *active = gtk_combo_box_text_get_active_text((GtkComboBoxText *)comboboxtext_resol);
-        LogInfo("setting.c main exit, old resolution: %s, selected resolution: %s\n", szold_screen, (char *)active);
-        strcpy(g_serverinfo.szResol, (char *)active);
-        if (strcmp(szold_screen, (char *)active) != 0)
-        {
-            LogInfo("Debug: setting.c screen resolution changed, start reset resolution.\n");
-            strcpy(szTmp, "xrandr -s ");
-            strcat(szTmp, (char *)active);
-            system(szTmp);
-            char szCmd[MAX_BUFF_SIZE] = {0};
-            sprintf(szCmd, "echo  %s > manual_resol.sh", szTmp); //暂时这样处理, 开机启动显示分辨率
-            system(szCmd);
-        }
-        //分离分辨率
-        char *delim = "x";
-        char *p = NULL;
-        char szw[20] = {0};
-        char szh[20] = {0};
-        memset(szTmp, 0, MAX_BUFF_SIZE);
-        sprintf(szTmp, "%s", g_serverinfo.szResol);
-        LogInfo("Debug : resol szTmp 33333 :%s.\n", szTmp);
-        p = strtok(szTmp, delim);
-        strcpy(szw, p);
-        p = NULL;
-        p = strtok(NULL, delim);
-        strcpy(szh, p);
-        LogInfo("Debug : gtk_main_quit_setting , separate apresolution, szw :%s, szh :%s.\n", szw, szh);
-        width = atoi(szw);
-        height = atoi(szh);
-        gtk_window_set_resizable (GTK_WINDOW(g_mainWindow), FALSE);//窗口不可改变
-        gtk_window_set_position(GTK_WINDOW(g_mainWindow), GTK_WIN_POS_CENTER);
-    }
-    saveServerInfo();
     gtk_main_quit();
     SetLoginWindowFocus();
     return TRUE;
@@ -357,8 +373,56 @@ static void print_hello (GtkWidget *widget,
     g_print ("Hello World\n");
 }
 
+/*
+  @Description: 从一个图片中获取信息得到pixbuf
+  @param:       gchar filename
+*/
+GdkPixbuf *create_pixbuf(const gchar * filename)
+{
+    GdkPixbuf *pixbuf;
+    GError *error = NULL;
+    /*
+     * 函数gdk_pixbuf_new_from_file() 从一个图片文件中加载图象数据，从而生成一个新的 pixbuf，
+     * 至于文件中包含图象的格式，是由系统自动检测的。如果该函数返回值是NULL 的话，程序就会出现错误。
+    */
+    pixbuf = gdk_pixbuf_new_from_file(filename, &error);
+    if(!pixbuf) {
+        fprintf(stderr, "%s\n", error->message);
+        g_error_free(error);
+    }
+    return pixbuf;
+}
+
+gboolean window_drag(GtkWidget *widget, GdkEventButton *event, GdkWindowEdge edge)
+{
+    if (event->button == 1)
+    {
+        gtk_window_begin_move_drag(GTK_WINDOW(gtk_widget_get_toplevel(widget)), event->button, event->x_root, event->y_root, event->time);
+        gtk_widget_queue_draw(widget);
+    }
+    return FALSE;
+}
+
+/*gboolean window_move(GtkWidget *widget, GdkEvent *event, gpointer data)
+{
+    gint x, y;
+    gchar buf[10] = {0};
+    x = event->configure.x;
+    y = event->configure.y;
+    if (x <= 0)//如果窗口超出桌面最左边框
+    {
+        x = 0;
+        gtk_window_move(GTK_WINDOW(widget), x, y);
+    }
+    sprintf(buf, "%d,%d", x, y);
+    gtk_window_set_title(GTK_WINDOW(widget), buf);
+    return TRUE;
+}*/
 int  SY_Setting_main ()
 {
+  if (showsettingwindow == 1)
+     return;
+  showsettingwindow = 1;
   GtkBuilder *builder;
   GObject *window;
   GObject *boxmenu;
@@ -393,7 +457,7 @@ int  SY_Setting_main ()
   model = gtk_tree_view_get_model(GTK_TREE_VIEW(view));
   gtk_tree_model_get_iter_first(model, &iter);
   gtk_tree_selection_select_iter(selection, &iter);
-  g_layout1 = gtk_builder_get_object (builder, "layout1");
+  g_layout1 = gtk_builder_get_object (builder, "layout_base");
   gtk_box_pack_start(GTK_BOX(boxwindow), (GtkWidget *)g_layout2, TRUE, TRUE, 1);
 
   GObject * label_tip;
@@ -423,6 +487,9 @@ int  SY_Setting_main ()
   gtk_label_set_text(GTK_LABEL(label_resolution), "根据客户端分辨率调整");
   gtk_label_set_text(GTK_LABEL(label_sysresol), "手动调整");
 
+  GObject * btn_save;
+  btn_save = gtk_builder_get_object (builder, "btn_save");
+  gtk_button_set_label(GTK_BUTTON(btn_save), "保存");
   //绘制控件
   /*----- CSS ----------- */
   GtkCssProvider *provider;
@@ -447,6 +514,7 @@ int  SY_Setting_main ()
 
   /* Connect signal handlers to the constructed widgets. */
   window = gtk_builder_get_object (builder, "window1");
+  g_window = window;
   gtk_window_set_title(window, "配置");
   g_signal_connect(selection, "changed", G_CALLBACK(on_changed), NULL);
   g_signal_connect(window, "window-state-event", G_CALLBACK(on_window_state_event), NULL);
@@ -469,9 +537,33 @@ int  SY_Setting_main ()
   g_signal_connect (G_OBJECT (eventbox_manualresol), "button_press_event",
                   G_CALLBACK (checkbutton_manualresol_press_callback), (GtkWidget *)image_manualresol);
 
-
+  gtk_window_set_icon(GTK_WINDOW(window), create_pixbuf("images2/logo.png"));
+  gtk_widget_add_events(GTK_WIDGET(window), GDK_BUTTON_PRESS_MASK);
+  g_signal_connect(G_OBJECT(window), "button-press-event", G_CALLBACK(window_drag), NULL);
+  //g_signal_connect(G_OBJECT(window), "configure-event", G_CALLBACK(window_move), NULL);
   g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit_setting), NULL);
+  g_signal_connect(GTK_BUTTON(btn_save), "clicked", G_CALLBACK(save_button_clicked), NULL);
+
+  //add by zhao
+  GObject * label_title;
+  GObject * btnset_close;
+  label_title = gtk_builder_get_object (builder, "label_title");
+  btnset_close = gtk_builder_get_object (builder, "btnset_close");
+  gtk_label_set_text(GTK_LABEL(label_title), "配 置");
+  g_signal_connect(GTK_BUTTON(btnset_close), "clicked", G_CALLBACK(close_button_clicked), NULL);
+  //end
   gtk_widget_show_all((GtkWidget *)window);
+  //暂时屏蔽
+  GObject * comboboxtext_resol;
+  comboboxtext_resol = gtk_builder_get_object (builder, "comboboxtext_resol");
+  gtk_widget_set_sensitive(GTK_WIDGET(comboboxtext_resol), FALSE);
+  gtk_widget_set_visible((GtkWidget *)comboboxtext_resol, 0);
+  gtk_widget_set_sensitive(GTK_WIDGET(eventbox_manualresol), FALSE);
+  gtk_widget_set_visible((GtkWidget *)eventbox_manualresol, 0);
+  gtk_widget_set_sensitive(GTK_WIDGET(image_manualresol), FALSE);
+  gtk_widget_set_visible((GtkWidget *)image_manualresol, 0);
+  gtk_widget_set_visible((GtkWidget *)label_sysresol, 0);
+  //
   gtk_widget_set_visible((GtkWidget *)g_layout2, 0);
   SY_NetworkDisableCtrl();
   initctrl();

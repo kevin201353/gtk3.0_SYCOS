@@ -36,7 +36,9 @@ static GObject *g_window = NULL;
 //extern void destroy_surfaces();
 
 extern cairo_surface_t *surface_topwindow;
+//extern cairo_surface_t *surface_1680x1050_topwindow;
 extern void MsgShutDwonDailog(char * sMsg);
+extern GdkPixbuf *create_pixbuf(const gchar * filename);
 
 GdkPixbuf *g_shPress;
 GdkPixbuf *g_shNor;
@@ -56,6 +58,7 @@ static GdkPixbuf *g_setNor;
 extern GdkPixbuf *g_shutdownPress;
 extern GdkPixbuf *g_shutdownNor;
 static pthread_t tid;
+static GtkBuilder *g_builder;
 
 static void *thrd_Vmarefunc(void *arg)
 {
@@ -63,7 +66,7 @@ static void *thrd_Vmarefunc(void *arg)
     if (nRet < 0)
     {
         LogInfo("Debug: login window connect vmare failed, nRet: %d. \n", nRet);
-        MsgDailog("connect vmare view failed.");
+        MsgDailog("vmare 连接失败！");
         return -1;
     }
 }
@@ -73,10 +76,35 @@ static void  on_btn_setting_pressed(GtkButton *button,  gpointer   user_data)
    gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_setPress);
 }
 
+//set Sensitive
+void SettopSensitive(int sitive)
+{
+    GObject *eventbox_sh;
+    GObject *eventbox_mir;
+    GObject *eventbox_vm;
+    GObject *eventbox_cit;
+    GObject *btn_set;
+    GObject *eventbox_shutdown;
+    eventbox_sh = gtk_builder_get_object(g_builder, "eventbox_sh");
+    eventbox_mir = gtk_builder_get_object(g_builder, "eventbox_mirsoft");
+    eventbox_vm = gtk_builder_get_object(g_builder, "eventbox_vm");
+    eventbox_cit = gtk_builder_get_object(g_builder, "eventbox_cit");
+    btn_set = gtk_builder_get_object(g_builder, "btn_setting");
+    eventbox_shutdown = gtk_builder_get_object(g_builder, "eventbox_shutdown");
+    gtk_widget_set_sensitive(eventbox_sh, sitive);
+    gtk_widget_set_sensitive(eventbox_mir, sitive);
+    gtk_widget_set_sensitive(eventbox_vm, sitive);
+    gtk_widget_set_sensitive(eventbox_cit, sitive);
+    gtk_widget_set_sensitive(btn_set, sitive);
+    gtk_widget_set_sensitive(eventbox_shutdown, sitive);
+}
+
 static void  on_btn_setting_released(GtkButton *button,  gpointer   user_data)
 {
    gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_setNor);
+   SettopSensitive(0);
    SY_Setting_main();
+   SettopSensitive(1);
 }
 
 void ShenCloud_topWindowExit()
@@ -115,6 +143,7 @@ static void on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_da
 static gboolean shutdown_button_press_callback (GtkWidget  *event_box,
                        GdkEventButton *event, gpointer data)
 {
+    LogInfo("shutdown_button_released_callback test double  event->type fddddddd = %d .\n", event->type);
     if (event->type == GDK_BUTTON_PRESS)
     {
         printf("mirsoft gtkimage check mouser button pressed.\n");
@@ -126,10 +155,17 @@ static gboolean shutdown_button_press_callback (GtkWidget  *event_box,
 static gboolean shutdown_button_released_callback (GtkWidget  *event_box,
                        GdkEventButton *event, gpointer data)
 {
-    if (event->type == GDK_BUTTON_RELEASE)
+    LogInfo("shutdown_button_released_callback test double  event->type  = %d .\n", event->type);
+    if (event->type == GDK_2BUTTON_PRESS)
+    {
+        LogInfo("shutdown_button_released_callback test double  event->type ffffff .\n");
+        return FALSE;
+    }
+    if (event->button == 1)
     {
         gtk_image_set_from_pixbuf(GTK_IMAGE(data), g_shutdownNor);
-        MsgShutDownDailog("您确定要关闭系统吗？");
+        //MsgShutDownDailog("您确定要关闭系统吗？");
+        SYMsgDialog(11, "您确定要关闭系统吗？");
     }
     return TRUE;
 }
@@ -233,7 +269,8 @@ static gboolean cit_button_released_callback (GtkWidget  *event_box,
         g_selectProto = 2;
         gtk_image_set_from_pixbuf(GTK_IMAGE(data), g_citNor);
         //ShenCloud_topWindowExit();
-        SY_logincit_main();
+        if (g_citExit == 0)
+          SY_logincit_main();
     }
     return TRUE;
 }
@@ -260,6 +297,7 @@ void SY_topwindow_main()
     GObject *window;
     GtkBuilder *builder;
     builder = gtk_builder_new ();
+    g_builder = builder;
     //load png
     g_shPress = gdk_pixbuf_new_from_file(IMAGE_BTN_SH_PRES, NULL);
     g_shNor = gdk_pixbuf_new_from_file(IMAGE_BTN_SH_NOR, NULL);
@@ -338,6 +376,7 @@ void SY_topwindow_main()
                     G_CALLBACK (cit_button_press_callback), (GtkWidget *)image_cit);
     g_signal_connect (G_OBJECT (eventbox_cit), "button_release_event",
                                     G_CALLBACK (cit_button_released_callback), (GtkWidget *)image_cit);
+    g_citExit = 0;
 
     GObject *image_shutdown;
     GObject *eventbox_shutdown;
@@ -395,6 +434,8 @@ void SY_topwindow_main()
     //gtk_css_provider_load_from_path (provider, home, NULL);
     g_object_unref (provider);
     /* --------------------------------------------------------------------------------------------------------------------*/
+    gtk_window_set_icon(GTK_WINDOW(g_window), create_pixbuf("images2/logo.png"));
+    gtk_window_set_keep_below(g_window, TRUE);
     gtk_main ();
     g_object_unref (G_OBJECT (builder));
 }

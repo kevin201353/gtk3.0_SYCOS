@@ -6,13 +6,16 @@
 
 #define BUF_MAX_SZIE   1024
 
-#define IMAGE_MAIN_BACKGROUD   "images2/login.png"  //登录界面背景图路径
-#define IMAGE_TOPWINDOW_BACKGROUD   "images2/topwindow.png"
+#define IMAGE_MAIN_BACKGROUD          "images2/login.png"  //登录界面背景图路径
+#define IMAGE_TOPWINDOW_BACKGROUD     "images2/topwindow.png"
 #define IMAGE_VMLISTWINDOW_BACKGROUD  "images2/vmlistwindow.png"
+
+#define IMAGE_1680X1050_BACKGROUD     "images2/1680x1050_topwindow.png"
 
 cairo_surface_t *surface1 = NULL;
 cairo_surface_t *surface_topwindow = NULL;
 cairo_surface_t *surface_vmlistwindow = NULL;
+//cairo_surface_t *surface_1680x1050_topwindow = NULL;
 extern short g_loginExit = 0;
 static GtkWidget *Msgdialog;
 extern void MsgShutDownDailog(char * sMsg);
@@ -44,7 +47,7 @@ void MsgDailog(char * sMsg)
                                      flags,
                                      GTK_MESSAGE_ERROR,
                                      GTK_BUTTONS_CLOSE,
-                                     "Error reading : %s",
+                                     "消息 : %s",
                                      sMsg);
     gtk_dialog_run (GTK_DIALOG (dialog));
     gtk_widget_destroy (dialog);
@@ -69,6 +72,8 @@ void create_surfaces()
     {
         LogInfo("Error: create_surfaces load vmlistwindow png failed.\n");
     }
+
+    //surface_1680x1050_topwindow = cairo_image_surface_create_from_png(IMAGE_1680X1050_BACKGROUD);
     LogInfo("debug: create_surfaces load png end.\n");
 }
 
@@ -79,16 +84,17 @@ void destroy_surfaces()
     cairo_surface_destroy (surface1);
     cairo_surface_destroy (surface_topwindow);
     cairo_surface_destroy (surface_vmlistwindow);
+    //cairo_surface_destroy (surface_1680x1050_topwindow);
 }
 
 int main(int argc, char *argv[])
 {
-    system("chmod +x tmp.sh");
-    system("./tmp.sh");
-    system("chmod +x netstatic.sh");
-    system("chmod +x dhcp.sh");
-    system("chmod +x netget.sh");
-    system("xrandr > resol.txt");
+    system("sudo chmod +x tmp.sh");
+    system("sudo ./tmp.sh");
+    system("sudo chmod +x netstatic.sh");
+    system("sudo chmod +x dhcp.sh");
+    system("sudo chmod +x netget.sh");
+    system("sudo xrandr > resol.txt");
     //print version info
     LogInfo("Debug: shencloud version : %s .\n", buildtime);
     Init_Curlc();

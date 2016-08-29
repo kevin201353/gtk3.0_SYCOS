@@ -29,6 +29,7 @@
 #define  STR_OVIRT_GET_VMS          "api/vms"
 #define  STR_OVIRT_GET_CLUSTER      "api/clusters"
 
+typedef int (*CallBackFun)(char *); // 为回调函数命名，类型命名为 CallBackFun，参数为char *p
 struct list_head head, *plist;
 //static char ovirt_url[] = "https://192.168.0.220/ovirt-engine/";  //test
 char ovirt_url[MAX_BUFF_SIZE];
@@ -43,6 +44,7 @@ char g_resol[MAX_BUFF_SIZE][MAX_BUFF_SIZE];
 unsigned int g_resolCount;
 
 GObject *g_mainWindow;
+int   g_citExit;
 
 //全局错误码定义
 enum Error{
@@ -162,4 +164,8 @@ void GetVmareLoginInfo(struct LoginInfo *pInfo);
 void SetLoginWindowFocus();
 int GetResol();
 void SY_logincit_main();
+void SYMsgDialog(int nflag, char *msg);
+int ShenCloud_login();
+void SaveSysNetwork();
+void SetSymsgContext(char* msg);
 #endif //_GLOBAL_H

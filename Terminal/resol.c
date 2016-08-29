@@ -7,6 +7,8 @@
 //Date: 2016/8/8
 **************/
 #include "global.h"
+#include <string.h>
+#include <stdio.h>
 
 #define SY_RESOLUTION_FILE    "resol.txt"
 
@@ -46,7 +48,12 @@ int GetResol()
     int nCount = 0;
     while(fgets(buf, MAX_BUFF_SIZE, fp) != NULL)
     {
-        if (nline >= 2)
+        if (strstr(buf, "#") != NULL || strstr(buf, "Screen") != NULL ||
+          strstr(buf, "DP1") != NULL )
+        {
+            continue;
+        }
+        //if (nline >= 2)
         {
             char * p = strstr(buf, "x");//p为dhcp的出现位置,NULL则为没找到
             if (p && (iSNumber(*(p-1)) == 1)
@@ -61,9 +68,9 @@ int GetResol()
                 nCount++;
             }
         }
-        nline++;
+        //nline++;
     }
-  /*  //得到所有支持的分辨率
+    //得到所有支持的分辨率
     //去除横向<1000 和 纵向 <800 的分辨率
     int i=0;
     for (; i<nCount; i++)
@@ -77,7 +84,6 @@ int GetResol()
         LogInfo("Debug : resol szTmp 33333 :%s.\n", szTmp);
         p = strtok(szTmp, delim);
         strcpy(szw, p);
-        p = NULL;
         p = strtok(NULL, delim);
         strcpy(szh, p);
         LogInfo("Debug : resol del lower resolution, szw :%s, szh :%s.\n", szw, szh);
@@ -86,8 +92,9 @@ int GetResol()
         {
            g_resolCount++;
         }
-    }*/
-    g_resolCount = nCount;
+    }
+    //g_resolCount = nCount;
     LogInfo("Debug: resol ######## 222 g_resolCount :%d .\n", g_resolCount);
     fclose(fp);
+    remove(SY_RESOLUTION_FILE);
 }

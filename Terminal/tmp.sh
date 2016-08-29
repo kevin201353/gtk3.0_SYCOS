@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ ! -d "tmp" ];
 then
-  mkdir tmp
+  sudo mkdir tmp
 fi
-chmod 777 tmp
+sudo chmod 777 tmp

@@ -53,6 +53,7 @@ GtkListStore *g_store;
 GtkTreeView *g_treeview;
 
 unsigned short g_sUpdateVmStatus = 0;
+static int showvmlistwindow = 0;
 
 struct Vms_Update {
     char szvmid[MAX_BUFF_SIZE];
@@ -281,13 +282,13 @@ int vmstate_update()
       LogInfo("debug: vmsstate_update thrd enter.\n");
       if (Ovirt_GetVmsTmp(ovirt_url, g_szUser, g_szPass) < 0)
       {
-          printf("vmsstate_update: get vms failed.\n");
+          //printf("vmsstate_update: get vms failed.\n");
           LogInfo("debug: vmsstate_update: get vms failed.\n");
           return -1;
       }
       if (SY_GetVms2() < 0)
       {
-          printf("vmsstate_update: get vms xml data failed.\n");
+          //printf("vmsstate_update: get vms xml data failed.\n");
           LogInfo("debug: vmsstate_update: get vms xml data failed.\n");
           return -1;
       }
@@ -307,12 +308,12 @@ int vmstate_update()
                 if (strcmp(node->val.vmid, g_vmsComUpdate[i].vmid) == 0 /*&&
                      strcmp(node->val.name, g_vmsComUpdate[i].name) == 0*/)
                 {
-                    printf("vms old status : %d , new nstate : %d.\n", node->val.status, g_vmsComUpdate[i].status);
+                    //printf("vms old status : %d , new nstate : %d.\n", node->val.status, g_vmsComUpdate[i].status);
                     LogInfo("debug: vms status : %d , nstate : %d.\n", node->val.status, g_vmsComUpdate[i].status);
                     if (node->val.status != g_vmsComUpdate[i].status)
                     {
                         //do something;
-                        printf("vmlist window UpdateVmsStatus vms name: %s, vms old status : %d , new nstate : %d.\n", node->val.name, node->val.status, g_vmsComUpdate[i].status);
+                        //printf("vmlist window UpdateVmsStatus vms name: %s, vms old status : %d , new nstate : %d.\n", node->val.name, node->val.status, g_vmsComUpdate[i].status);
                         LogInfo("debug: vmlist window UpdateVmsStatus vms name: %s, vms old status : %d , new nstate : %d.\n", node->val.name, node->val.status, g_vmsComUpdate[i].status);
                         SetState(node->val.name, g_vmsComUpdate[i].status);
                         node->val.status = g_vmsComUpdate[i].status;
@@ -396,7 +397,6 @@ static void on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_da
 
 static gboolean on_gtk_main_quit_vmlist(GtkWidget * widget, GdkEventExpose * event, gpointer data)
 {
-    printf("vms list window exit , close timer.\n");
     g_sUpdateVmStatus = 0;
     g_exitvm = 1;
     cleanVms();
@@ -449,7 +449,8 @@ static void  on_btn_start_clicked(GtkButton *button,  gpointer   user_data)
    printf("vml list window button start clicked.\n");
    if (Ovirt_StartVms(ovirt_url, g_szUser, g_szPass, g_szVMid) < 0)
    {
-       MsgDailog("start vms failed.");
+       //MsgDailog("启动虚拟机失败！");
+       SYMsgDialog(7, "启动虚拟机失败！");
    }
    g_sUpdateVmStatus = 1;
    AddUpdateVms(g_szVMid);
@@ -460,7 +461,8 @@ static void  on_btn_close_clicked(GtkButton *button,  gpointer   user_data)
    printf("vml list window button close clicked.\n");
    if (Ovirt_ShutdownVms(ovirt_url, g_szUser, g_szPass, g_szVMid) < 0)
    {
-      MsgDailog("close vms failed.");
+      //MsgDailog("关闭虚拟机失败！");
+      SYMsgDialog(7, "关闭虚拟机失败！");
    }
    g_sUpdateVmStatus = 1;
    AddUpdateVms(g_szVMid);
@@ -478,7 +480,8 @@ static void  on_btn_sleep_clicked(GtkButton *button,  gpointer   user_data)
    printf("vml list window button sleep clicked.\n");
    if (Ovirt_SuspendVms(ovirt_url, g_szUser, g_szPass, g_szVMid) < 0)
    {
-      MsgDailog("standby failed.");
+      //MsgDailog("虚拟机待机失败！");
+      SYMsgDialog(7, "虚拟机待机失败！");
    }
    g_sUpdateVmStatus = 1;
    AddUpdateVms(g_szVMid);
@@ -496,10 +499,10 @@ static void  on_button_loginout_released(GtkButton *button,  gpointer   user_dat
    //退回到启动界面
    g_sUpdateVmStatus = 0;
    g_exitvm = 1;
+   showvmlistwindow = 0;
    cleanVms();
    gtk_widget_destroy((GtkWidget *)g_window);
    gtk_main_quit();
-   SY_topwindow_main();
 }
 
 static void  on_button_exit_pressed(GtkButton *button,  gpointer   user_data)
@@ -510,7 +513,8 @@ static void  on_button_exit_pressed(GtkButton *button,  gpointer   user_data)
 static void  on_button_exit_released(GtkButton *button,  gpointer   user_data)
 {
    gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_exitNor);
-   MsgShutDownDailog("您确定要关闭系统吗？");
+   //MsgShutDownDailog("您确定要关闭系统吗？");
+   SYMsgDialog(11, "您确定要关闭系统吗？");
 }
 
 static void  on_vmlist_changed(GtkWidget *widget,  GtkTreeModel *model)
@@ -557,6 +561,10 @@ static void adddata();
 
 void SY_vmlistwindow_main()
 {
+    if (showvmlistwindow == 1)
+       return;
+    showvmlistwindow = 1;
+
     GObject *window;
     GtkBuilder *builder;
     GObject *treeview;
@@ -572,8 +580,6 @@ void SY_vmlistwindow_main()
     GObject *label_close;
     GObject *label_desktop;
     GObject *label_sleep;
-
-
     g_vmIconPix = gdk_pixbuf_new_from_file(IMAGE_TREE_VMICON_NOR, NULL);
     builder = gtk_builder_new ();
     GError *errort = NULL;
@@ -715,12 +721,13 @@ void SY_vmlistwindow_main()
 
     //开起向服务器检测虚拟机状态线程， 这与上面的线程处理不一样， 上一个是在启动，关闭，待机
     //请求后的处理线程。
-    if ( pthread_create(&tid_state, NULL, thrd_checkstate, NULL) !=0 ) {
+  /*  if ( pthread_create(&tid_state, NULL, thrd_checkstate, NULL) !=0 ) {
         printf("Create checkstate thread error!\n");
-    }
+    }*/
     gtk_main ();
     g_object_unref (G_OBJECT (builder));
     g_object_unref (G_OBJECT (g_store));
+    showvmlistwindow = 0;
 }
 
 /* 功能:      设置控件字体大小

@@ -1,5 +1,6 @@
 #include "global.h"
 #include "interface.h"
+#include <unistd.h>
 
 #define IMAGE_BTN_LOGIN_NOR      "images2/btnlogin_nor.png"
 #define IMAGE_BTN_LOGIN_PRES     "images2/btnlogin_press.png"
@@ -20,18 +21,47 @@ GdkPixbuf *g_logoCit;
 static cairo_surface_t *surface ;
 static GtkBuilder *g_builder;
 extern void MsgDailog(char * sMsg);
+static char g_szURL[MAX_BUFF_SIZE] = {0};
+static int showlogincitwindow = 0;
+//CallBackFun
+extern void SYmsgCaller(CallBackFun fun, char *p);
+extern int SYMsgFun(char *p);
+//
+/*static pthread_t tid;
+static void *thrd_citfunc(void *arg)
+{
+    cit_login(g_szURL);
+}*/
+void cit_login2();
+extern GdkPixbuf *create_pixbuf(const gchar * filename);
+static gboolean on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data)
+{
+    switch(event->keyval)
+    {
+        case GDK_KEY_Return:
+            {
+               cit_login2();
+            }
+            break;
+    }
+    return FALSE;
+}
+
 int cit_login()
 {
-     GObject *http;
-     if (g_builder == NULL)
-     {
-         LogInfo("debug: cit_login  g_builder == NULL.\n");
-         return -1;
-     }
-     http = gtk_builder_get_object (g_builder, "entry_http");
-     char * ip = gtk_entry_get_text(GTK_ENTRY(http));
-     LogInfo("debug: cit_login http: %s.\n", ip);
-     return Run_Citrix(ip);
+    if(vfork() == 0)
+    {
+       if (Run_Citrix(g_szURL) < 0)
+       {
+          //MsgDailog("登录失败！");
+          SYMsgDialog(7, "登录失败！");
+          return -1;
+       }
+    }else
+    {
+       printf("This is the parent process, dddd.\n");
+    }
+    return 0;
 }
 
 //为登录主窗口绘制背景图
@@ -51,6 +81,7 @@ static gboolean on_expose_loginevent (GtkWidget * widget,
 static gboolean gtk_main_quit_login(GtkWidget * widget, GdkEventExpose * event, gpointer data)
 {
       gtk_main_quit();
+      showlogincitwindow = 0;
       return TRUE;
 }
 
@@ -71,7 +102,8 @@ static gboolean shutdown_button_released_callback (GtkWidget  *event_box,
     if (event->type == GDK_BUTTON_RELEASE)
     {
         gtk_image_set_from_pixbuf(GTK_IMAGE(data), g_shutdownNor);
-        MsgShutDownDailog("您确定要关闭系统吗？");
+        //MsgShutDownDailog("您确定要关闭系统吗？");
+        SYMsgDialog(11, "您确定要关闭系统吗？");
     }
     return TRUE;
 }
@@ -84,8 +116,10 @@ static void  on_btn_prev_pressed(GtkButton *button,  gpointer   user_data)
 static void  on_btn_prev_released(GtkButton *button,  gpointer   user_data)
 {
    gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_prevNor);
+   showlogincitwindow = 0;
    gtk_widget_destroy((GtkWidget *)g_window);
    gtk_main_quit();
+   g_citExit = 0;
 }
 
 
@@ -94,21 +128,45 @@ static void  on_btn_login_pressed(GtkButton *button,  gpointer   user_data)
      gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_loginPress);
 }
 
+void cit_login2()
+{
+    GObject *http;
+    if (g_builder == NULL)
+    {
+        LogInfo("debug: cit_login  g_builder == NULL.\n");
+        g_citExit = 0;
+        return;
+    }
+    http = gtk_builder_get_object (g_builder, "entry_http");
+    char * ip = gtk_entry_get_text(GTK_ENTRY(http));
+    if (strcmp(ip, "") == 0)
+    {
+        //MsgDailog("URL不能为空！");
+        g_citExit = 0;
+        SYMsgDialog(7, "URL不能为空！");
+        return;
+    }
+    LogInfo("debug: cit_login http: %s.\n", ip);
+    strcpy(g_szURL, ip);
+    /*if ( pthread_create(&tid, NULL, thrd_citfunc, NULL) !=0 ) {
+        printf("Create cit thread error!\n");
+    }*/
+    gtk_widget_destroy((GtkWidget *)g_window);
+    gtk_main_quit();
+    cit_login();
+    g_citExit = 0;
+}
 static void  on_btn_login_released(GtkButton *button,  gpointer   user_data)
 {
    gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_loginNor);
-   gtk_widget_hide((GtkWidget *)g_window);
-   if (cit_login() < 0)
-   {
-        MsgDailog("lognin failed.");
-        return;
-   }
-   gtk_widget_destroy((GtkWidget *)g_window);
-   gtk_main_quit();
+   cit_login2();
 }
 
 void SY_logincit_main()
 {
+    if (showlogincitwindow == 1)
+       return;
+    showlogincitwindow = 1;
     GtkBuilder *builder;
     GObject *window;
 
@@ -137,54 +195,60 @@ void SY_logincit_main()
     g_signal_connect (G_OBJECT(g_window), "draw", G_CALLBACK (on_expose_loginevent), NULL);
     g_signal_connect (G_OBJECT(g_window), "destroy",
                        G_CALLBACK(gtk_main_quit_login), NULL);
-   GObject *image_shutdown;
-   GObject *eventbox_shutdown;
-   image_shutdown = gtk_builder_get_object (builder, "image_shutdown");
-   eventbox_shutdown = gtk_builder_get_object (builder, "eventbox_shutdown");
-   gtk_widget_set_events((GtkWidget *)eventbox_shutdown, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK); // 捕获鼠标点击事件
-   g_signal_connect (G_OBJECT (eventbox_shutdown), "button_press_event",
-                   G_CALLBACK (shutdown_button_press_callback), (GtkWidget *)image_shutdown);
-   g_signal_connect (G_OBJECT (eventbox_shutdown), "button_release_event",
-                                   G_CALLBACK (shutdown_button_released_callback), (GtkWidget *)image_shutdown);
-   //登录
-   GObject *image_loginout;
-   GObject *login_image;
-   image_loginout = gtk_builder_get_object (builder, "image_loginout");
-   login_image = gtk_builder_get_object (builder, "image_login");
-   GObject *btn_citlogin;
-   GObject *btn_citPrev;
-   btn_citPrev = gtk_builder_get_object (builder, "btn_citPrev");
-   btn_citlogin = gtk_builder_get_object (builder, "btn_citlogin");
-   g_signal_connect(G_OBJECT(btn_citPrev), "pressed", G_CALLBACK(on_btn_prev_pressed), (GtkWidget *)image_loginout);
-   g_signal_connect(G_OBJECT(btn_citPrev), "released", G_CALLBACK(on_btn_prev_released), (GtkWidget *)image_loginout);
+     GObject *image_shutdown;
+     GObject *eventbox_shutdown;
+     image_shutdown = gtk_builder_get_object (builder, "image_shutdown");
+     eventbox_shutdown = gtk_builder_get_object (builder, "eventbox_shutdown");
+     gtk_widget_set_events((GtkWidget *)eventbox_shutdown, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK); // 捕获鼠标点击事件
+     g_signal_connect (G_OBJECT (eventbox_shutdown), "button_press_event",
+                     G_CALLBACK (shutdown_button_press_callback), (GtkWidget *)image_shutdown);
+     g_signal_connect (G_OBJECT (eventbox_shutdown), "button_release_event",
+                                     G_CALLBACK (shutdown_button_released_callback), (GtkWidget *)image_shutdown);
+     g_citExit = 1;
+     //登录
+     GObject *image_loginout;
+     GObject *login_image;
+     image_loginout = gtk_builder_get_object (builder, "image_loginout");
+     login_image = gtk_builder_get_object (builder, "image_login");
+     GObject *btn_citlogin;
+     GObject *btn_citPrev;
+     btn_citPrev = gtk_builder_get_object (builder, "btn_citPrev");
+     btn_citlogin = gtk_builder_get_object (builder, "btn_citlogin");
+     g_signal_connect(G_OBJECT(btn_citPrev), "pressed", G_CALLBACK(on_btn_prev_pressed), (GtkWidget *)image_loginout);
+     g_signal_connect(G_OBJECT(btn_citPrev), "released", G_CALLBACK(on_btn_prev_released), (GtkWidget *)image_loginout);
 
-   g_signal_connect(G_OBJECT(btn_citlogin), "pressed", G_CALLBACK(on_btn_login_pressed), (GtkWidget *)login_image);
-   g_signal_connect(G_OBJECT(btn_citlogin), "released", G_CALLBACK(on_btn_login_released), (GtkWidget *)login_image);
+     g_signal_connect(G_OBJECT(btn_citlogin), "pressed", G_CALLBACK(on_btn_login_pressed), (GtkWidget *)login_image);
+     g_signal_connect(G_OBJECT(btn_citlogin), "released", G_CALLBACK(on_btn_login_released), (GtkWidget *)login_image);
    /*----- CSS ----------- */
-	  GtkCssProvider *provider;
-	  GdkDisplay *display;
-	  GdkScreen *screen;
-	 /*-----------------------*/
+    GtkCssProvider *provider;
+    GdkDisplay *display;
+    GdkScreen *screen;
+   /*-----------------------*/
   /* ----------------- CSS ----------------------------------------------------------------------------------------------*/
-	  provider = gtk_css_provider_new ();
-	  display = gdk_display_get_default ();
-	  screen = gdk_display_get_default_screen (display);
-	  gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER (provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    provider = gtk_css_provider_new ();
+    display = gdk_display_get_default ();
+    screen = gdk_display_get_default_screen (display);
+    gtk_style_context_add_provider_for_screen (screen, GTK_STYLE_PROVIDER (provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-	  gsize bytes_written, bytes_read;
-	  GError *error = 0;
+    gsize bytes_written, bytes_read;
+    GError *error = 0;
 
-	  gtk_css_provider_load_from_path (provider,
+    gtk_css_provider_load_from_path (provider,
                                  g_filename_to_utf8(g_cit_css, strlen(g_cit_css), &bytes_read, &bytes_written, &error),
                                  NULL);
-	  //gtk_css_provider_load_from_path (provider, home, NULL);
-	  g_object_unref (provider);
-	  /* --------------------------------------------------------------------------------------------------------------------*/
+    //gtk_css_provider_load_from_path (provider, home, NULL);
+    g_object_unref (provider);
+    /* --------------------------------------------------------------------------------------------------------------------*/
+    gtk_window_set_icon(GTK_WINDOW(g_window), create_pixbuf("images2/logo.png"));
     gtk_window_fullscreen(GTK_WINDOW(g_window));
     gtk_window_set_default_size(GTK_WINDOW(g_window), g_screen_width, g_screen_height);
     gtk_window_set_decorated(GTK_WINDOW(g_window), FALSE); /* hide the title bar and the boder */
+    g_signal_connect(G_OBJECT(g_window), \
+                      "key-press-event", \
+                      G_CALLBACK(on_key_press), NULL);
 
-   gtk_main ();
-   g_object_unref (G_OBJECT (builder));
-   cairo_surface_destroy (surface);
+    gtk_main ();
+    g_object_unref (G_OBJECT (builder));
+    cairo_surface_destroy (surface);
+    showlogincitwindow = 0;
 }

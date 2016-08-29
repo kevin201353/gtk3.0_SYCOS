@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <math.h>
 
 #define WINDOW_MAX_WIDTH     1920
 #define WINDOW_MAX_HEIGHT     1080
@@ -54,7 +55,7 @@ GdkPixbuf *g_logoSh;
 extern GdkPixbuf *g_shutdownPress = NULL;
 extern GdkPixbuf *g_shutdownNor = NULL;
 
-struct LoginInfo  g_loginfo = {SY_VM_COMMON_SPICE, "", "", "127.0.0.1", 3380, 0, 0};
+struct LoginInfo  g_loginfo = {SY_VM_COMMON_SPICE, "", "", "127.0.0.1", 3389, 0, 0};
 
 static GObject *g_window = NULL;
 unsigned short g_checkrepass;  //0: 没有选中 1：选中
@@ -65,7 +66,13 @@ extern short g_loginExit;
 
 extern void MsgDailog(char * sMsg);
 static struct ServerInfo  serverInfo;
+static int showloginwindow = 0;
 
+//CallBackFun
+extern void SYmsgCaller(CallBackFun fun, char *p);
+extern int SYMsgFun(char *p);
+extern GdkPixbuf *create_pixbuf(const gchar * filename);
+//
 static pthread_t tid;
 void SetLoginWindowFocus()
 {
@@ -95,7 +102,8 @@ static gboolean on_key_press(GtkWidget *widget, GdkEventKey *event, gpointer use
     {
         case GDK_KEY_Return:
             {
-              ShenCloud_login();
+              //ShenCloud_login();
+              SYMsgDialog(0, "正在连接，请稍后 ... ");
             }
             break;
     }
@@ -119,7 +127,8 @@ static gboolean shutdown_button_released_callback (GtkWidget  *event_box,
     if (event->type == GDK_BUTTON_RELEASE)
     {
         gtk_image_set_from_pixbuf(GTK_IMAGE(data), g_shutdownNor);
-        MsgShutDownDailog("您确定要关闭系统吗？");
+        //MsgShutDownDailog("您确定要关闭系统吗？");
+        SYMsgDialog(11, "您确定要关闭系统吗？");
     }
     return TRUE;
 }
@@ -144,12 +153,14 @@ static void  on_btn_prev_released(GtkButton *button,  gpointer   user_data)
 {
    gtk_image_set_from_pixbuf(GTK_IMAGE(user_data), g_prevNor);
    g_loginExit = 1;
+   showloginwindow = 0;
    gtk_widget_destroy((GtkWidget *)g_window);
    gtk_main_quit();
 }
 
 static gboolean gtk_main_quit_login(GtkWidget * widget, GdkEventExpose * event, gpointer data)
 {
+      showloginwindow = 0;
       gtk_main_quit();
       g_loginExit = 1;
       return TRUE;
@@ -171,14 +182,19 @@ int ShenCloud_login()
     LogInfo("it is login_window exit. \n");
     if (Get_ctrldata() < 0)
       return -1;
+    //test
+    //SYmsgCaller(SYMsgFun, "正在连接，请稍后 ... ");
+    SetSymsgContext("正在连接，请稍后 ... ");
+    //test
     if (Ovirt_Login(ovirt_url, g_loginfo.user, g_loginfo.pass) < 0)
     {
         LogInfo("main Ovirt login failed.\n");
-        MsgDailog("Login failed.");
+        //MsgDailog("登录失败！");
+        //SYmsgCaller(SYMsgFun, "登录失败！");
+        SetSymsgContext("登录失败！");
         g_loginExit = 1;
         return -1;
     }
-
     //write login info
     if (g_selectProto == 0)
         SaveLogin(g_loginfo);
@@ -189,7 +205,9 @@ int ShenCloud_login()
     if (Ovirt_GetVms(ovirt_url, g_loginfo.user, g_loginfo.pass) < 0)
     {
         LogInfo("main Ovirt get vms failed.\n");
-        MsgDailog("Get Vms info failed.");
+        //MsgDailog("获取虚拟机信息失败！");
+        //SYmsgCaller(SYMsgFun, "获取虚拟机信息失败！");
+        SetSymsgContext("获取虚拟机信息失败！");
         return -1;
     }
     //获取服务器虚拟机列表数据
@@ -197,9 +215,12 @@ int ShenCloud_login()
     {
         if (SY_GetVms() < 0)
         {
-            MsgDailog("login failed, Please ensure that the user name and password are correct.");
+            //MsgDailog("登录失败，用户名或密码错误！");
+            SYmsgCaller(SYMsgFun, "登录失败，用户名或密码错误！");
             return -1;
         }
+        //SYmsgCaller(SYMsgFun, "连接成功，获取虚拟机信息 ... ");
+        SetSymsgContext("连接成功，获取虚拟机信息 ... ");
         LogInfo("login server shencloud, get vm  count : %d.\n", g_nVmCount);
         if (g_nVmCount == 1)
         {
@@ -224,15 +245,25 @@ int ShenCloud_login()
     if (g_selectProto == 1)
     {
         LogInfo("login server mirfeerdp , directly connect vm.\n");
+        char szError[MAX_BUFF_SIZE] = {0};
         nRet = Run_FreeRDP(g_loginfo.user, g_loginfo.pass, g_loginfo.ip);
         if (nRet < 0)
         {
+            switch (abs(nRet)) {
+              case 7:
+                 strcpy(szError, "连接失败，请确认信息！");
+                 break;
+              case 2:
+                 strcpy(szError, "IP地址不正确！");
+                 break;
+            }
             LogInfo("Debug: login window mirsoft, freeredp directly connect vms failed, nRet: %d. \n", nRet);
-            MsgDailog("connect vm failed.");
+            //MsgDailog(szError);
+            //SYmsgCaller(SYMsgFun, szError);
+            SetSymsgContext(szError);
             return -1;
         }
     }
-
     /*if (g_selectProto == 3)
     {
         // 创建线程tid，且线程函数由thrd_func指向，是thrd_func的入口点，即马上执行此线程函数
@@ -240,6 +271,8 @@ int ShenCloud_login()
             printf("Create vmare thread error!\n");
         }
     }*/
+    //SYmsgCaller(SYMsgFun, "登录完成!");
+    SetSymsgContext("登录完成!");
     CloseLog();
     //打印从服务器获取的虚拟机列表数据
   /*  //test use
@@ -258,6 +291,7 @@ int ShenCloud_login()
     gtk_widget_destroy((GtkWidget *)g_window);
     //gtk_widget_hide((GtkWidget *)g_window);
     gtk_main_quit();
+    showloginwindow = 0;
     g_loginExit = 0;
     if (g_selectProto == 0 && g_nVmCount > 1)
       SY_vmlistwindow_main();
@@ -327,7 +361,8 @@ static gboolean sh_button_released_callback (GtkWidget  *event_box,
     {
         printf("sh loginwindow loginbutton check mouser button released.\n");
         gtk_image_set_from_pixbuf(GTK_IMAGE(data), g_loginNor);
-        ShenCloud_login();
+        //ShenCloud_login();
+        SYMsgDialog(0, "正在连接，请稍后 ... ");
     }
     return TRUE;
 }
@@ -408,7 +443,10 @@ int Get_ctrldata()
         if (len == 0)
         {
             LogInfo("debug: IP don't null.\n");
-            MsgDailog("Login IP don't null.");
+            //MsgDailog("IP 不能为空！");
+            //SYMsgDialog(7, "IP 不能为空！");
+            //SYmsgCaller(SYMsgFun, "IP 不能为空！");
+            SetSymsgContext("IP 不能为空！");
             return -1;
         }
         char * ip = gtk_entry_get_text(GTK_ENTRY(object));
@@ -422,7 +460,10 @@ int Get_ctrldata()
         if (len == 0)
         {
             LogInfo("debug: port don't null.\n");
-            MsgDailog("Login port don't null.");
+            //MsgDailog("端口不能为空！");
+            //SYMsgDialog(7, "端口不能为空！");
+            //SYmsgCaller(SYMsgFun, "端口不能为空！");
+            SetSymsgContext("端口不能为空！");
             return -1;
         }
         char * port = gtk_entry_get_text(GTK_ENTRY(object));
@@ -439,7 +480,10 @@ int Get_ctrldata()
     if (len == 0)
     {
         LogInfo("debug: username don't null.\n");
-        MsgDailog("Login user don't null.");
+        //MsgDailog("用户名不能为空！");
+        //SYMsgDialog(7, "用户名不能为空！");
+        //SYmsgCaller(SYMsgFun, "用户名不能为空！");
+        SetSymsgContext("用户名不能为空！");
         return -1;
     }
     char * szUsername = gtk_entry_get_text(GTK_ENTRY(object));
@@ -454,7 +498,10 @@ int Get_ctrldata()
     if (len == 0)
     {
         LogInfo("debug: password don't null.\n");
-        MsgDailog("Login password don't null.");
+        //MsgDailog("密码不能为空！");
+        //SYMsgDialog(7, "密码不能为空！");
+        //SYmsgCaller(SYMsgFun, "密码不能为空！");
+        SetSymsgContext("密码不能为空！");
         return -1;
     }
     char * szPassword = gtk_entry_get_text(GTK_ENTRY(object));
@@ -470,6 +517,9 @@ int Get_ctrldata()
 
 void SY_loginwindow_main()
 {
+    if (showloginwindow == 1)
+       return;
+    showloginwindow = 1;
     GObject *window;
     GObject *button;
     GtkBuilder *builder;
@@ -591,7 +641,7 @@ void SY_loginwindow_main()
         gtk_widget_hide((GtkWidget *)entry);
         entry = gtk_builder_get_object (builder, "entry_port");
         gtk_widget_hide((GtkWidget *)entry);
-        struct LoginInfo info = {"", "", "", "", 3380, 0, 0};
+        struct LoginInfo info = {"", "", "", "", 3389, 0, 0};
         GetLoginInfo(&info);
         if (strcmp(info.user, "") == 0)
             strcpy(info.user, "admin@internal");
@@ -611,7 +661,7 @@ void SY_loginwindow_main()
         GObject *label;
         GObject *entry;
         g_checkrepass = 0;
-        struct LoginInfo info = {"", "", "", "", 3380, 0, 0};
+        struct LoginInfo info = {"", "", "", "", 3389, 0, 0};
         if (g_selectProto == 1)
             GetMirLoginInfo(&info);
         if (g_selectProto == 3)
@@ -626,7 +676,7 @@ void SY_loginwindow_main()
         entry = gtk_builder_get_object (builder, "entry_port");
         gtk_widget_show((GtkWidget *)entry);
         if (info.port == 0)
-            info.port = 3380;
+            info.port = 3389;
         {
            char szTmp[MAX_BUFF_SIZE] = {0};
            sprintf(szTmp, "%d", info.port);
@@ -676,11 +726,11 @@ void SY_loginwindow_main()
     g_signal_connect (G_OBJECT (eventbox_shutdown), "button_release_event",
                                     G_CALLBACK (shutdown_button_released_callback), (GtkWidget *)image_shutdown);
     //全屏显示
-    //gtk_window_set_keep_above(GTK_WINDOW(g_window), TRUE);
     gtk_window_fullscreen(GTK_WINDOW(g_window));
     gtk_window_set_default_size(GTK_WINDOW(g_window), g_screen_width, g_screen_height);
     gtk_window_set_decorated(GTK_WINDOW(g_window), FALSE); /* hide the title bar and the boder */
     LogInfo("loginwindow screen width: %d, height: %d\n", g_screen_width, g_screen_height);
+    gtk_window_set_keep_above(GTK_WINDOW(g_window), TRUE);
     g_signal_connect(G_OBJECT(g_window), \
                       "key-press-event", \
                       G_CALLBACK(on_key_press), NULL);
@@ -688,6 +738,7 @@ void SY_loginwindow_main()
     //手动为主窗口添加关联退出事件
     g_signal_connect (G_OBJECT(window), "destroy",
                        G_CALLBACK(gtk_main_quit_login), NULL);
+    gtk_window_set_icon(GTK_WINDOW(g_window), create_pixbuf("images2/logo.png"));
 
     //根据选择的协议的不同，改变登录时的LOGO
     GObject *image_logo;
@@ -718,4 +769,5 @@ void SY_loginwindow_main()
     gtk_main ();
     g_object_unref (G_OBJECT (builder));
     g_builder = NULL;
+    showloginwindow = 0;
 }

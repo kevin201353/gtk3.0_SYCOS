@@ -1,0 +1,2057 @@
+2016-07-16 16:11:41 Debug: shencloud version : 2016-08-16 16:11:06 .
+
+2016-07-16 16:11:41 debug: create_surfaces start load png.
+
+2016-07-16 16:11:42 debug: create_surfaces load png end.
+
+2016-07-16 16:11:42 debug: SY_topwindow_main  0000000.
+
+2016-07-16 16:11:42 debug: SY_topwindow_main  gtk_builder_add_from_file return :1.
+
+2016-07-16 16:11:42 debug: SY_topwindow_main  gtk_builder_add_from_file error :0.
+
+2016-07-16 16:11:42 debug: SY_topwindow_main  111111.
+
+2016-07-16 16:11:42 topwindow screen width: 1680, height: 1050
+
+2016-07-16 16:11:42 debug: SY_topwindow_main  2222222.
+
+2016-07-16 16:11:45 Debug：setting window 33333  first init.
+
+2016-07-16 16:11:45 Debug: Network info Get static net ip :192.168.0.133
+.
+
+2016-07-16 16:11:45 Debug: Network info Get static net mask :255.255.255.0
+.
+
+2016-07-16 16:11:45 Debug: Network info Get static net gatway :192.168.0.1
+.
+
+2016-07-16 16:11:45 Debug: Network findstr find.
+
+2016-07-16 16:11:45 Debug: initStaticNetctrl isDhcp .
+
+2016-07-16 16:11:45 Debug: get net dns, open get dns value = 192.168.20.249.
+
+2016-07-16 16:11:45 Debug: get net dns, netstatic info szDns = 192.168.20.249.
+
+2016-07-16 16:11:45 configxml Get server info, address : 192.168.0.220
+
+2016-07-16 16:11:45 configxml Get server info, port : 443.
+
+2016-07-16 16:11:45 configxml Get server info, user : admin@internal.
+
+2016-07-16 16:11:45 configxml Get server info, password : shencloud.
+
+2016-07-16 16:11:45 configxml Get server info, resolution_client : 0.
+
+2016-07-16 16:11:45 configxml Get server info, resolution_manual : 1.
+
+2016-07-16 16:11:45 configxml Get server info, resolution_value : 1680x1050.
+
+2016-07-16 16:11:45 Debug: setting.c initctrl get serverinfo,  ip: 192.168.0.220 .
+
+2016-07-16 16:11:45 Debug: setting.c initctrl get serverinfo,  user: admin@internal .
+
+2016-07-16 16:11:45 Debug: setting.c initctrl get serverinfo,  pass: shencloud .
+
+2016-07-16 16:11:45 Debug: setting.c initctrl get serverinfo,  port: 443 .
+
+2016-07-16 16:11:45 Debug: setting.c initctrl get serverinfo,  resolution: 0 .
+
+2016-07-16 16:11:45 Debug: setting.c initctrl g_checkrepass 555555,  resolution: 0 .
+
+2016-07-16 16:11:45 Debug: setting.c initctrl g_checkmanresol 555555,  resolution: 1 .
+
+2016-07-16 16:11:45 Debug:  setting.c init g_checkrepass is 0.
+
+2016-07-16 16:11:45 Debug:  setting.c init g_checkmanresol is 1.
+
+2016-07-16 16:11:45 Debug: resol ######## 111 :1920x1080 .
+
+2016-07-16 16:11:45 Debug: resol ######## 111 :1680x1050 .
+
+2016-07-16 16:11:45 Debug: resol ######## 111 :1280x1024 .
+
+2016-07-16 16:11:45 Debug: resol ######## 111 :1440x900 .
+
+2016-07-16 16:11:45 Debug: resol ######## 111 :1024x768 .
+
+2016-07-16 16:11:45 Debug: resol ######## 111 :832x624 .
+
+2016-07-16 16:11:45 Debug: resol ######## 111 :800x600 .
+
+2016-07-16 16:11:45 Debug: resol ######## 111 :640x480 .
+
+2016-07-16 16:11:45 Debug: resol ######## 111 :720x400 .
+
+2016-07-16 16:11:45 Debug : resol szTmp 33333 :1920x1080.
+
+2016-07-16 16:11:45 Debug : resol del lower resolution, szw :1920, szh :1080.
+
+2016-07-16 16:11:45 Debug : resol szTmp 33333 :1680x1050.
+
+2016-07-16 16:11:45 Debug : resol del lower resolution, szw :1680, szh :1050.
+
+2016-07-16 16:11:45 Debug : resol szTmp 33333 :1280x1024.
+
+2016-07-16 16:11:45 Debug : resol del lower resolution, szw :1280, szh :1024.
+
+2016-07-16 16:11:45 Debug : resol szTmp 33333 :1440x900.
+
+2016-07-16 16:11:45 Debug : resol del lower resolution, szw :1440, szh :900.
+
+2016-07-16 16:11:45 Debug : resol szTmp 33333 :1024x768.
+
+2016-07-16 16:11:45 Debug : resol del lower resolution, szw :1024, szh :768.
+
+2016-07-16 16:11:45 Debug : resol szTmp 33333 :832x624.
+
+2016-07-16 16:11:45 Debug : resol del lower resolution, szw :832, szh :624.
+
+2016-07-16 16:11:45 Debug : resol szTmp 33333 :800x600.
+
+2016-07-16 16:11:45 Debug : resol del lower resolution, szw :800, szh :600.
+
+2016-07-16 16:11:45 Debug : resol szTmp 33333 :640x480.
+
+2016-07-16 16:11:45 Debug : resol del lower resolution, szw :640, szh :480.
+
+2016-07-16 16:11:45 Debug : resol szTmp 33333 :720x400.
+
+2016-07-16 16:11:45 Debug : resol del lower resolution, szw :720, szh :400.
+
+2016-07-16 16:11:45 Debug: resol ######## 222 g_resolCount :5 .
+
+2016-07-16 16:11:45 Debug: setting.c setResol  g_resolCount = 5 .
+
+2016-07-16 16:11:45 Debug: setting.c setResol  manual resolution = 1920x1080 .
+
+2016-07-16 16:11:45 Debug: setting.c setResol  manual resolution = 1680x1050 .
+
+2016-07-16 16:11:45 Debug: setting.c setResol  manual resolution = 1280x1024 .
+
+2016-07-16 16:11:45 Debug: setting.c setResol  manual resolution = 1440x900 .
+
+2016-07-16 16:11:45 Debug: setting.c setResol  manual resolution = 1024x768 .
+
+2016-07-16 16:11:45 Debug: setting.c setResol  g_serverinfo.szResol = 1680x1050 .
+
+2016-07-16 16:11:45 Debug: setting.c IsRelExist  ##### 11,  index = 1 .
+
+2016-07-16 16:11:45 Debug: setting.c setResol  IsRelExist  index = 1 .
+
+2016-07-16 16:11:48 Debug: checkbutton resolution gtkimage check: 1.
+
+2016-07-16 16:11:49 Debug: setting.c main exit, selected resolution, screen_width: 1680, screen_height: 1050. 
+
+2016-07-16 16:11:49 Debug: setting.c main exit, selected resolution, cmd: xrandr -s  1680x1050 .
+
+2016-07-16 16:11:49 debug: serverIP: 192.168.0.220.
+
+2016-07-16 16:11:49 debug: serverIP: 443.
+
+2016-07-16 16:11:49 debug: username: admin@internal.
+
+2016-07-16 16:11:49 debug: password: shencloud.
+
+2016-07-16 16:11:50 Debug: setting.c main exit, selected resolution, screen_width: 1680, screen_height: 1050. 
+
+2016-07-16 16:11:50 Debug: setting.c main exit, selected resolution, cmd: xrandr -s  1680x1050 .
+
+2016-07-16 16:11:50 debug: serverIP: 192.168.0.220.
+
+2016-07-16 16:11:50 debug: serverIP: 443.
+
+2016-07-16 16:11:50 debug: username: admin@internal.
+
+2016-07-16 16:11:50 debug: password: shencloud.
+
+2016-07-16 16:13:13 Debug: shencloud version : 2016-08-16 16:12:56 .
+
+2016-07-16 16:13:13 debug: create_surfaces start load png.
+
+2016-07-16 16:13:14 debug: create_surfaces load png end.
+
+2016-07-16 16:13:14 debug: SY_topwindow_main  0000000.
+
+2016-07-16 16:13:14 debug: SY_topwindow_main  gtk_builder_add_from_file return :1.
+
+2016-07-16 16:13:14 debug: SY_topwindow_main  gtk_builder_add_from_file error :0.
+
+2016-07-16 16:13:14 debug: SY_topwindow_main  111111.
+
+2016-07-16 16:13:14 topwindow screen width: 1680, height: 1050
+
+2016-07-16 16:13:14 debug: SY_topwindow_main  2222222.
+
+2016-07-16 16:13:15 Debug：setting window 33333  first init.
+
+2016-07-16 16:13:16 Debug: Network info Get static net ip :192.168.0.133
+.
+
+2016-07-16 16:13:16 Debug: Network info Get static net mask :255.255.255.0
+.
+
+2016-07-16 16:13:16 Debug: Network info Get static net gatway :192.168.0.1
+.
+
+2016-07-16 16:13:16 Debug: Network findstr find.
+
+2016-07-16 16:13:16 Debug: initStaticNetctrl isDhcp .
+
+2016-07-16 16:13:16 Debug: get net dns, open get dns value = 192.168.20.249.
+
+2016-07-16 16:13:16 Debug: get net dns, netstatic info szDns = 192.168.20.249.
+
+2016-07-16 16:13:16 configxml Get server info, address : 192.168.0.220
+
+2016-07-16 16:13:16 configxml Get server info, port : 443.
+
+2016-07-16 16:13:16 configxml Get server info, user : admin@internal.
+
+2016-07-16 16:13:16 configxml Get server info, password : shencloud.
+
+2016-07-16 16:13:16 configxml Get server info, resolution_client : 1.
+
+2016-07-16 16:13:16 configxml Get server info, resolution_manual : 0.
+
+2016-07-16 16:13:16 configxml Get server info, resolution_value : 1680x1050.
+
+2016-07-16 16:13:16 Debug: setting.c initctrl get serverinfo,  ip: 192.168.0.220 .
+
+2016-07-16 16:13:16 Debug: setting.c initctrl get serverinfo,  user: admin@internal .
+
+2016-07-16 16:13:16 Debug: setting.c initctrl get serverinfo,  pass: shencloud .
+
+2016-07-16 16:13:16 Debug: setting.c initctrl get serverinfo,  port: 443 .
+
+2016-07-16 16:13:16 Debug: setting.c initctrl get serverinfo,  resolution: 1 .
+
+2016-07-16 16:13:16 Debug: setting.c initctrl g_checkrepass 555555,  resolution: 1 .
+
+2016-07-16 16:13:16 Debug: setting.c initctrl g_checkmanresol 555555,  resolution: 0 .
+
+2016-07-16 16:13:16 Debug:  setting.c init g_checkrepass is 1.
+
+2016-07-16 16:13:16 Debug:  setting.c init g_checkmanresol is 0.
+
+2016-07-16 16:13:16 Debug: resol ######## 111 :1920x1080 .
+
+2016-07-16 16:13:16 Debug: resol ######## 111 :1680x1050 .
+
+2016-07-16 16:13:16 Debug: resol ######## 111 :1280x1024 .
+
+2016-07-16 16:13:16 Debug: resol ######## 111 :1440x900 .
+
+2016-07-16 16:13:16 Debug: resol ######## 111 :1024x768 .
+
+2016-07-16 16:13:16 Debug: resol ######## 111 :832x624 .
+
+2016-07-16 16:13:16 Debug: resol ######## 111 :800x600 .
+
+2016-07-16 16:13:16 Debug: resol ######## 111 :640x480 .
+
+2016-07-16 16:13:16 Debug: resol ######## 111 :720x400 .
+
+2016-07-16 16:13:16 Debug : resol szTmp 33333 :1920x1080.
+
+2016-07-16 16:13:16 Debug : resol del lower resolution, szw :1920, szh :1080.
+
+2016-07-16 16:13:16 Debug : resol szTmp 33333 :1680x1050.
+
+2016-07-16 16:13:16 Debug : resol del lower resolution, szw :1680, szh :1050.
+
+2016-07-16 16:13:16 Debug : resol szTmp 33333 :1280x1024.
+
+2016-07-16 16:13:16 Debug : resol del lower resolution, szw :1280, szh :1024.
+
+2016-07-16 16:13:16 Debug : resol szTmp 33333 :1440x900.
+
+2016-07-16 16:13:16 Debug : resol del lower resolution, szw :1440, szh :900.
+
+2016-07-16 16:13:16 Debug : resol szTmp 33333 :1024x768.
+
+2016-07-16 16:13:16 Debug : resol del lower resolution, szw :1024, szh :768.
+
+2016-07-16 16:13:16 Debug : resol szTmp 33333 :832x624.
+
+2016-07-16 16:13:16 Debug : resol del lower resolution, szw :832, szh :624.
+
+2016-07-16 16:13:16 Debug : resol szTmp 33333 :800x600.
+
+2016-07-16 16:13:16 Debug : resol del lower resolution, szw :800, szh :600.
+
+2016-07-16 16:13:16 Debug : resol szTmp 33333 :640x480.
+
+2016-07-16 16:13:16 Debug : resol del lower resolution, szw :640, szh :480.
+
+2016-07-16 16:13:16 Debug : resol szTmp 33333 :720x400.
+
+2016-07-16 16:13:16 Debug : resol del lower resolution, szw :720, szh :400.
+
+2016-07-16 16:13:16 Debug: resol ######## 222 g_resolCount :5 .
+
+2016-07-16 16:13:16 Debug: setting.c setResol  g_resolCount = 5 .
+
+2016-07-16 16:13:16 Debug: setting.c setResol  manual resolution = 1920x1080 .
+
+2016-07-16 16:13:16 Debug: setting.c setResol  manual resolution = 1680x1050 .
+
+2016-07-16 16:13:16 Debug: setting.c setResol  manual resolution = 1280x1024 .
+
+2016-07-16 16:13:16 Debug: setting.c setResol  manual resolution = 1440x900 .
+
+2016-07-16 16:13:16 Debug: setting.c setResol  manual resolution = 1024x768 .
+
+2016-07-16 16:13:16 Debug: setting.c setResol  g_serverinfo.szResol = 1680x1050 .
+
+2016-07-16 16:13:16 Debug: setting.c IsRelExist  ##### 11,  index = 1 .
+
+2016-07-16 16:13:16 Debug: setting.c setResol  IsRelExist  index = 1 .
+
+2016-07-16 16:13:18 Debug: setting.c main exit, selected resolution, screen_width: 1920, screen_height: 1080. 
+
+2016-07-16 16:13:18 Debug: setting.c main exit, selected resolution, cmd: xrandr -s  1920x1080 .
+
+2016-07-16 16:13:18 debug: serverIP: 192.168.0.220.
+
+2016-07-16 16:13:18 debug: serverIP: 443.
+
+2016-07-16 16:13:18 debug: username: admin@internal.
+
+2016-07-16 16:13:18 debug: password: shencloud.
+
+2016-07-16 16:13:29 configxml Get server info, address : 192.168.0.220
+
+2016-07-16 16:13:29 configxml Get server info, port : 443.
+
+2016-07-16 16:13:29 configxml Get server info, user : admin@internal.
+
+2016-07-16 16:13:29 configxml Get server info, password : shencloud.
+
+2016-07-16 16:13:29 configxml Get server info, resolution_client : 1.
+
+2016-07-16 16:13:29 configxml Get server info, resolution_manual : 0.
+
+2016-07-16 16:13:29 configxml Get server info, resolution_value : 1680x1050.
+
+2016-07-16 16:13:29 login xml get element :user  value: admin@internal.
+
+2016-07-16 16:13:29 GetLoginInfo   user: admin@internal
+2016-07-16 16:13:29 login xml get element :password  value: shencloud.
+
+2016-07-16 16:13:29 GetLoginInfo   password: shencloud
+2016-07-16 16:13:29 login xml get element :repass  value: 1.
+
+2016-07-16 16:13:29 GetLoginInfo   repass: 1
+2016-07-16 16:13:29 loginwindow screen width: 1920, height: 1080
+
+2016-07-16 16:13:30 it is login_window exit. 
+
+2016-07-16 16:13:30 debug: username: admin@internal.
+
+2016-07-16 16:13:30 debug: password: shencloud.
+
+2016-07-16 16:13:30 debug: reapss: 1.
+
+2016-07-16 16:13:30 Debug: Ovirt_Login url : https://192.168.0.220/ovirt-engine/api.
+
+2016-07-16 16:13:30 configxml savelogin user: admin@internal.
+
+2016-07-16 16:13:30 configxml savelogin password: shencloud.
+
+2016-07-16 16:13:30 configxml savelogin repass: 1.
+
+2016-07-16 16:13:30 configxml savelogin repass sztmp: 1.
+
+2016-07-16 16:13:30 Debug: Ovirt_getvms url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:13:30 list_empty ### enter.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : services-AD.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :other.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5905.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : stu1.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :other.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5903.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : stu2.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :other.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5906.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : stu3.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :other.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5902.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : stu4.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :other.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5909.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : stu5.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :other.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5910.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : stu6.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :other.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5911.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : teacher.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :other.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5901.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : test.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :other.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5912.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : vlan1.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :other_linux.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5900.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : zabbix.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :other_linux.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5904.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : zhaoshenhua-01.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :windows_7.
+
+2016-07-16 16:13:30 Debug: pNode-val.port :5907.
+
+2016-07-16 16:13:30 Debug: pNode-val.name : zhaoshenhua-02.
+
+2016-07-16 16:13:30 Debug: pNode-val.os :windows_7.
+
+2016-07-16 16:13:30 login server shencloud, get vm  count : 13.
+
+2016-07-16 16:13:30 login xml get element :user  value: admin@internal.
+
+2016-07-16 16:13:30 login xml get element :password  value: shencloud.
+
+2016-07-16 16:13:30 vmlistwindow screen width: 1920, height: 1080
+
+2016-07-16 16:13:30 debug: New process checkstate:  PID: 14004, TID: 125703936.
+
+2016-07-16 16:13:30 debug: New process11 :  PID: 14004, TID: 134096640.
+
+2016-07-16 16:13:30 debug: vmsstate_update thrd enter.
+
+2016-07-16 16:13:30 Debug: Ovirt_getvmsTmp url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:13:30 SY_LoadxmlTmp $$$$$$$$$$$, file size :76653 .
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : services-AD.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5905.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : stu1.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5903.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : stu2.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5906.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : stu3.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:30 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5902.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : stu4.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5909.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : stu5.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5910.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : stu6.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5911.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : teacher.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5901.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : test.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5912.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : vlan1.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5900.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : zabbix.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5904.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : zhaoshenhua-01.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.port :5907.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.name : zhaoshenhua-02.
+
+2016-07-16 16:13:30 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:13:30 debug: vmsstate_update thrd enter 1111.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:30 debug: vms status : 0 , nstate : 0.
+
+2016-07-16 16:13:30 debug: vmsstate_update thrd enter 4444.
+
+2016-07-16 16:13:31 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:31 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:31 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:31 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:31 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:31 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:32 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:32 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:32 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:32 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:32 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:32 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:33 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:33 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:37 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:37 Debug: Ovirt_ShutdownVms url : https://192.168.0.220/ovirt-engine/api/vms/50a1a5c0-95c5-4213-91e0-32da8d776678/shutdown.
+
+2016-07-16 16:13:37 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:38 debug: vmsstate_update thrd enter.
+
+2016-07-16 16:13:38 Debug: Ovirt_getvmsTmp url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:13:39 SY_LoadxmlTmp $$$$$$$$$$$, file size :76653 .
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : services-AD.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5905.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : stu1.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5903.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : stu2.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5906.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : stu3.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5902.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : stu4.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5909.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : stu5.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5910.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : stu6.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5911.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : teacher.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5901.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : test.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5912.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : vlan1.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5900.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : zabbix.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5904.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : zhaoshenhua-01.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.port :5907.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.name : zhaoshenhua-02.
+
+2016-07-16 16:13:39 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:13:39 debug: vmsstate_update thrd enter 1111.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:39 debug: vms status : 0 , nstate : 0.
+
+2016-07-16 16:13:39 debug: vmsstate_update thrd enter 4444.
+
+2016-07-16 16:13:40 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:40 Debug: Ovirt_startVms url : https://192.168.0.220/ovirt-engine/api/vms/50a1a5c0-95c5-4213-91e0-32da8d776678/start.
+
+2016-07-16 16:13:40 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:40  Debug: vmlist window UpdateVmsStatus ovirt getvm2 g_szUser : admin@internal,  g_szPass: 6399616 .
+
+2016-07-16 16:13:40 Debug: Ovirt_GetVm2 url : https://192.168.0.220/ovirt-engine/api/vms/50a1a5c0-95c5-4213-91e0-32da8d776678.
+
+2016-07-16 16:13:45  Debug: vmlist window UpdateVmsStatus ovirt getvm2 g_szUser : admin@internal,  g_szPass: 6399616 .
+
+2016-07-16 16:13:45 Debug: Ovirt_GetVm2 url : https://192.168.0.220/ovirt-engine/api/vms/50a1a5c0-95c5-4213-91e0-32da8d776678.
+
+2016-07-16 16:13:45 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:47 debug: vmsstate_update thrd enter.
+
+2016-07-16 16:13:47 Debug: Ovirt_getvmsTmp url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:13:47 SY_LoadxmlTmp $$$$$$$$$$$, file size :76888 .
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : services-AD.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5905.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : stu1.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5903.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : stu2.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5906.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : stu3.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5902.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : stu4.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5909.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : stu5.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5910.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : stu6.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5911.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : teacher.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5901.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : test.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5912.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : vlan1.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5900.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : zabbix.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5904.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : zhaoshenhua-01.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5907.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.name : zhaoshenhua-02.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:13:47 Debug: g_vmsComUpdate.port :5908.
+
+2016-07-16 16:13:47 debug: vmsstate_update thrd enter 1111.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:47 debug: vms status : 3 , nstate : 3.
+
+2016-07-16 16:13:47 debug: vmsstate_update thrd enter 4444.
+
+2016-07-16 16:13:47 debug: vmlist on_expose_event start.
+
+2016-07-16 16:13:55 debug: vmsstate_update thrd enter.
+
+2016-07-16 16:13:55 Debug: Ovirt_getvmsTmp url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:13:55 SY_LoadxmlTmp $$$$$$$$$$$, file size :76888 .
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : services-AD.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5905.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : stu1.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5903.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : stu2.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5906.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : stu3.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5902.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : stu4.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5909.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : stu5.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5910.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : stu6.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5911.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : teacher.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5901.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : test.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5912.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : vlan1.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5900.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : zabbix.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5904.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : zhaoshenhua-01.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5907.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.name : zhaoshenhua-02.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:13:55 Debug: g_vmsComUpdate.port :5908.
+
+2016-07-16 16:13:55 debug: vmsstate_update thrd enter 1111.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:13:55 debug: vms status : 3 , nstate : 3.
+
+2016-07-16 16:13:55 debug: vmsstate_update thrd enter 4444.
+
+2016-07-16 16:17:51 configxml Get server info, address : 192.168.0.220
+
+2016-07-16 16:17:51 configxml Get server info, port : 443.
+
+2016-07-16 16:17:51 configxml Get server info, user : admin@internal.
+
+2016-07-16 16:17:51 configxml Get server info, password : shencloud.
+
+2016-07-16 16:17:51 configxml Get server info, resolution_client : 1.
+
+2016-07-16 16:17:51 configxml Get server info, resolution_manual : 0.
+
+2016-07-16 16:17:51 configxml Get server info, resolution_value : 1680x1050.
+
+2016-07-16 16:17:51 login xml get element :address  value: 192.168.0.174.
+
+2016-07-16 16:17:51 GetMirLoginInfo   address: 192.168.0.174
+2016-07-16 16:17:51 login xml get element :port  value: 3389.
+
+2016-07-16 16:17:51 GetMirLoginInfo   port: 3389
+2016-07-16 16:17:51 login xml get element :user  value: pengJ.
+
+2016-07-16 16:17:51 GetMirLoginInfo   user: pengJ
+2016-07-16 16:17:51 login xml get element :password  value: pengjian.
+
+2016-07-16 16:17:51 GetMirLoginInfo   password: pengjian
+2016-07-16 16:17:51 login xml get element :repass  value: 1.
+
+2016-07-16 16:17:51 GetMirLoginInfo   repass: 1
+2016-07-16 16:17:51 loginwindow screen width: 1920, height: 1080
+
+2016-07-16 16:17:53 it is login_window exit. 
+
+2016-07-16 16:17:53 debug: ip: 192.168.0.174.
+
+2016-07-16 16:17:53 debug: ip: 3389.
+
+2016-07-16 16:17:53 debug: username: pengJ.
+
+2016-07-16 16:17:53 debug: password: pengjian.
+
+2016-07-16 16:17:53 debug: reapss: 1.
+
+2016-07-16 16:17:53 Debug: Ovirt_Login url : https://192.168.0.220/ovirt-engine/api.
+
+2016-07-16 16:17:53 configxml SaveMirLogin password: 192.168.0.174.
+
+2016-07-16 16:17:53 configxml SaveMirLogin port: 3389.
+
+2016-07-16 16:17:53 configxml SaveMirLogin user: pengJ.
+
+2016-07-16 16:17:53 configxml SaveMirLogin password: pengjian.
+
+2016-07-16 16:17:53 configxml SaveMirLogin repass: 1.
+
+2016-07-16 16:17:53 configxml SaveMirLogin repass sztmp: 1.
+
+2016-07-16 16:17:53 Debug: Ovirt_getvms url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:17:53 login server mirfeerdp , directly connect vm.
+
+2016-07-16 16:19:03 Debug : topwindow press : Alt_L .
+
+2016-07-16 16:19:05 Debug : topwindow press : Control_L .
+
+2016-07-16 16:19:05 Debug : topwindow press : Alt_L .
+
+2016-07-16 16:19:06 Debug : topwindow press : Alt_L .
+
+2016-07-16 16:21:40 configxml Get server info, address : 192.168.0.220
+
+2016-07-16 16:21:40 configxml Get server info, port : 443.
+
+2016-07-16 16:21:40 configxml Get server info, user : admin@internal.
+
+2016-07-16 16:21:40 configxml Get server info, password : shencloud.
+
+2016-07-16 16:21:40 configxml Get server info, resolution_client : 1.
+
+2016-07-16 16:21:40 configxml Get server info, resolution_manual : 0.
+
+2016-07-16 16:21:40 configxml Get server info, resolution_value : 1680x1050.
+
+2016-07-16 16:21:40 login xml get element :address  value: 192.168.0.174.
+
+2016-07-16 16:21:40 GetMirLoginInfo   address: 192.168.0.174
+2016-07-16 16:21:40 login xml get element :port  value: 3389.
+
+2016-07-16 16:21:40 GetMirLoginInfo   port: 3389
+2016-07-16 16:21:40 login xml get element :user  value: pengJ.
+
+2016-07-16 16:21:40 GetMirLoginInfo   user: pengJ
+2016-07-16 16:21:40 login xml get element :password  value: pengjian.
+
+2016-07-16 16:21:40 GetMirLoginInfo   password: pengjian
+2016-07-16 16:21:40 login xml get element :repass  value: 1.
+
+2016-07-16 16:21:40 GetMirLoginInfo   repass: 1
+2016-07-16 16:21:40 loginwindow screen width: 1920, height: 1080
+
+2016-07-16 16:21:43 it is login_window exit. 
+
+2016-07-16 16:21:43 debug: ip: 192.168.0.174.
+
+2016-07-16 16:21:43 debug: ip: 3389.
+
+2016-07-16 16:21:43 debug: username: pengJ.
+
+2016-07-16 16:21:43 debug: password: pengjian.
+
+2016-07-16 16:21:43 debug: reapss: 1.
+
+2016-07-16 16:21:43 Debug: Ovirt_Login url : https://192.168.0.220/ovirt-engine/api.
+
+2016-07-16 16:21:43 configxml SaveMirLogin password: 192.168.0.174.
+
+2016-07-16 16:21:43 configxml SaveMirLogin port: 3389.
+
+2016-07-16 16:21:43 configxml SaveMirLogin user: pengJ.
+
+2016-07-16 16:21:43 configxml SaveMirLogin password: pengjian.
+
+2016-07-16 16:21:43 configxml SaveMirLogin repass: 1.
+
+2016-07-16 16:21:43 configxml SaveMirLogin repass sztmp: 1.
+
+2016-07-16 16:21:43 Debug: Ovirt_getvms url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:21:43 login server mirfeerdp , directly connect vm.
+
+2016-07-16 16:24:42 Debug: shencloud version : 2016-08-16 16:23:52 .
+
+2016-07-16 16:24:42 debug: create_surfaces start load png.
+
+2016-07-16 16:24:42 debug: create_surfaces load png end.
+
+2016-07-16 16:24:42 debug: SY_topwindow_main  0000000.
+
+2016-07-16 16:24:43 debug: SY_topwindow_main  gtk_builder_add_from_file return :1.
+
+2016-07-16 16:24:43 debug: SY_topwindow_main  gtk_builder_add_from_file error :0.
+
+2016-07-16 16:24:43 debug: SY_topwindow_main  111111.
+
+2016-07-16 16:24:43 topwindow screen width: 1920, height: 1080
+
+2016-07-16 16:24:43 debug: SY_topwindow_main  2222222.
+
+2016-07-16 16:24:45 configxml Get server info, address : 192.168.0.220
+
+2016-07-16 16:24:45 configxml Get server info, port : 443.
+
+2016-07-16 16:24:45 configxml Get server info, user : admin@internal.
+
+2016-07-16 16:24:45 configxml Get server info, password : shencloud.
+
+2016-07-16 16:24:45 configxml Get server info, resolution_client : 1.
+
+2016-07-16 16:24:45 configxml Get server info, resolution_manual : 0.
+
+2016-07-16 16:24:45 configxml Get server info, resolution_value : 1680x1050.
+
+2016-07-16 16:24:45 login xml get element :user  value: admin@internal.
+
+2016-07-16 16:24:45 GetLoginInfo   user: admin@internal
+2016-07-16 16:24:45 login xml get element :password  value: shencloud.
+
+2016-07-16 16:24:45 GetLoginInfo   password: shencloud
+2016-07-16 16:24:45 login xml get element :repass  value: 1.
+
+2016-07-16 16:24:45 GetLoginInfo   repass: 1
+2016-07-16 16:24:45 loginwindow screen width: 1920, height: 1080
+
+2016-07-16 16:24:46 it is login_window exit. 
+
+2016-07-16 16:24:46 debug: username: admin@internal.
+
+2016-07-16 16:24:46 debug: password: shencloud.
+
+2016-07-16 16:24:46 debug: reapss: 1.
+
+2016-07-16 16:24:46 Debug: Ovirt_Login url : https://192.168.0.220/ovirt-engine/api.
+
+2016-07-16 16:24:46 configxml savelogin user: admin@internal.
+
+2016-07-16 16:24:46 configxml savelogin password: shencloud.
+
+2016-07-16 16:24:46 configxml savelogin repass: 1.
+
+2016-07-16 16:24:46 configxml savelogin repass sztmp: 1.
+
+2016-07-16 16:24:46 Debug: Ovirt_getvms url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:24:46 list_empty ### enter.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : services-AD.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :other.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5905.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : stu1.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :other.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5903.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : stu2.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :other.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5906.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : stu3.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :other.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5902.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : stu4.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :other.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5909.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : stu5.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :other.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5910.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : stu6.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :other.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5911.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : teacher.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :other.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5901.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : test.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :other.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5912.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : vlan1.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :other_linux.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5900.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : zabbix.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :other_linux.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5904.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : zhaoshenhua-01.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :windows_7.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5907.
+
+2016-07-16 16:24:46 Debug: pNode-val.name : zhaoshenhua-02.
+
+2016-07-16 16:24:46 Debug: pNode-val.os :windows_7.
+
+2016-07-16 16:24:46 Debug: pNode-val.port :5908.
+
+2016-07-16 16:24:46 login server shencloud, get vm  count : 13.
+
+2016-07-16 16:24:46 login xml get element :user  value: admin@internal.
+
+2016-07-16 16:24:46 login xml get element :password  value: shencloud.
+
+2016-07-16 16:24:46 vmlistwindow screen width: 1920, height: 1080
+
+2016-07-16 16:24:46 debug: New process11 :  PID: 14170, TID: 990287616.
+
+2016-07-16 16:24:46 debug: New process checkstate:  PID: 14170, TID: 981894912.
+
+2016-07-16 16:24:46 debug: vmsstate_update thrd enter.
+
+2016-07-16 16:24:46 Debug: Ovirt_getvmsTmp url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:24:47 SY_LoadxmlTmp $$$$$$$$$$$, file size :76879 .
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : services-AD.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5905.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : stu1.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5903.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : stu2.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5906.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : stu3.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5902.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : stu4.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5909.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : stu5.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5910.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : stu6.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5911.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : teacher.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5901.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : test.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5912.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : vlan1.
+
+2016-07-16 16:24:47 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5900.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : zabbix.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5904.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : zhaoshenhua-01.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5907.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.name : zhaoshenhua-02.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:24:47 Debug: g_vmsComUpdate.port :5908.
+
+2016-07-16 16:24:47 debug: vmsstate_update thrd enter 1111.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:47 debug: vmsstate_update thrd enter 4444.
+
+2016-07-16 16:24:47 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:47 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:47 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:47 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:47 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:48 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:49 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:49 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:49 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:49 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:50 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:50 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:51 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:51 Debug: Ovirt_ShutdownVms url : https://192.168.0.220/ovirt-engine/api/vms/50a1a5c0-95c5-4213-91e0-32da8d776678/shutdown.
+
+2016-07-16 16:24:51 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:51  Debug: vmlist window UpdateVmsStatus ovirt getvm2 g_szUser : admin@internal,  g_szPass: 6399616 .
+
+2016-07-16 16:24:51 Debug: Ovirt_GetVm2 url : https://192.168.0.220/ovirt-engine/api/vms/50a1a5c0-95c5-4213-91e0-32da8d776678.
+
+2016-07-16 16:24:52 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:53 debug: vmlist on_expose_event start.
+
+2016-07-16 16:24:55 debug: vmsstate_update thrd enter.
+
+2016-07-16 16:24:55 Debug: Ovirt_getvmsTmp url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:24:55 SY_LoadxmlTmp $$$$$$$$$$$, file size :76926 .
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : services-AD.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5905.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : stu1.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5903.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : stu2.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5906.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : stu3.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5902.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : stu4.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5909.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : stu5.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5910.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : stu6.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5911.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : teacher.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5901.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : test.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5912.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : vlan1.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5900.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : zabbix.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5904.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : zhaoshenhua-01.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5907.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.name : zhaoshenhua-02.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:24:55 Debug: g_vmsComUpdate.port :5908.
+
+2016-07-16 16:24:55 debug: vmsstate_update thrd enter 1111.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:24:55 debug: vms status : 4 , nstate : 4.
+
+2016-07-16 16:24:55 debug: vmsstate_update thrd enter 4444.
+
+2016-07-16 16:28:11 Debug: shencloud version : 2016-08-16 16:27:52 .
+
+2016-07-16 16:28:11 debug: create_surfaces start load png.
+
+2016-07-16 16:28:11 debug: create_surfaces load png end.
+
+2016-07-16 16:28:11 debug: SY_topwindow_main  0000000.
+
+2016-07-16 16:28:11 debug: SY_topwindow_main  gtk_builder_add_from_file return :1.
+
+2016-07-16 16:28:11 debug: SY_topwindow_main  gtk_builder_add_from_file error :0.
+
+2016-07-16 16:28:11 debug: SY_topwindow_main  111111.
+
+2016-07-16 16:28:11 topwindow screen width: 1920, height: 1080
+
+2016-07-16 16:28:11 debug: SY_topwindow_main  2222222.
+
+2016-07-16 16:28:14 configxml Get server info, address : 192.168.0.220
+
+2016-07-16 16:28:14 configxml Get server info, port : 443.
+
+2016-07-16 16:28:14 configxml Get server info, user : admin@internal.
+
+2016-07-16 16:28:14 configxml Get server info, password : shencloud.
+
+2016-07-16 16:28:14 configxml Get server info, resolution_client : 1.
+
+2016-07-16 16:28:14 configxml Get server info, resolution_manual : 0.
+
+2016-07-16 16:28:14 configxml Get server info, resolution_value : 1680x1050.
+
+2016-07-16 16:28:14 login xml get element :user  value: admin@internal.
+
+2016-07-16 16:28:14 GetLoginInfo   user: admin@internal
+2016-07-16 16:28:14 login xml get element :password  value: shencloud.
+
+2016-07-16 16:28:14 GetLoginInfo   password: shencloud
+2016-07-16 16:28:14 login xml get element :repass  value: 1.
+
+2016-07-16 16:28:14 GetLoginInfo   repass: 1
+2016-07-16 16:28:14 loginwindow screen width: 1920, height: 1080
+
+2016-07-16 16:28:14 it is login_window exit. 
+
+2016-07-16 16:28:14 debug: username: admin@internal.
+
+2016-07-16 16:28:14 debug: password: shencloud.
+
+2016-07-16 16:28:14 debug: reapss: 1.
+
+2016-07-16 16:28:14 Debug: Ovirt_Login url : https://192.168.0.220/ovirt-engine/api.
+
+2016-07-16 16:28:14 configxml savelogin user: admin@internal.
+
+2016-07-16 16:28:14 configxml savelogin password: shencloud.
+
+2016-07-16 16:28:14 configxml savelogin repass: 1.
+
+2016-07-16 16:28:14 configxml savelogin repass sztmp: 1.
+
+2016-07-16 16:28:14 Debug: Ovirt_getvms url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:28:15 list_empty ### enter.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : services-AD.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :other.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5905.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : stu1.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :other.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5903.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : stu2.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :other.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5906.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : stu3.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :other.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5902.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : stu4.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :other.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5909.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : stu5.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :other.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5910.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : stu6.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :other.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5911.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : teacher.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :other.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5901.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : test.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :other.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5912.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : vlan1.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :other_linux.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5900.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : zabbix.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :other_linux.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5904.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : zhaoshenhua-01.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :windows_7.
+
+2016-07-16 16:28:15 Debug: pNode-val.port :5907.
+
+2016-07-16 16:28:15 Debug: pNode-val.name : zhaoshenhua-02.
+
+2016-07-16 16:28:15 Debug: pNode-val.os :windows_7.
+
+2016-07-16 16:28:15 login server shencloud, get vm  count : 13.
+
+2016-07-16 16:28:15 login xml get element :user  value: admin@internal.
+
+2016-07-16 16:28:15 login xml get element :password  value: shencloud.
+
+2016-07-16 16:28:15 vmlistwindow screen width: 1920, height: 1080
+
+2016-07-16 16:28:15 debug: New process11 :  PID: 14231, TID: 4268365568.
+
+2016-07-16 16:28:15 debug: New process checkstate:  PID: 14231, TID: 4259972864.
+
+2016-07-16 16:28:15 debug: vmsstate_update thrd enter.
+
+2016-07-16 16:28:15 Debug: Ovirt_getvmsTmp url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:28:15 SY_LoadxmlTmp $$$$$$$$$$$, file size :76653 .
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : services-AD.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5905.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : stu1.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5903.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : stu2.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5906.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : stu3.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5902.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : stu4.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5909.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : stu5.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5910.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : stu6.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5911.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : teacher.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5901.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : test.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5912.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : vlan1.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5900.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : zabbix.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5904.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : zhaoshenhua-01.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.port :5907.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.name : zhaoshenhua-02.
+
+2016-07-16 16:28:15 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:28:15 debug: vmsstate_update thrd enter 1111.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:15 debug: vms status : 0 , nstate : 0.
+
+2016-07-16 16:28:15 debug: vmsstate_update thrd enter 4444.
+
+2016-07-16 16:28:15 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:15 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:15 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:15 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:15 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:15 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:15 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:15 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:15 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:15 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:15 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:16 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:16 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:18 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:18 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:18 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:18 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:21 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:21 Debug: Ovirt_startVms url : https://192.168.0.220/ovirt-engine/api/vms/50a1a5c0-95c5-4213-91e0-32da8d776678/start.
+
+2016-07-16 16:28:21 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:23 debug: vmsstate_update thrd enter.
+
+2016-07-16 16:28:23 Debug: Ovirt_getvmsTmp url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:28:23 SY_LoadxmlTmp $$$$$$$$$$$, file size :76862 .
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : services-AD.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5905.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : stu1.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5903.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : stu2.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5906.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : stu3.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5902.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : stu4.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5909.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : stu5.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5910.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : stu6.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5911.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : teacher.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5901.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : test.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5912.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : vlan1.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5900.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : zabbix.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5904.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : zhaoshenhua-01.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.port :5907.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.name : zhaoshenhua-02.
+
+2016-07-16 16:28:23 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:28:23 debug: vmsstate_update thrd enter 1111.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:23 debug: vms status : 0 , nstate : 0.
+
+2016-07-16 16:28:23 debug: vmsstate_update thrd enter 4444.
+
+2016-07-16 16:28:25  Debug: vmlist window UpdateVmsStatus ovirt getvm2 g_szUser : admin@internal,  g_szPass: 6399616 .
+
+2016-07-16 16:28:25 Debug: Ovirt_GetVm2 url : https://192.168.0.220/ovirt-engine/api/vms/50a1a5c0-95c5-4213-91e0-32da8d776678.
+
+2016-07-16 16:28:25 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:28 debug: vmlist on_expose_event start.
+
+2016-07-16 16:28:31 debug: vmsstate_update thrd enter.
+
+2016-07-16 16:28:31 Debug: Ovirt_getvmsTmp url : https://192.168.0.220/ovirt-engine/api/vms.
+
+2016-07-16 16:28:31 SY_LoadxmlTmp $$$$$$$$$$$, file size :76888 .
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : services-AD.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5905.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : stu1.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5903.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : stu2.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5906.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : stu3.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5902.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : stu4.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5909.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : stu5.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5910.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : stu6.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5911.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : teacher.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5901.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : test.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :other.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5912.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : vlan1.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5900.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : zabbix.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :other_linux.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5904.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : zhaoshenhua-01.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5907.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.name : zhaoshenhua-02.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.os :windows_7.
+
+2016-07-16 16:28:31 Debug: g_vmsComUpdate.port :5908.
+
+2016-07-16 16:28:31 debug: vmsstate_update thrd enter 1111.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 1 , nstate : 1.
+
+2016-07-16 16:28:31 debug: vms status : 3 , nstate : 3.
+
+2016-07-16 16:28:31 debug: vmsstate_update thrd enter 4444.
+

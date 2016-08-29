@@ -10,9 +10,8 @@ TIME=`date +"%Y-%m-%d %T"`
 all: .INIT clean shencloudui
 
 shencloudui:
-	gcc -std=c99 -c resol.c logincit.c interface.c topwindow.c networkSet.c setting.c loginwindow.c curlc.c Ovirtdispatch.c vmlistwindow.c Loginfo.c vms.c configxml.c main.c $(CFLAGS)
-	gcc -std=c99 -o shencloud-ui resol.o logincit.o interface.o topwindow.o networkSet.o setting.o loginwindow.o curlc.o Ovirtdispatch.o vmlistwindow.o Loginfo.o vms.o configxml.o main.o  -Wall $(LIBS)  -linterface
+	gcc -std=gnu99 -c SYMsgDialog.c resol.c logincit.c interface.c topwindow.c networkSet.c setting.c loginwindow.c curlc.c Ovirtdispatch.c vmlistwindow.c Loginfo.c vms.c configxml.c main.c $(CFLAGS)
+	gcc -std=gnu99 -o shencloud-ui SYMsgDialog.o resol.o logincit.o interface.o topwindow.o networkSet.o setting.o loginwindow.o curlc.o Ovirtdispatch.o vmlistwindow.o Loginfo.o vms.o configxml.o main.o  -Wall $(LIBS)  -linterface
 
-clean:  
+clean:
 	rm -rf *.o shencloud-ui
-

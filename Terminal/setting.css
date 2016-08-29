@@ -1,11 +1,29 @@
-#layout2{
+#layout1{
+   background-image: none;
+   background-color: #EDF0F2;
+   border-image: none;
+   border-style: solid;
+}
+
+#layout_network{
    background-image: none;
    background-color: #EDF0F2;
 }
 
-#layout1{
+#layout_base{
    background-image: none;
    background-color: #EDF0F2;
+}
+
+#set_layout2{
+  background-image: none;
+  background-color: #4A4A54;
+}
+
+#label_title{
+  color: #ffffff;
+  font-size: 15;
+  font-family: "Microsoft YaHei"
 }
 
 #label_tip {
@@ -85,6 +103,18 @@
   font-family: "Microsoft YaHei"
 }
 
+#label_netdns2 {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
+#label_netdns3 {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
 #label_sysresol {
   color: #282C34;
   font-size: 12;
@@ -121,6 +151,12 @@
   font-family: "Microsoft YaHei"
 }
 
+#btn_save {
+  color: #282C34;
+  font-size: 12;
+  font-family: "Microsoft YaHei"
+}
+
 #comboboxtext_netinter {
    border-image: none;
    font-size: 12;
@@ -146,7 +182,7 @@ GtkComboBoxText  > .button {
 }
 
 .menu {
-   color: #2D336F
+   color: #2D336F;
    border-style: none;
    background-image: none;
    background-color: none;
@@ -156,12 +192,12 @@ GtkComboBoxText .menu {
     background-image: none;
     border-style: none;
     padding: 0px;
-    color: #2D336F
+    color: #2D336F;
 }
 
 GtkComboBoxText .menuitem * {
     background-image: none;
-    color: #2D336F
+    color: #2D336F;
 }
 
 GtkComboBoxText .menu .menuitem:hover {
@@ -169,5 +205,18 @@ GtkComboBoxText .menu .menuitem:hover {
    background-color: #F2F1F0;
    border-style: none;
    padding: 0px;
-   color: #2D336F
+   color: #2D336F;
+}
+
+#btnset_close {
+  background-color: transparent;
+  background-image: none;
+  border-style: none;
+  border-color: none;
+  border-image: none;
+  padding: 0px;
+  border-radius: 0px;
+  text-align: right;
+  font-size: 10;
+  font-family: "Microsoft YaHei"
 }
